@@ -11,6 +11,9 @@
     "start:development": "nodemon ./bin/www",
     "start:production": "node ./bin/www"
   },
+  "sequelize": {
+    "config": "config/database.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/c-rose-g/Stardew-villager-query.git"
@@ -35,6 +38,7 @@
     "morgan": "^1.10.0",
     "per-env": "^1.0.2",
     "pg": "^8.12.0",
+    "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.3",
     "sequelize-cli": "^6.6.2"
   },

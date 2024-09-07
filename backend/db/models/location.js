@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Location.hasMany(models.Building,{foreignKey:'locationId'});
       Location.hasMany(models.Schedule,{foreignKey:'locationId'});
+      Location.hasMany(models.House, {foreignKey:'locationId'});
     }
   }
   Location.init({

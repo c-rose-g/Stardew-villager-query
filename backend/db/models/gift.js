@@ -9,9 +9,16 @@ module.exports = (sequelize, DataTypes) => {
 		 */
 		static associate(models) {
 			// define association here
-      Gift.belongsTo(models.Category,{foreignKey:'categoryId'});
+			Gift.belongsTo(models.Category, { foreignKey: "categoryId" });
+			Gift.belongsTo(models.Location, { foreignKey: "locationId" });
+			Gift.belongsTo(models.Category, { foreignKey: "categoryId" });
 			// Many-to-Many relationship with Villager
-			Gift.belongsToMany(models.Villager, { through: models.Villager_Gifts, foreignKey: 'gift_id' });
+			Gift.belongsToMany(models.Villager, {
+				through: models.Villager_Gift,
+				foreignKey: "giftId",
+			});
+			// Many-to-Many relationship with Location - add later
+			// Many-to-Many relationship with Season - add later
 		}
 	}
 	Gift.init(
@@ -32,6 +39,22 @@ module.exports = (sequelize, DataTypes) => {
 				references: {
 					key: "id",
 					model: "Categories",
+				},
+			},
+			locationId: {
+				type: DataTypes.INTEGER,
+				allowNull: true,
+				references: {
+					key: "id",
+					model: "Locations",
+				},
+			},
+			seasonId: {
+				type: DataTypes.INTEGER,
+				allowNull: true,
+				references: {
+					key: "id",
+					model: "Seasons",
 				},
 			},
 		},

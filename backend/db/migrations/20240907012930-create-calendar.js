@@ -15,8 +15,12 @@ module.exports = {
       seasonId: {
         type: Sequelize.INTEGER
       },
-      dayOfTheSeason: {
-        type: Sequelize.INTEGER
+      date: {
+        type: Sequelize.INTEGER,
+        validate:{
+          min:1,
+          max:28
+        }
       },
       eventName: {
         type: Sequelize.STRING

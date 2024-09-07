@@ -36,8 +36,7 @@ module.exports = (sequelize, DataTypes) => {
 				allowNull: false,
 			},
 			time: {
-				type: DataTypes.INTEGER,
-				validate: { min: 1, max: 20 },
+				type: DataTypes.TIME,
 				allowNull: false,
 			},
 			weekday: {
@@ -51,7 +50,7 @@ module.exports = (sequelize, DataTypes) => {
 							"Thursday",
 							"Friday",
 							"Saturday",
-							"Sunday",
+							"Sunday"
 						],
 					],
 				},

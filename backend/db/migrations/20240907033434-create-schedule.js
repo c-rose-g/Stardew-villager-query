@@ -10,28 +10,57 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       villagerId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references:{
+          key:'id',
+          model:'Villagers'
+        },
+        allowNull:false
       },
       locationId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references:{
+          model:'Locations',
+          key:'id'
+        },
+        allowNull: false
       },
       time: {
-        type: Sequelize.TIME
+        type: Sequelize.TIME,
+        allowNull:false
       },
       weekday: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        validate:{
+          isIn:[["Monday",
+							"Tuesday",
+							"Wednesday",
+							"Thursday",
+							"Friday",
+							"Saturday",
+							"Sunday"]]
+        }
       },
       weather: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        validate:{
+          isIn:[["Sunny", "Rainy", "Snowy"]]
+        }
       },
       locationUnlocked: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue:false,
+        allowNull:false
       },
       isFestival: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue:false,
+        allowNull:false
       },
       isRegular: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: true,
+				allowNull: false,
       },
       createdAt: {
         allowNull: false,

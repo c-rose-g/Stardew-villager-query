@@ -3,3 +3,5 @@ node_modules
 build
 .DS_Store
 *.db
+backend_auth
+/backend/sandbox.md

@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
 			Location.hasMany(models.Schedule, { foreignKey: "locationId" });
 			Location.hasMany(models.House, { foreignKey: "locationId" });
 			Location.hasMany(models.Gift,{foreignKey:'locationId'});
-			
+
 			// Many-to-Many relationship with Villager
 			Location.belongsToMany(models.Villager, {
 				through: "Villager_Locations",
@@ -25,7 +25,6 @@ module.exports = (sequelize, DataTypes) => {
 			id: {
 				type: DataTypes.INTEGER,
 				primaryKey: true,
-				autoIncrement: true,
 				allowNull: false,
 			},
 			name: {

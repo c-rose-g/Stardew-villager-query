@@ -82,14 +82,14 @@
         - `location_id` INT NOT NULL
         <!-- - `building_type` ENUM('Shop', 'Farm', 'Public', 'Residental') -->removing
         - FOREIGN KEY (location_id) REFERENCES Locations(id)
-   11. Rooms
+   11. Houses
         - `id` INT PRIMARY KEY
-        - `room_name` VARCHAR(255) NOT NULL
-        - `building_id` INT NOT NULL
-        - FOREIGN KEY (building_id) REFERENCES Buildings(id)
-   12. Villager Rooms
+        - `house_name` VARCHAR(255)
+        - `location_id` INT NOT NULL
+        - FOREIGN KEY (location_id) REFERENCES Locations(id)
+   12. Villager Houses
         - `villager_id` INT NOT NULL
-        - `room_id` INT NOT NULL
+        - `house_id` INT NOT NULL
         - PRIMARY KEY (villager_id, room_id)
         - FOREIGN KEY (villager_id) REFERENCES Villagers(id)
         - FOREIGN KEY (room_id) REFERENCES Rooms(id)

@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
 		 */
 		static associate(models) {
 			// define association here
-			Villager.belongsTo(models.Season, { foreignKey: "birthdaySeasonId" });
+			Villager.hasMany(models.Calendar, { foreignKey: 'villagerBirthdayId' });                   // One villager may have a birthday event in the calendar
+
 		}
 	}
 	Villager.init(
@@ -35,24 +36,6 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.BOOLEAN,
 				allowNull: false,
 				defaultValue: true,
-			},
-			birthdaySeasonId: {
-				type: DataTypes.INTEGER,
-				allowNull: false,
-				references: {
-					key: "id",
-					model: "Seasons",
-				},
-				onUpdate: "CASCADE",
-				onDelete: "SET NULL",
-			},
-			birthdayDay: {
-				type: DataTypes.INTEGER,
-				allowNull: false,
-				validate: {
-					min: 1,
-					max: 28,
-				},
 			},
 		},
 		{

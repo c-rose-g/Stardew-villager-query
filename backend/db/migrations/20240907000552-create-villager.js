@@ -25,24 +25,6 @@ module.exports = {
         allowNull:false,
         defaultValue:true
       },
-      birthdaySeasonId: {
-        type: Sequelize.INTEGER,
-        allowNull:false,
-        references:{
-          key:'id',
-          model:'Seasons'
-        },
-        onUpdate:'CASCADE',
-        onDelete:'SET NULL'
-      },
-      birthdayDay: {
-        type: Sequelize.INTEGER,
-        allowNull:false,
-        validate:{
-          min:1,
-          max:28
-        }
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

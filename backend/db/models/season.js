@@ -6,10 +6,13 @@ module.exports = (sequelize, DataTypes) => {
 		 * Helper method for defining associations.
 		 * This method is not a part of Sequelize lifecycle.
 		 * The `models/index` file will call this method automatically.
+		 * Purpose: to keep track of the different names of the season (spring, summer, fall, winter,year-round)
+		 * note: year-round is included here to accomodate gifts that can be found year-round, the calendar doesn't need this option
 		 */
 		static associate(models) {
 			// define association here
 			Season.hasMany(models.Villager, { foreignKey: "birthdaySeasonId" });
+			Season.hasMany(models.Calendar, { foreignKey: 'seasonId' });   // One season has many calendar entries
 		}
 	}
 	Season.init(

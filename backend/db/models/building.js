@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
 		static associate(models) {
 			// define association here
       Building.belongsTo(models.Location,{foreignKey:'locationId'});
+
 		}
 	}
 	Building.init(

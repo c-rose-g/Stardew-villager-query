@@ -9,6 +9,8 @@ module.exports = (sequelize, DataTypes) => {
 		 */
 		static associate(models) {
 			// define association here
+			Schedule.belongsTo(models.Villager,{foreignKey:'villagerId'});
+			Schedule.belongsTo(models.Location, {foreignKey:'locationId'});
 		}
 	}
 	Schedule.init(
@@ -69,12 +71,7 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.BOOLEAN,
 				defaultValue: false,
 				allowNull: false,
-			},
-			isRegular: {
-				type: DataTypes.BOOLEAN,
-				defaultValue: true,
-				allowNull: false,
-			},
+			}
 		},
 		{
 			sequelize,

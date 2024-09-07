@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
 			Villager.belongsToMany(models.Location, {
 				through: "Villager_Locations",
 			});
-			// Many-to-Many relationship with Houses - circle back
+			// Many-to-Many relationship with Houses - later
 
 		}
 	}

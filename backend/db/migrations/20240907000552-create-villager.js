@@ -2,8 +2,6 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    const isSQLite = queryInterface.sequelize.options.dialect === 'sqlite';
-
     await queryInterface.createTable('Villagers', {
       id: {
         allowNull: false,
@@ -16,7 +14,10 @@ module.exports = {
         allowNull:false
       },
       sex: {
-        type: isSQLite ? Sequelize.STRING : Sequelize.ENUM('Female', 'Male'),  // Conditional ENUM
+        type: Sequelize.STRING,
+        validate:{
+          isIn:[['Female', 'Male']]
+        },
         allowNull:false
       },
       marriage: {
@@ -56,9 +57,5 @@ module.exports = {
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Villagers');
-    // Drop ENUM type for PostgreSQL if using it (not necessary for SQLite)
-    if (queryInterface.sequelize.options.dialect !== 'sqlite') {
-      await queryInterface.sequelize.query('DROP TYPE IF EXISTS "enum_Villagers_sex";');
-    }
   }
 };

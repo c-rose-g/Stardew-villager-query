@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
       references:{
         key:'id',
         model:'Seasons'
-      },
+      },allowNull:false,
     },
     date: {
       type:DataTypes.INTEGER,
@@ -47,7 +47,8 @@ module.exports = (sequelize, DataTypes) => {
       validate:{
         min:1,
         max:28
-      }
+      },
+      allowNull:false,
     },
     eventName: {
       type:DataTypes.STRING,

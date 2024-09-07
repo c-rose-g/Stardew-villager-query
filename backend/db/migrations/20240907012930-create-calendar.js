@@ -10,28 +10,54 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       villagerBirthdayId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references:{
+          key:'id',
+          model:'Villagers'
+        },
+        allowNull:true
       },
       seasonId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        unique:true,
+        references:{
+          key:'id',
+          model:'Seasons'
+        },
+        allowNull:false
       },
       date: {
         type: Sequelize.INTEGER,
+        unique:true,
         validate:{
           min:1,
           max:28
-        }
+        },
+        allowNull:false
       },
       eventName: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull:true
       },
+      isFestival: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    isBirthday: {
+      type: Sequelize.BOOLEAN,  // Marks if this event is a birthday
+      allowNull: false,
+      defaultValue: false,  // Default is not a birthday unless specified
+    },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
     });
   },

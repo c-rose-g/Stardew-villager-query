@@ -3,15 +3,15 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Villager_Gifts', {
-      villager_id: {
+      villagerId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Villagers', 
+          model: 'Villagers',
           key: 'id',
         },
       },
-      gift_id: {
+      giftId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -29,9 +29,9 @@ module.exports = {
     });
     // Add the composite primary key
     await queryInterface.addConstraint('Villager_Gifts', {
-      fields: ['villager_id', 'gift_id'],
+      fields: ['villagerId', 'giftId'],
       type: 'primary key',
-      name: 'pk_villager_gift'  // Name of the composite primary key constraint
+      name: 'pkVillagerGift'  // Name of the composite primary key constraint
     });
   },
   async down(queryInterface, Sequelize) {

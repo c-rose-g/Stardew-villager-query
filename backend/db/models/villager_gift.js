@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Villager_Gift',
     timestamps: false, // if you don't want createdAt/updatedAt columns
-    primaryKey: ['villager_id', 'gift_id'], // Composite primary key
+    primaryKey: ['villagerId', 'giftId'], // Composite primary key
 
 
   });

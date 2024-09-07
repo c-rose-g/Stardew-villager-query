@@ -2,8 +2,6 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    // Check if we're using SQLite or a database that supports ENUM
-		const isSQLite = queryInterface.sequelize.options.dialect === 'sqlite';
 
     await queryInterface.createTable('Seasons', {
       id: {
@@ -13,7 +11,10 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: isSQLite ? Sequelize.STRING : Sequelize.ENUM('Spring','Summer','Fall','Winter','Year-Round'),  // Conditional ENUM
+        type:Sequelize.STRING,
+        validate:{
+          isIn:[["Spring", "Summer", "Fall", "Winter", "Year-Round"]]
+        },
         allowNull:false
       },
       createdAt: {
@@ -30,9 +31,5 @@ module.exports = {
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Seasons');
-    // Drop the ENUM type only if the database is not SQLite
-    if (queryInterface.sequelize.options.dialect !== 'sqlite') {
-			await queryInterface.sequelize.query('DROP TYPE IF EXISTS "enum_Seasons_name";');
-		}
   }
 };

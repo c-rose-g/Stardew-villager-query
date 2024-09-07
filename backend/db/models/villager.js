@@ -9,7 +9,10 @@ module.exports = (sequelize, DataTypes) => {
 		 */
 		static associate(models) {
 			// define association here
-			Villager.hasMany(models.Calendar, { foreignKey: 'villagerBirthdayId' });                   // One villager may have a birthday event in the calendar
+			// One villager may have a birthday event in the calendar
+			Villager.hasMany(models.Calendar, { foreignKey: 'villagerBirthdayId' });
+			// Creates junction table 'Villager_Gifts'
+			Villager.belongsToMany(models.Gift, { through: models.Villager_Gifts, foreignKey: 'villager_id'  });
 
 		}
 	}

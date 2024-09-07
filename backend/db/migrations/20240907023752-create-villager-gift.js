@@ -3,29 +3,35 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Villager_Gifts', {
-      id: {
+      villager_id: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
+        references: {
+          model: 'Villagers', 
+          key: 'id',
+        },
       },
-      villagerId: {
-        type: Sequelize.INTEGER
-      },
-      giftId: {
-        type: Sequelize.INTEGER
+      gift_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Gifts',
+          key: 'id',
+        },
       },
       preferenceLevel: {
-        type: Sequelize.STRING
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.STRING,
+        validate:{
+          isIn:[['loves', 'likes', 'neutrals', 'dislikes', 'hates']]
+        },
+        allowNull:false
       }
+    });
+    // Add the composite primary key
+    await queryInterface.addConstraint('Villager_Gifts', {
+      fields: ['villager_id', 'gift_id'],
+      type: 'primary key',
+      name: 'pk_villager_gift'  // Name of the composite primary key constraint
     });
   },
   async down(queryInterface, Sequelize) {

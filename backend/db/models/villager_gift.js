@@ -14,12 +14,36 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Villager_Gift.init({
-    villagerId: DataTypes.INTEGER,
-    giftId: DataTypes.INTEGER,
-    preferenceLevel: DataTypes.STRING
+    villagerId: {
+      type:DataTypes.INTEGER,
+      references:{
+        key:'id',
+        model:'Villagers'
+      },
+      allowNull:false,
+    },
+    giftId: {
+      type:DataTypes.INTEGER,
+      references:{
+        key:'id',
+        model:'Gifts'
+      },
+      allowNull:false,
+    },
+    preferenceLevel: {
+      type:DataTypes.STRING,
+      validate:{
+        isIn:[['loves', 'likes', 'neutrals', 'dislikes', 'hates']]
+      },
+      allowNull:false,
+    }
   }, {
     sequelize,
     modelName: 'Villager_Gift',
+    timestamps: false, // if you don't want createdAt/updatedAt columns
+    primaryKey: ['villager_id', 'gift_id'], // Composite primary key
+
+
   });
   return Villager_Gift;
 };

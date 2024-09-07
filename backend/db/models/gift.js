@@ -9,7 +9,10 @@ module.exports = (sequelize, DataTypes) => {
 		 */
 		static associate(models) {
 			// define association here
-      Gift.belongsTo(models.Category,{foreignKey:'categoryId'})
+      Gift.belongsTo(models.Category,{foreignKey:'categoryId'});
+			// Many-to-Many relationship with Villager
+			Gift.belongsToMany(models.Villager, { through: 'Villager_Preferences' });
+
 		}
 	}
 	Gift.init(

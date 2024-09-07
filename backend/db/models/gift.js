@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
 			// define association here
 			Gift.belongsTo(models.Category, { foreignKey: "categoryId" });
 			Gift.belongsTo(models.Location, { foreignKey: "locationId" });
-			Gift.belongsTo(models.Category, { foreignKey: "categoryId" });
 			// Many-to-Many relationship with Villager
 			Gift.belongsToMany(models.Villager, {
 				through: models.Villager_Gift,
@@ -19,6 +18,8 @@ module.exports = (sequelize, DataTypes) => {
 			});
 			// Many-to-Many relationship with Location - add later
 			// Many-to-Many relationship with Season - add later
+			// Many-to-Many relationship with category - add later
+
 		}
 	}
 	Gift.init(

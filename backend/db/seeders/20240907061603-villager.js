@@ -47,7 +47,7 @@ module.exports = {
       {name:'Vincent',sex:'Male',marriage:false},
       {name:'Willy',sex:'Male',marriage:false},
       {name:'Wizard',sex:'Male',marriage:false}
-    ],{});
+    ]);
   },
 
   async down (queryInterface, Sequelize) {
@@ -57,6 +57,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    return queryInterface.bulkDelete('Villagers',null, {})
+    return queryInterface.bulkDelete('Villagers',null)
   }
 };

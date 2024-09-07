@@ -30,6 +30,8 @@ module.exports = (sequelize, DataTypes) => {
 					key: "id",
 					model: "Locations",
 				},
+				onUpdate:'CASCADE',
+        onDelete:'SET NULL'
 			},
 		},
 		{

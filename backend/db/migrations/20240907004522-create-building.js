@@ -10,10 +10,18 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull:false
       },
       locationId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references:{
+          key:'id',
+          model:'Locations'
+        },
+        onUpdate:'CASCADE',
+        onDelete:'SET NULL',
+        allowNull:false
       },
       buildingType: {
         type: Sequelize.STRING

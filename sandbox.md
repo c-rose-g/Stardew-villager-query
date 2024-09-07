@@ -38,15 +38,15 @@
    4. Schedules
       - `id` INT PRIMARY KEY
       - `villager_id` INT NOT NULL
-      - `season_id` INT NOT NULL
       - `location_id` INT NOT NULL
       - `time` TIME NOT NULL
-      - `day_of_the_week` ENUM('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday') NOT NULL
-      - `weather` ENUM('Sunny', 'Rainy', 'Snowy') NOT NULL
-      - `hearts_required` INT NOT NULL DEFAULT 0
+      - `weekday` STRING('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday') NOT NULL
+      - `weather` STRING('Sunny', 'Rainy', 'Snowy') NOT NULL
+      <!-- - `hearts_required` INT NOT NULL DEFAULT 0 -->
       - `locations_unlocked` BOOLEAN NOT NULL DEFAULT FALSE
-      - `event` BOOLEAN NOT NULL DEFAULT FALSE
-      - `festival_id` INT --optional
+      <!-- - `schedule_type` STRING('regular', 'festival') DEFAULT 'regular', -->
+      - `is_festival` BOOLEAN NOT NULL DEFAULT FALSE
+      - `is_regular` BOOLEAN NOT NULL DEFAULT TRUE
       - FOREIGN KEY (villager_id) REFERENCES Villagers(id),
       - FOREIGN KEY (season_id) REFERENCES Seasons(id),
       - FOREIGN KEY (location_id) REFERENCES Locations(id)

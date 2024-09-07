@@ -16,4 +16,6 @@ This app is to help query the different gifts each villager loves, likes, neutra
 ## Future Features
 
 - [ ] Add pet gifts for cats, dogs, and turtles
-- [ ] Include different seasons and locations per gift
+- [ ] Include different seasons, categories, and locations per gift
+- [ ] Add subcategories for each category
+- [ ] Include a nongiftable villager schedules

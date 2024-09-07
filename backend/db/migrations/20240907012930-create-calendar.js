@@ -62,9 +62,10 @@ module.exports = {
 		});
 		// Add unique constraint for seasonId and date
 
-		await queryInterface.addConstraint("Calendars", ["seasonId", "date"], {
+		await queryInterface.addConstraint("Calendars", {
+			fields: ["seasonId", "date"],
 			type: "unique",
-			name: "seasonDateUnique",
+			name: "seasonDateUnique"
 		});
 	},
 	async down(queryInterface, Sequelize) {

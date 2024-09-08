@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
 		static associate(models) {
 			// define association here
       Building.belongsTo(models.Location,{foreignKey:'locationId'});
-
+			Building.hasMany(models.Gift,{foreignKey:'buildingId'})
 		}
 	}
 	Building.init(

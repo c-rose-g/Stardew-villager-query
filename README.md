@@ -19,3 +19,4 @@ This app is to help query the different gifts each villager loves, likes, neutra
 - [ ] Include different seasons, categories, and locations per gift
 - [ ] Add subcategories for each category
 - [ ] Include a nongiftable villager schedules
+- [ ] add map that shows all villagers moving through the map, based on their schedule

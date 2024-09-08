@@ -3,5 +3,6 @@ node_modules
 build
 .DS_Store
 *.db
+# hide folders and files
 /backend_auth
 /backend/sandbox.md

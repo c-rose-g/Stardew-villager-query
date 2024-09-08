@@ -11,7 +11,11 @@ module.exports = {
      *   name: 'John Doe',
      *   isBetaMember: false
      * }], {});
+     * later - add differentiation between the valley and in beyond the valley locations
     */
+    return queryInterface.bulkInsert('Locations',[
+      {name:'Pelican Town'},{name:'Cindersap Forest'},{name:}
+    ])
   },
 
   async down (queryInterface, Sequelize) {
@@ -21,5 +25,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+    return queryInterface.bulkDelete('Locations', null)
   }
 };

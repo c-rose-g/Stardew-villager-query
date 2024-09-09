@@ -17,7 +17,12 @@ module.exports = {
       {name:'Likes'},
       {name:'Neutrals'},
       {name:'Dislikes'},
-      {name:'Hates'}
+      {name:'Hates'},
+      {name:'Universal Loves'},
+      {name:'Universal Likes'},
+      {name:'Universal Neutrals'},
+      {name:'Universal Dislikes'},
+      {name:'Universal Hates'}
     ])
   },
 

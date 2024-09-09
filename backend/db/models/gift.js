@@ -24,6 +24,8 @@ module.exports = (sequelize, DataTypes) => {
 				through: models.Villager_Gift,
 				foreignKey: "giftId",
 			});
+			// Many-to-Many relationship with Preference
+			Gift.belongsToMany(models.Preferences, { through: "Gift_Preferences" });
 			// Many-to-Many relationship with building - add later
 			// Many-to-Many relationship with Location - add later
 			// Many-to-Many relationship with Season - add later

@@ -9,8 +9,11 @@ module.exports = (sequelize, DataTypes) => {
 		 */
 		static associate(models) {
 			// define association here
+			// A villager can live in a house or a building
+			Villager.belongsTo(models.House, { foreignKey: "houseId", allowNull:true});
+			Villager.belongsTo(models.Building, { foreignKey: "buildingId", allowNull:true });
+
 			// One villager may have a birthday event in the calendar
-			Villager.belongsTo(models.House, { foreignKey: "houseId" });
 			Villager.hasMany(models.Calendar, { foreignKey: "villagerBirthdayId" });
 			Villager.hasMany(models.Schedule, { foreignKey: "villagerId" });
 			// Creates junction table 'Villager_Gifts'
@@ -50,10 +53,18 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			houseId: {
 				type: DataTypes.INTEGER,
-				allowNull: false,
+				allowNull: true,
 				references: {
 					key: "id",
 					model: "Houses",
+				},
+			},
+			buildingId: {
+				type: DataTypes.INTEGER,
+				allowNull: true,
+				references: {
+					key: "id",
+					model: "Buildings",
 				},
 			},
 		},

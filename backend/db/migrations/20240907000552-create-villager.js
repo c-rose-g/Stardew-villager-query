@@ -26,10 +26,18 @@ module.exports = {
       },
       houseId:{
         type:Sequelize.INTEGER,
-        allowNull:false,
+        allowNull:true,
         references:{
           key:'id',
           model:"Houses"
+        }
+      },
+      buildingId:{
+        type:Sequelize.INTEGER,
+        allowNull:true,
+        references:{
+          key:'id',
+          model:'Buildings'
         }
       },
       createdAt: {

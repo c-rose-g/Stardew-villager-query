@@ -12,6 +12,13 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
+    return queryInterface.bulkInsert('Preferences',[
+      {name:'Loves'},
+      {name:'Likes'},
+      {name:'Neutrals'},
+      {name:'Dislikes'},
+      {name:'Hates'}
+    ])
   },
 
   async down (queryInterface, Sequelize) {
@@ -21,5 +28,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+    return queryInterface.bulkDelete('Preferences')
   }
 };

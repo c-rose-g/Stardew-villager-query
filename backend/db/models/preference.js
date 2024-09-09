@@ -9,11 +9,15 @@ module.exports = (sequelize, DataTypes) => {
 		 */
 		static associate(models) {
 			// define association here
-      // a preference can have many gifts
-      // a gift can have many preferences that vary between villagers
-      // a villager can have many gifts, associated by preference
-      // a Many-to-Many relationship with gift through Gift_Preference
-      // Preference.hasMany(models.Gift, {through:''})
+			// a preference can have many gifts
+			// a villager gift can have one preference
+			Preference.hasOne(models.Gift, {
+				through: models.Villager_Gift,
+				foreignKey: "preferenceId",
+			});
+			// a villager can have many gifts, associated by preference
+			// a Many-to-Many relationship with gift through Gift_Preference
+			Preference.belongsToMany(models.Gift, { through: "Gift_Preferences" });
 		}
 	}
 	Preference.init(
@@ -23,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
 				allowNull: false,
 				primaryKey: true,
 			},
-			preference: {
+			name: {
 				type: DataTypes.STRING,
 				allowNull: false,
 			},

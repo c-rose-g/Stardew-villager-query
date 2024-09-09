@@ -12,7 +12,7 @@ module.exports = {
 		 *   isBetaMember: false
 		 * }], {});
 		 * later - add differentiation between the valley and in beyond the valley locations
-     * only including standard farm
+		 * only including standard farm
 		 */
 		return queryInterface.bulkInsert("Locations", [
 			{ name: "Pelican Town" },
@@ -20,10 +20,10 @@ module.exports = {
 			{ name: "Beach" },
 			{ name: "Mountain" },
 			{ name: "Witch's Swamp" },
-      {name:'Farm'},
-			{name:'Desert'},
-			{name:'Ginger Island'},
-			{name:'Sewers'}
+			{ name: "Farm" },
+			{ name: "Desert" },
+			{ name: "Ginger Island" },
+			{ name: "Sewers" },
 		]);
 	},
 

@@ -12,6 +12,9 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
+    return queryInterface.bulkInsert('Villager_Gifts',[
+      {preferenceId:0, villagerId:0, giftId:0}
+    ])
   },
 
   async down (queryInterface, Sequelize) {

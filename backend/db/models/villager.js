@@ -10,8 +10,9 @@ module.exports = (sequelize, DataTypes) => {
 		static associate(models) {
 			// define association here
 			// One villager may have a birthday event in the calendar
+			Villager.belongsTo(models.House, { foreignKey: "houseId" });
 			Villager.hasMany(models.Calendar, { foreignKey: "villagerBirthdayId" });
-			Villager.hasMany(models.Schedule, {foreignKey:'villagerId'});
+			Villager.hasMany(models.Schedule, { foreignKey: "villagerId" });
 			// Creates junction table 'Villager_Gifts'
 			Villager.belongsToMany(models.Gift, {
 				through: models.Villager_Gift,
@@ -22,7 +23,6 @@ module.exports = (sequelize, DataTypes) => {
 				through: "Villager_Locations",
 			});
 			// Many-to-Many relationship with Houses - later
-
 		}
 	}
 	Villager.init(
@@ -47,6 +47,14 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.BOOLEAN,
 				allowNull: false,
 				defaultValue: true,
+			},
+			houseId: {
+				type: DataTypes.INTEGER,
+				allowNull: false,
+				references: {
+					key: "id",
+					model: "Houses",
+				},
 			},
 		},
 		{

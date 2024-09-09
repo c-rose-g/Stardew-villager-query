@@ -24,6 +24,14 @@ module.exports = {
         allowNull:false,
         defaultValue:true
       },
+      houseId:{
+        type:Sequelize.INTEGER,
+        allowNull:false,
+        references:{
+          key:'id',
+          model:"Houses"
+        }
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

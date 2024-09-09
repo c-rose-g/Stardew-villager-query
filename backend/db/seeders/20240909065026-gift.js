@@ -7,18 +7,15 @@ const season = require("../models/season");
 module.exports = {
 	async up(queryInterface, Sequelize) {
 		/**
-		 * Add seed commands here.
-		 *
-		 * Example:
-		 * await queryInterface.bulkInsert('People', [{
-		 *   name: 'John Doe',
-		 *   isBetaMember: false
-		 * }], {});
 		 * building, season, and location are nullable
-		 * categories: {1:artisan goods, 2:recipes, 3:foraging, 4:fishes, 5:minerals, 6:crops, 7:trees, 8:books, 9:animals, 10:trinkets,
-		 *              11:resources, 12:trash, 13:special, 14:ingredients, 15:monster loot}
-		 * locations: {1: pelican, 2: cindersap, 3: beach, 4: mountain, 5:witches swamp, 6: farm, 7:desert, 8:ginger island, 9: sewers}
+     * buildings:{6:pierres}
+		 * categories: {1:artisan goods, 2:recipes, 3:foraging, 4:fishes, 5:minerals, 6:crops,
+     *              7:trees, 8:books, 9:animals, 10:trinkets, 11:resources, 12:trash,
+     *              13:special, 14:ingredients, 15:monster loot}
+		 * locations: {1: town, 2: cindersap, 3: beach, 4: mountain, 5:witches swamp, 6: farm,
+     *             7:desert, 8:ginger island, 9: sewers}
 		 * seasons: {1: Spring, 2:summer, 3: fall, 4: winter, 5: year-round}
+     * I made ingredients only for pierre's, add to farm in later implementation
 		 */
 		return queryInterface.bulkInsert("Gifts", [
 			// artisan goods
@@ -36,21 +33,16 @@ module.exports = {
 			{ name: "Green Tea", categoryId: 1, locationId: 6, seasonId: 5 },
 			{ name: "Juice", categoryId: 1, locationId: 6, seasonId: 5 },
 			{ name: "Cloth", categoryId: 1, locationId: 6, seasonId: 5 },
-			{
-				name: "Dinosaur Mayonnaise",
-				categoryId: 1,
-				locationId: 6,
-				seasonId: 5,
-			},
+      { name: "Dinosaur Mayonnaise", categoryId: 1, locationId: 6, seasonId: 5 },
 			{ name: "Duck Mayonnaise", categoryId: 1, locationId: 6, seasonId: 5 },
 			{ name: "Mayonnaise", categoryId: 1, locationId: 6, seasonId: 5 },
 			{ name: "Void Mayonnaise", categoryId: 1, locationId: 6, seasonId: 5 },
 			{ name: "Truffle Oil", categoryId: 1, locationId: 6, seasonId: 5 },
-			{ name: "Oil", categoryId: 1, locationId: 6, seasonId: 5 },
-			{ name: "Wheat Flour", categoryId: 1, locationId: 6, seasonId: 5 },
-			{ name: "Sugar", categoryId: 1, locationId: 6, seasonId: 5 },
-			{ name: "Rice", categoryId: 1, locationId: 6, seasonId: 5 },
-			{ name: "Vinegar", categoryId: 1, locationId: 6, seasonId: 5 },
+			{ name: "Oil", categoryId: 14, locationId:1, buildingId: 6, seasonId: 5 },
+			{ name: "Wheat Flour", categoryId: 14, locationId:1, buildingId: 6, seasonId: 5 },
+			{ name: "Sugar", categoryId: 14, locationId:1, buildingId: 6, seasonId: 5 },
+			{ name: "Rice", categoryId: 14, locationId:1, buildingId: 6, seasonId: 5 },
+			{ name: "Vinegar", categoryId: 14, locationId:1, buildingId: 6, seasonId: 5 },
 			{ name: "Aged Roe", categoryId: 1, locationId: 6, seasonId: 5 },
 			{ name: "Caviar", categoryId: 1, locationId: 6, seasonId: 5 },
 			{ name: "Jelly", categoryId: 1, locationId: 6, seasonId: 5 },
@@ -149,6 +141,80 @@ module.exports = {
 			// fishes
 			// minerals
 			// crops
+      // crops - spring
+      { name:'Blue Jazz', categoryId:6, locationId:6, seasonId:1 },
+      { name:'Carrot', categoryId:6, locationId:6, seasonId:1 },
+      { name:'Cauliflower', categoryId:6, locationId:6, seasonId:1 },
+      { name:'Coffee Bean', categoryId:6, locationId:6, seasonId:1 },
+      { name:'Garlic', categoryId:6, locationId:6, seasonId:1 },
+      { name:'Green Bean', categoryId:6, locationId:6, seasonId:1 },
+      { name:'Kale', categoryId:6, locationId:6, seasonId:1 },
+      { name:'Parsnip', categoryId:6, locationId:6, seasonId:1 },
+      { name:'Potato', categoryId:6, locationId:6, seasonId:1 },
+      { name:'Rhubarb', categoryId:6, locationId:6, seasonId:1 },
+      { name:'Strawberry', categoryId:6, locationId:6, seasonId:1 },
+      { name:'Tulip', categoryId:6, locationId:6, seasonId:1 },
+      { name:'Unmilled Rice', categoryId:6, locationId:6, seasonId:1 },
+      { name:'Ancient Fruit', categoryId:6, locationId:6, seasonId:1 },
+      { name:'Spring Seeds', categoryId:6, locationId:6, seasonId:1 },
+
+
+      // crops - summer
+      { name:'Coffee Bean', categoryId:6, locationId:6, seasonId:2 },
+      { name:'Blueberry', categoryId:6, locationId:6, seasonId:2 },
+      { name:'Corn', categoryId:6, locationId:6, seasonId:2 },
+      { name:'Hops', categoryId:6, locationId:6, seasonId:2 },
+      { name:'Hot Pepper', categoryId:6, locationId:6, seasonId:2 },
+      { name:'Melon', categoryId:6, locationId:6, seasonId:2 },
+      { name:'Poppy', categoryId:6, locationId:6, seasonId:2 },
+      { name:'Radish', categoryId:6, locationId:6, seasonId:2 },
+      { name:'Red Cabbage', categoryId:6, locationId:6, seasonId:2 },
+      { name:'Starfruit', categoryId:6, locationId:6, seasonId:2 },
+      { name:'Summer Spangle', categoryId:6, locationId:6, seasonId:2 },
+      { name:'Summer Squash', categoryId:6, locationId:6, seasonId:2 },
+      { name:'Sunflower', categoryId:6, locationId:6, seasonId:2 },
+      { name:'Tomato', categoryId:6, locationId:6, seasonId:2 },
+      { name:'Wheat', categoryId:6, locationId:6, seasonId:2 },
+      { name:'Ancient Fruit', categoryId:6, locationId:6, seasonId:2 },
+      { name:'Pineapple', categoryId:6, locationId:6, seasonId:2 },
+      { name:'Taro Root', categoryId:6, locationId:6, seasonId:2 },
+      { name:'Summer Seeds', categoryId:6, locationId:6, seasonId:2 },
+
+      // crops - fall
+      { name:'Corn', categoryId:6, locationId:6, seasonId:3 },
+      { name:'Sunflower', categoryId:6, locationId:6, seasonId:3 },
+      { name:'Wheat', categoryId:6, locationId:6, seasonId:3 },
+      { name:'Amaranth', categoryId:6, locationId:6, seasonId:3 },
+      { name:'Artichoke', categoryId:6, locationId:6, seasonId:3 },
+      { name:'Beet', categoryId:6, locationId:6, seasonId:3 },
+      { name:'Bok Choy', categoryId:6, locationId:6, seasonId:3 },
+      { name:'Broccoli', categoryId:6, locationId:6, seasonId:3 },
+      { name:'Cranberries', categoryId:6, locationId:6, seasonId:3 },
+      { name:'Eggplant', categoryId:6, locationId:6, seasonId:3 },
+      { name:'Fairy Rose', categoryId:6, locationId:6, seasonId:3 },
+      { name:'Grape', categoryId:6, locationId:6, seasonId:3 },
+      { name:'Pumpkin', categoryId:6, locationId:6, seasonId:3 },
+      { name:'Yam', categoryId:6, locationId:6, seasonId:3 },
+      { name:'Ancient Fruit', categoryId:6, locationId:6, seasonId:3 },
+      { name:'Fall Seeds', categoryId:6, locationId:6, seasonId:3 },
+
+      // crops - winter?
+      { name:'Powdermelon', categoryId:6, locationId:6, seasonId:4 },
+      { name:'Winter Seeds', categoryId:6, locationId:6, seasonId:4 },
+
+      // crops - year- round?
+      { name:'Cactus Fruit', categoryId:6, locationId:6, seasonId:5 },
+      { name:'Cactus Fruit', categoryId:6, locationId:8, seasonId:5 },
+      { name:'Fiber', categoryId:6, locationId:1, seasonId:5 },
+      { name:'Fiber', categoryId:6, locationId:2, seasonId:5 },
+      { name:'Fiber', categoryId:6, locationId:4, seasonId:5 },
+      { name:'Fiber', categoryId:6, locationId:6, seasonId:5 },
+      { name:'Mixed Flower Seeds', categoryId:6, locationId:6, seasonId:5 },
+      { name:'Mixed Seeds', categoryId:6, locationId:6, seasonId:5 },
+      { name:'Pineapple', categoryId:6, locationId:8, seasonId:5 },
+      { name:'Taro Root', categoryId:6, locationId:8, seasonId:5 },
+
+
 			// trees
 			// books
 			// animals

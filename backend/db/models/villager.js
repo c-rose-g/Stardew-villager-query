@@ -10,12 +10,13 @@ module.exports = (sequelize, DataTypes) => {
 		static associate(models) {
 			// define association here
 			// A villager can live in a house or a building
-			Villager.belongsTo(models.House, { foreignKey: "houseId", allowNull:true});
-			Villager.belongsTo(models.Building, { foreignKey: "buildingId", allowNull:true });
+			Villager.belongsTo(models.House, { foreignKey: "houseId" });
+			Villager.belongsTo(models.Building, { foreignKey: "buildingId" });
 
 			// One villager may have a birthday event in the calendar
 			Villager.hasMany(models.Calendar, { foreignKey: "villagerBirthdayId" });
 			Villager.hasMany(models.Schedule, { foreignKey: "villagerId" });
+			
 			// Creates junction table 'Villager_Gifts'
 			Villager.belongsToMany(models.Gift, {
 				through: models.Villager_Gift,
@@ -25,7 +26,6 @@ module.exports = (sequelize, DataTypes) => {
 			Villager.belongsToMany(models.Location, {
 				through: "Villager_Locations",
 			});
-			// Many-to-Many relationship with Houses - later
 		}
 	}
 	Villager.init(

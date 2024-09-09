@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      // a villager gift has one preference
+      Villager_Gift.belongsTo(models.Preference, {foreignKey:'preferenceId'})
     }
   }
   Villager_Gift.init({
@@ -30,10 +32,11 @@ module.exports = (sequelize, DataTypes) => {
       },
       allowNull:false,
     },
-    preferenceLevel: {
-      type:DataTypes.STRING,
-      validate:{
-        isIn:[['loves', 'likes', 'neutrals', 'dislikes', 'hates']]
+    preferenceId: {
+      type:DataTypes.INTEGER,
+      references:{
+        key:'id',
+        model:'Preferences'
       },
       allowNull:false,
     }

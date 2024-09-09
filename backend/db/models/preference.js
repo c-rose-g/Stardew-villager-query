@@ -11,10 +11,6 @@ module.exports = (sequelize, DataTypes) => {
 			// define association here
 			// a preference can have many gifts
 			// a villager gift can have one preference
-			Preference.hasOne(models.Gift, {
-				through: models.Villager_Gift,
-				foreignKey: "preferenceId",
-			});
 			// a villager can have many gifts, associated by preference
 			// a Many-to-Many relationship with gift through Gift_Preference
 			Preference.belongsToMany(models.Gift, { through: "Gift_Preferences" });

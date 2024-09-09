@@ -21,6 +21,9 @@ module.exports = {
 			{ name: "Mountain" },
 			{ name: "Witch's Swamp" },
       {name:'Farm'},
+			{name:'Desert'},
+			{name:'Ginger Island'},
+			{name:'Sewers'}
 		]);
 	},
 

@@ -58,9 +58,6 @@ module.exports = {
       { name: 'Oak Resin', categoryId: 1, locationId: 6, seasonId: 5 },
       { name: 'Pine Tar', categoryId: 1, locationId: 6, seasonId: 5 },
       { name: 'Mystic Syrup', categoryId: 1, locationId: 6, seasonId: 5 },
-
-
-
 			// recipes
 			// foraging
 			// fishes

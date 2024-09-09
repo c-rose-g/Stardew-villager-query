@@ -22,11 +22,44 @@ module.exports = {
      * 7: Desert
      * 8: Ginger Island
      * 9: Sewers
+     * 
+     * buildings
+     * 1: blacksmith
+     * 2: community center
+     * 3: medical clinic
+     * 4: jojamart
+     * 5: museum
+     * 6: pierres
+     * 7:saloon
+     * 8:sewers
+     * 9: marnies
+     * 10: ruined house
+     * 11: secret woods
+     * 12: traveling cart
+     * 13: wizard's tower
+     * 14:fish shop
+     * 15:adventures guild
+     * 16:carpenters shop
+     * 17: mines
+     * 18: railraod
+     * 19: spa
+     * 20: quarry
+     * 21: quarry mine
+     * 22: witchs hut
+     * 23: casino
+     * 24: desert trader
+     * 25: oasis
+     * 26: skull office
+     * 27: field office
+     * 28: island trader
+     * 29: walnut room
+     * 30: volcano dungeon
+     * 31: mutant bug lair
     */
     return queryInterface.bulkInsert('Buildings',[
       {name:'Blacksmith',locationId:1},
       {name:'Community Center',locationId:1},
-      {name:"Harvey's Clinic",locationId:1},
+      {name:"Medical Clinic",locationId:1},
       {name:'JojaMart',locationId:1},
       {name:'Museum',locationId:1},
       {name:"Pierre's",locationId:1},

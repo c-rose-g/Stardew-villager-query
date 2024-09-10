@@ -14,13 +14,13 @@ module.exports = {
     */
     // {name:'Flowers'}, // not sure if I want to keep this under crops / foraging; maybe add this in for future subcategory feature
     // {name:'Crafting'}, - subcategory under recipes, leave for future implementation
+    // {name:'Fruits'}, //maybe? might fall under crops or trees
     // artisan goods - beer, cheese, tree sap
     // recipes - food, life elixer, monster musk
     // foraging - fruit
     // fishes - fish, treasure chest
     // crops - vegetables, flower, fruits farms (not including fruit trees)
     // trees - sapling, seeds, trees, fruit from fruit trees
-    // {name:'Fruits'}, //maybe? might fall under crops or trees
     // animals - eggs, milk, slime, wool, truffle, feathers
     // trinkets - parrot egg, basilik,
     // resources - bone fragments, clay, coal, hardwood, gold bar

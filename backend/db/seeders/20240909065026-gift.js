@@ -19,6 +19,9 @@ module.exports = {
       // { name:'Red Mushroom', categoryId: 3, seasonId: 2 , buildingId: 11 }
           - red mushroom and purple mushroom are found in different seasons/locations, but year round in the mines (level 81) - for simplicity, I'm choosing year-round in mountains / mines
           - cactus fruit can be foraged and farmed, but only labeling it as foragable from desert
+          - any fish found in river and town will be classified under forest
+          - any fish found in river (town) will be classfied under Pelican Town
+          - midnight carp found in fall,winter and year-round on ginger island - only adding year round/ginger island
      *
 		 */
 		return queryInterface.bulkInsert("Gifts", [
@@ -141,9 +144,8 @@ module.exports = {
 			{ name: "Tropical Curry", categoryId: 2, locationId: 6, seasonId: 5 },
 			{ name: "Squid Ink Ravioli", categoryId: 2, locationId: 6, seasonId: 5 },
 			{ name: "Moss Soup", categoryId: 2, locationId: 6, seasonId: 5 },
-
       // foraging - year-round
-      { name:'Sap', categoryId: 3, seasonId:5 },
+      { name:'Sap', categoryId: 3, seasonId: 5 },
       // foraging - spring
       { name:'Common Mushroom', categoryId: 3, seasonId: 1 },
       { name:'Daffodil', categoryId: 3, seasonId: 1 , locationId: 1 },
@@ -191,6 +193,37 @@ module.exports = {
       { name:'Ginger', categoryId: 3, seasonId: 5, locationId: 8 },
       { name:'Magma Cap', categoryId: 3, seasonId: 5, locationId: 8 },
 			// fishes
+      // fishes - by location
+      // fishes - town
+      { name: '', categoryId: 4, locationId: 1 },
+      // fishes - forest - waterfall included here too
+      { name: 'Dorado', categoryId: 4, locationId: 2., seasonId: 2 },
+      { name: 'Chub', categoryId: 4, locationId: 2 },
+      { name: 'Goby', categoryId: 4, locationId: 2 },
+      // fishes - beach
+      { name: 'Sea Cucumber', categoryId: 4, locationId: 3, seasonId: 3 },
+      { name: 'Sea Cucumber', categoryId: 4, locationId: 3 , seasonId: 4 },
+      { name: 'Albacore', categoryId: 4, locationId: 3, seasonId: 3 },
+      { name: 'Albacore', categoryId: 4, locationId: 3, seasonId: 4 },
+      { name: 'Anchovy', categoryId: 4, locationId: 3, seasonId: 1 },
+      { name: 'Anchovy', categoryId: 4, locationId: 3, seasonId: 3 },
+      // fishes - mountain
+      { name: 'Bullhead', categoryId: 4, locationId: 4 },
+      { name: 'Sturgeon', categoryId: 4, locationId: 4, seasonId: 2 },
+      { name: 'Sturgeon', categoryId: 4, locationId: 4, seasonId: 4 },
+      { name: '', categoryId: 4, locationId: 4 },
+      { name: '', categoryId: 4, locationId: 4 },
+      { name: '', categoryId: 4, locationId: 4 },
+
+      // fishes - witchs swamp
+      // fishes - desert
+      // fishes - ginger island
+      {name:'Lionfish', categoryId: 4 , locationId: 8},
+      {name:'Blue Discus', categoryId: 4 , locationId: 8},
+      {name:'Midnight Carp', categoryId: 4 , locationId: 8},
+      {name:'', categoryId: 4 , locationId: 8},
+      // fishes - sewers
+      {name:'Slimejack', categoryId: 4, locationId: 9, },
 			// minerals
 			// crops
       // crops - spring

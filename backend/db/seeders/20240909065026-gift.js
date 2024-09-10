@@ -16,6 +16,10 @@ module.exports = {
      *             7:desert, 8:ginger island, 9: sewers}
 		 * seasons: {1: Spring, 2:summer, 3: fall, 4: winter, 5: year-round}
      * I made ingredients only for pierre's, add to farm in later implementation
+      // { name:'Red Mushroom', categoryId: 3, seasonId: 2 , buildingId: 11 }
+          - red mushroom and purple mushroom are found in different seasons/locations, but year round in the mines (level 81) - for simplicity, I'm choosing year-round in mountains / mines
+          - cactus fruit can be foraged and farmed, but only labeling it as foragable from desert
+     *
 		 */
 		return queryInterface.bulkInsert("Gifts", [
 			// artisan goods
@@ -137,7 +141,55 @@ module.exports = {
 			{ name: "Tropical Curry", categoryId: 2, locationId: 6, seasonId: 5 },
 			{ name: "Squid Ink Ravioli", categoryId: 2, locationId: 6, seasonId: 5 },
 			{ name: "Moss Soup", categoryId: 2, locationId: 6, seasonId: 5 },
-			// foraging
+
+      // foraging - year-round
+      { name:'Sap', categoryId: 3, seasonId:5 },
+      // foraging - spring
+      { name:'Common Mushroom', categoryId: 3, seasonId: 1 },
+      { name:'Daffodil', categoryId: 3, seasonId: 1 , locationId: 1 },
+      { name:'Dandelion', categoryId: 3, seasonId:1 , locationId: 2 },
+      { name:'Leek', categoryId: 3, seasonId:1 , locationId: 4 },
+      { name:'Morel', categoryId: 3, seasonId: 1 , buildingId: 11 },
+      { name:'Salmonberry', categoryId: 3, seasonId: 1 },
+      { name:'Spring Onion', categoryId: 3, seasonId: 1 , locationId: 2},
+      { name:'Wild Horseradish', categoryId: 3, seasonId: 1, buildingId: 11 },
+      // foraging - summer
+      { name:'Fiddlehead Fern', categoryId: 3, seasonId: 2, buildingId: 11 },
+      { name:'Spicy Berry', categoryId: 3, seasonId: 2 , locationId: 2 },
+      { name:'Sweet Pea', categoryId: 3, seasonId: 2 , locationId: 1 },
+      { name:'Rainbow Shell', categoryId: 3, seasonId:2, locationId:3 },
+      // foraging - fall
+      { name:'Blackberry', categoryId: 3, seasonId: 3, locationId: 1 },
+      { name:'Chanterelle', categoryId: 3, seasonId: 3 , buildingId: 11 },
+      { name:'Common Mushroom', categoryId: 3, seasonId: 3 },
+      { name:'Hazelnut', categoryId: 3, seasonId: 3, locationId: 4 },
+      { name:'Wild Plum', categoryId: 3, seasonId: 3, locationId:4 },
+      // foraging - winter
+      { name:'Crocus', categoryId: 3, seasonId: 4, locationId: 1 },
+      { name:'Crystal Fruit', categoryId: 3, seasonId: 4 , locationId: 2},
+      { name:'Holly', categoryId: 3, seasonId: 4 , buildingId: 11 },
+      { name:'Snow Yam', categoryId: 3, seasonId: 4 },
+      { name:'Winter Root', categoryId: 3, seasonId: 4 },
+      { name:'Nautilus Shell', categoryId: 3, seasonId: 4, locationId: 3 },
+      // foraging - year-round - by location
+      // foraging - year-round - beach
+      { name:'Clam', categoryId: 3, seasonId: 5, locationId: 3 },
+      { name:'Cockle', categoryId: 3, seasonId: 5, locationId: 3 },
+      { name:'Coral', categoryId: 3, seasonId: 5, locationId: 3 },
+      { name:'Mussel', categoryId: 3, seasonId: 5, locationId: 3 },
+      { name:'Oyster', categoryId: 3, seasonId: 5, locationId: 3 },
+      { name:'Sea Urchin', categoryId: 3, seasonId: 5, locationId: 3 },
+      { name:'Seaweed', categoryId: 3, seasonId: 5, locationId: 3 },
+      // foraging - year-round - mountain
+      { name:'Cave Carrot', categoryId: 3, seasonId: 5, locationId: 4, buildingId: 17 },
+      { name:'Red Mushroom', categoryId: 3, seasonId: 5, locationId: 4, buildingId: 17 },
+      { name:'Purple Mushroom', categoryId: 3, seasonId: 5, locationId: 4, buildingId: 17 },
+      // foraging - year-round - desert
+      { name:'Cactus Fruit', categoryId: 3, seasonId:5, locationId: 7 },
+      { name:'Coconut', categoryId: 3, seasonId:5, locationId: 7 },
+      // foraging - year-round - ginger island
+      { name:'Ginger', categoryId: 3, seasonId: 5, locationId: 8 },
+      { name:'Magma Cap', categoryId: 3, seasonId: 5, locationId: 8 },
 			// fishes
 			// minerals
 			// crops
@@ -203,8 +255,6 @@ module.exports = {
       { name:'Winter Seeds', categoryId:6, locationId:6, seasonId:4 },
 
       // crops - year- round?
-      { name:'Cactus Fruit', categoryId:6, locationId:6, seasonId:5 },
-      { name:'Cactus Fruit', categoryId:6, locationId:8, seasonId:5 },
       { name:'Fiber', categoryId:6, locationId:1, seasonId:5 },
       { name:'Fiber', categoryId:6, locationId:2, seasonId:5 },
       { name:'Fiber', categoryId:6, locationId:4, seasonId:5 },

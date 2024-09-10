@@ -13,6 +13,17 @@ module.exports = {
 		 * }], {});
 		 * later - add differentiation between the valley and in beyond the valley locations
 		 * only including standard farm
+		 * 1. pelican town - houses, buildings
+		 * 2. forest -
+		 * 3. beach - elliot's cabin, fish store
+		 * 4. mountain - mines, skull cavern, adventures build, quarry, railroad
+		 * 5- witch's swamp - witch's hut
+		 * 6 - farm
+		 * 7 - desert - oasis, desert trader
+		 * 8 - ginger island
+		 * 9 - sewers
+		 * 10 - bus stop ?
+		 * 11 - backwoods ?
 		 */
 		return queryInterface.bulkInsert("Locations", [
 			{ name: "Pelican Town" },

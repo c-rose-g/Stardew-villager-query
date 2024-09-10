@@ -15,20 +15,20 @@ module.exports = {
     // {name:'Flowers'}, // not sure if I want to keep this under crops / foraging; maybe add this in for future subcategory feature
     // {name:'Crafting'}, - subcategory under recipes, leave for future implementation
     // {name:'Fruits'}, //maybe? might fall under crops or trees
-    // artisan goods - beer, cheese, tree sap
-    // recipes - food, life elixer, monster musk
-    // foraging - fruit
-    // fishes - fish, treasure chest
-    // crops - vegetables, flower, fruits farms (not including fruit trees)
-    // trees - sapling, seeds, trees, fruit from fruit trees
-    // animals - eggs, milk, slime, wool, truffle, feathers
-    // trinkets - parrot egg, basilik,
-    // resources - bone fragments, clay, coal, hardwood, gold bar
-    // trash - jojo drink
-    // artifacts - ancient sword
-    // special -Dragon tooth, stardrop tea, golden pumpkin, magic rock candy
-    // ingredients - Wheat flour, sugar, oil
-    // monster loot - solar essence
+    // 1. artisan goods - beer, cheese, tree sap
+    // 2. recipes - food, life elixer, monster musk
+    // 3. foraging - fruit
+    // 4. fishes - fish, treasure chest
+    // 5. crops - vegetables, flower, fruits farms (not including fruit trees)
+    // 6. trees - sapling, seeds, trees, fruit from fruit trees
+    // 7. animals - eggs, milk, slime, wool, truffle, feathers
+    // 8. trinkets - parrot egg, basilik,
+    // 9. resources - bone fragments, clay, coal, hardwood, gold bar
+    // 10. trash - jojo drink
+    // 11. artifacts - ancient sword
+    // 12. special -Dragon tooth, stardrop tea, golden pumpkin, magic rock candy
+    // 13. ingredients - Wheat flour, sugar, oil
+    // 14. monster loot - solar essence
     return queryInterface.bulkInsert('Categories',[
       {name:'Artisan Goods'},
       {name:'Recipes'},

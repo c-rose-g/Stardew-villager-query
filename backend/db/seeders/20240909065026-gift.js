@@ -208,6 +208,9 @@ module.exports = {
       { name: 'Sunfish', categoryId: 4, locationId: 2 },
       { name: 'Tiger Trout', categoryId: 4, locationId: 3 },
       { name: 'Tiger Trout', categoryId: 4, locationId: 4 },
+      { name: 'Shad', categoryId: 4, locationId: 1 },
+      { name: 'Shad', categoryId: 4, locationId: 2 },
+      { name: 'Shad', categoryId: 4, locationId: 3 },
       // fishes - beach
       { name: 'Sea Cucumber', categoryId: 4, locationId: 3, seasonId: 3 },
       { name: 'Sea Cucumber', categoryId: 4, locationId: 3 , seasonId: 4 },

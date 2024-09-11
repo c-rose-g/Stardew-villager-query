@@ -207,6 +207,14 @@ module.exports = {
       { name: 'Albacore', categoryId: 4, locationId: 3, seasonId: 4 },
       { name: 'Anchovy', categoryId: 4, locationId: 3, seasonId: 1 },
       { name: 'Anchovy', categoryId: 4, locationId: 3, seasonId: 3 },
+      { name: 'Tilapia', categoryId: 4, locationId: 3, seasonId: 3 },
+      { name: 'Tilapia', categoryId: 4, locationId: 3, seasonId: 4 },
+      { name: 'Sardine', categoryId: 4, locationId: 3, seasonId: 1 },
+      { name: 'Sardine', categoryId: 4, locationId: 3, seasonId: 3 },
+      { name: 'Sardine', categoryId: 4, locationId: 3, seasonId: 4 },
+      { name: 'Red Mullet', categoryId: 4, locationId: 3, seasonId: 3 },
+      { name: 'Red Mullet', categoryId: 4, locationId: 3, seasonId: 4 },
+
       // fishes - mountain
       { name: 'Bullhead', categoryId: 4, locationId: 4 },
       { name: 'Sturgeon', categoryId: 4, locationId: 4, seasonId: 2 },

@@ -344,7 +344,6 @@ module.exports = {
       // crops - winter?
       { name:'Powdermelon', categoryId:6, locationId:6, seasonId:4 },
       { name:'Winter Seeds', categoryId:6, locationId:6, seasonId:4 },
-
       // crops - year- round?
       { name:'Fiber', categoryId:6, locationId:1, seasonId:5 },
       { name:'Fiber', categoryId:6, locationId:2, seasonId:5 },
@@ -354,9 +353,15 @@ module.exports = {
       { name:'Mixed Seeds', categoryId:6, locationId:6, seasonId:5 },
       { name:'Pineapple', categoryId:6, locationId:8, seasonId:5 },
       { name:'Taro Root', categoryId:6, locationId:8, seasonId:5 },
-
-
-			// trees
+			// trees;
+      {name: 'Apple', categoryId: 6, seasonId: 3, },
+      {name: 'Apricot', categoryId: 6, seasonId: 1, },
+      {name: 'Banana', categoryId: 6, seasonId: 5, locationId: 8 },
+      {name: 'Cherry', categoryId: 6, seasonId: 1, },
+      {name: 'Mango', categoryId: 6, seasonId: 5, locationId: 8 },
+      {name: 'Orange', categoryId: 6, seasonId: 3 },
+      {name: 'Peach', categoryId: 6, seasonId: 2 },
+      {name: 'Pomegranate', categoryId: 6, seasonId: 3 },
 			// books
 			// animals
 			// trinkets

@@ -197,8 +197,7 @@ module.exports = {
       // fishes - town
       { name: 'Smallmouth Bass', categoryId: 4, locationId: 1 },
       { name: 'Smallmouth Bass', categoryId: 4, locationId: 3 },
-      { name: '', categoryId: 4, locationId: 1 },
-      { name: '', categoryId: 4, locationId: 1 },
+
       // fishes - forest - waterfall included here too
       { name: 'Dorado', categoryId: 4, locationId: 2., seasonId: 2 },
       { name: 'Chub', categoryId: 4, locationId: 2 },

@@ -23,6 +23,8 @@ module.exports = {
           - any fish found in river (town) will be classfied under Pelican Town
           - midnight carp found in fall,winter and year-round on ginger island - only adding year round/ginger island
           - not including legendary fish I and II
+          - geode minerals will be added later - need to implment id for magma geode, geode, omni geode
+          - not adding frozen geode - need subcategory for geodes
      *
 		 */
 		return queryInterface.bulkInsert("Gifts", [
@@ -174,7 +176,6 @@ module.exports = {
       { name:'Snow Yam', categoryId: 3, seasonId: 4 },
       { name:'Winter Root', categoryId: 3, seasonId: 4 },
       { name:'Nautilus Shell', categoryId: 3, seasonId: 4, locationId: 3 },
-      // foraging - year-round - by location
       // foraging - year-round - beach
       { name:'Clam', categoryId: 3, seasonId: 5, locationId: 3 },
       { name:'Cockle', categoryId: 3, seasonId: 5, locationId: 3 },
@@ -193,8 +194,6 @@ module.exports = {
       // foraging - year-round - ginger island
       { name:'Ginger', categoryId: 3, seasonId: 5, locationId: 8 },
       { name:'Magma Cap', categoryId: 3, seasonId: 5, locationId: 8 },
-			// fishes
-      // fishes - by location
       // fishes - town
       { name: 'Smallmouth Bass', categoryId: 4, locationId: 1 },
       { name: 'Smallmouth Bass', categoryId: 4, locationId: 3 },
@@ -208,8 +207,6 @@ module.exports = {
       { name: 'Catfish', categoryId: 4, locationId: 1 },
       { name: 'Catfish', categoryId: 4, locationId: 3 },
       { name: 'Rainbow Trout', categoryId: 4, locationId: 2 },
-
-
       // fishes - forest - waterfall included here too
       { name: 'Dorado', categoryId: 4, locationId: 2., seasonId: 2 },
       { name: 'Chub', categoryId: 4, locationId: 2 },
@@ -255,8 +252,6 @@ module.exports = {
       { name: 'Super Cucumber', categoryId: 4, locationId: 3, seasonId: 2 },
       { name: 'Flounder', categoryId: 4, locationId: 3, seasonId: 1 },
       { name: 'Flounder', categoryId: 4, locationId: 3, seasonId: 2 },
-
-
       // fishes - mountain
       { name: 'Bullhead', categoryId: 4, locationId: 4 },
       { name: 'Sturgeon', categoryId: 4, locationId: 4, seasonId: 2 },
@@ -265,7 +260,6 @@ module.exports = {
       { name: 'Lava Eel', categoryId: 4, locationId: 4, seasonId: 5 },
       { name: 'Largemouth Bass', categoryId: 4, locationId: 4, seasonId: 5 },
       { name: 'Carp', categoryId: 4, locationId: 4, seasonId: 5 },
-
       // fishes - witchs swamp
       {name: 'Void Salmon', categoryId:4, locationId: 5, seasonId: 5 },
       // fishes - desert
@@ -273,17 +267,27 @@ module.exports = {
       {name:'Stonefish', categoryId: 4, locationId: 7, seasonId: 5 },
       {name:'Scorpion Carp', categoryId: 4, locationId: 7, seasonId: 5 },
       {name:'Ghostfish', categoryId: 4, locationId: 7, seasonId: 5 },
-
       // fishes - ginger island
       {name:'Lionfish', categoryId: 4 , locationId: 8},
       {name:'Blue Discus', categoryId: 4 , locationId: 8},
       {name:'Midnight Carp', categoryId: 4 , locationId: 8},
       {name:'Stingray', categoryId: 4 , locationId: 8},
-      {name:'', categoryId: 4 , locationId: 8},
       // fishes - sewers
       {name:'Slimejack', categoryId: 4, locationId: 9, },
-			// minerals
-			// crops
+			// minerals - gems
+      {name:'Amethyst', categoryId: 5, locationId: 17 },
+      {name:'Aquamarine', categoryId: 5, locationId: 17 },
+      {name:'Diamond', categoryId: 5, locationId: 17 },
+      {name:'Emerald', categoryId: 5, locationId: 17 },
+      {name:'Jade', categoryId: 5, locationId: 17 },
+      {name:'Prismatic Shard', categoryId: 5, locationId: 17 },
+      {name:'Ruby', categoryId: 5, locationId: 17 },
+      {name:'Topaz', categoryId: 5, locationId: 17 },
+      // minerals - foraged gems
+      {name:'Earth Crystal', categoryId: 5, locationId: 17 },
+      {name:'Fire Quartz', categoryId: 5, locationId: 17 },
+      {name:'Frozen Tear', categoryId: 5, locationId: 17 },
+      {name:'Quartz', categoryId: 5, locationId: 17 },
       // crops - spring
       { name:'Blue Jazz', categoryId:6, locationId:6, seasonId:1 },
       { name:'Carrot', categoryId:6, locationId:6, seasonId:1 },
@@ -300,8 +304,6 @@ module.exports = {
       { name:'Unmilled Rice', categoryId:6, locationId:6, seasonId:1 },
       { name:'Ancient Fruit', categoryId:6, locationId:6, seasonId:1 },
       { name:'Spring Seeds', categoryId:6, locationId:6, seasonId:1 },
-
-
       // crops - summer
       { name:'Coffee Bean', categoryId:6, locationId:6, seasonId:2 },
       { name:'Blueberry', categoryId:6, locationId:6, seasonId:2 },
@@ -322,7 +324,6 @@ module.exports = {
       { name:'Pineapple', categoryId:6, locationId:6, seasonId:2 },
       { name:'Taro Root', categoryId:6, locationId:6, seasonId:2 },
       { name:'Summer Seeds', categoryId:6, locationId:6, seasonId:2 },
-
       // crops - fall
       { name:'Corn', categoryId:6, locationId:6, seasonId:3 },
       { name:'Sunflower', categoryId:6, locationId:6, seasonId:3 },
@@ -340,7 +341,6 @@ module.exports = {
       { name:'Yam', categoryId:6, locationId:6, seasonId:3 },
       { name:'Ancient Fruit', categoryId:6, locationId:6, seasonId:3 },
       { name:'Fall Seeds', categoryId:6, locationId:6, seasonId:3 },
-
       // crops - winter?
       { name:'Powdermelon', categoryId:6, locationId:6, seasonId:4 },
       { name:'Winter Seeds', categoryId:6, locationId:6, seasonId:4 },

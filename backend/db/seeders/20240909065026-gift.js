@@ -195,11 +195,18 @@ module.exports = {
 			// fishes
       // fishes - by location
       // fishes - town
+      { name: 'Smallmouth Bass', categoryId: 4, locationId: 1 },
+      { name: 'Smallmouth Bass', categoryId: 4, locationId: 3 },
+      { name: '', categoryId: 4, locationId: 1 },
       { name: '', categoryId: 4, locationId: 1 },
       // fishes - forest - waterfall included here too
       { name: 'Dorado', categoryId: 4, locationId: 2., seasonId: 2 },
       { name: 'Chub', categoryId: 4, locationId: 2 },
       { name: 'Goby', categoryId: 4, locationId: 2 },
+      { name: 'Bream', categoryId: 4, locationId: 5 },
+      { name: 'Sunfish', categoryId: 4, locationId: 1 },
+      { name: 'Sunfish', categoryId: 4, locationId: 2 },
+      { name: 'Sunfish', categoryId: 4, locationId: 2 },
       // fishes - beach
       { name: 'Sea Cucumber', categoryId: 4, locationId: 3, seasonId: 3 },
       { name: 'Sea Cucumber', categoryId: 4, locationId: 3 , seasonId: 4 },

@@ -225,6 +225,8 @@ module.exports = {
       { name: 'Halibut', categoryId: 4, locationId: 3, seasonId: 2 },
       { name: 'Halibut', categoryId: 4, locationId: 3, seasonId: 4 },
       { name: 'Pufferfish', categoryId: 4, locationId: 3, seasonId: 2 },
+      { name: 'Tuna', categoryId: 4, locationId: 3, seasonId: 2 },
+      { name: 'Tuna', categoryId: 4, locationId: 3, seasonId: 4 },
 
       // fishes - mountain
       { name: 'Bullhead', categoryId: 4, locationId: 4 },

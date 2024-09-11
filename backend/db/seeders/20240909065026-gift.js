@@ -22,6 +22,7 @@ module.exports = {
           - any fish found in river and town will be classified under forest
           - any fish found in river (town) will be classfied under Pelican Town
           - midnight carp found in fall,winter and year-round on ginger island - only adding year round/ginger island
+          - not including legendary fish I and II
      *
 		 */
 		return queryInterface.bulkInsert("Gifts", [
@@ -197,6 +198,17 @@ module.exports = {
       // fishes - town
       { name: 'Smallmouth Bass', categoryId: 4, locationId: 1 },
       { name: 'Smallmouth Bass', categoryId: 4, locationId: 3 },
+      { name: 'Pike', categoryId: 4, locationId: 2 },
+      { name: 'Pike', categoryId: 4, locationId: 4 },
+      { name: 'Wallaye', categoryId: 4, locationId: 3 },
+      { name: 'Wallaye', categoryId: 4, locationId: 4 },
+      { name: 'Perch', categoryId: 4, locationId: 4 },
+      { name: 'Salmon', categoryId: 4, locationId: 3 },
+      { name: 'Lingcod', categoryId: 4, locationId: 4 },
+      { name: 'Catfish', categoryId: 4, locationId: 1 },
+      { name: 'Catfish', categoryId: 4, locationId: 3 },
+      { name: 'Rainbow Trout', categoryId: 4, locationId: 2 },
+
 
       // fishes - forest - waterfall included here too
       { name: 'Dorado', categoryId: 4, locationId: 2., seasonId: 2 },
@@ -211,6 +223,7 @@ module.exports = {
       { name: 'Shad', categoryId: 4, locationId: 1 },
       { name: 'Shad', categoryId: 4, locationId: 2 },
       { name: 'Shad', categoryId: 4, locationId: 3 },
+      { name: 'Woodskip', categoryId: 4, locationId: 3 },
       // fishes - beach
       { name: 'Sea Cucumber', categoryId: 4, locationId: 3, seasonId: 3 },
       { name: 'Sea Cucumber', categoryId: 4, locationId: 3 , seasonId: 4 },
@@ -248,12 +261,19 @@ module.exports = {
       { name: 'Bullhead', categoryId: 4, locationId: 4 },
       { name: 'Sturgeon', categoryId: 4, locationId: 4, seasonId: 2 },
       { name: 'Sturgeon', categoryId: 4, locationId: 4, seasonId: 4 },
-      { name: '', categoryId: 4, locationId: 4 },
-      { name: '', categoryId: 4, locationId: 4 },
-      { name: '', categoryId: 4, locationId: 4 },
+      { name: 'Ice Pip', categoryId: 4, locationId: 4, seasonId: 5 },
+      { name: 'Lava Eel', categoryId: 4, locationId: 4, seasonId: 5 },
+      { name: 'Largemouth Bass', categoryId: 4, locationId: 4, seasonId: 5 },
+      { name: 'Carp', categoryId: 4, locationId: 4, seasonId: 5 },
 
       // fishes - witchs swamp
+      {name: 'Void Salmon', categoryId:4, locationId: 5, seasonId: 5 },
       // fishes - desert
+      {name:'Sandfish', categoryId: 4, locationId: 7, seasonId: 5 },
+      {name:'Stonefish', categoryId: 4, locationId: 7, seasonId: 5 },
+      {name:'Scorpion Carp', categoryId: 4, locationId: 7, seasonId: 5 },
+      {name:'Ghostfish', categoryId: 4, locationId: 7, seasonId: 5 },
+
       // fishes - ginger island
       {name:'Lionfish', categoryId: 4 , locationId: 8},
       {name:'Blue Discus', categoryId: 4 , locationId: 8},

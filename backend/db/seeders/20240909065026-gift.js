@@ -220,6 +220,9 @@ module.exports = {
       { name: 'Eel', categoryId: 4, locationId: 3, seasonId: 3 },
       { name: 'Red Snapper', categoryId: 4, locationId: 3, seasonId: 1 },
       { name: 'Red Snapper', categoryId: 4, locationId: 3, seasonId: 3 },
+      { name: 'Squid', categoryId: 4, locationId: 3, seasonId: 4 },
+      { name: 'Sea Cucumber', categoryId: 4, locationId: 3, seasonId: 3 },
+      { name: 'Sea Cucumber', categoryId: 4, locationId: 3, seasonId: 4 },
 
       // fishes - mountain
       { name: 'Bullhead', categoryId: 4, locationId: 4 },

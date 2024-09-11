@@ -216,6 +216,8 @@ module.exports = {
       { name: 'Red Mullet', categoryId: 4, locationId: 3, seasonId: 4 },
       { name: 'Herring', categoryId: 4, locationId: 3, seasonId: 1 },
       { name: 'Herring', categoryId: 4, locationId: 3, seasonId: 4 },
+      { name: 'Eel', categoryId: 4, locationId: 3, seasonId: 1 },
+      { name: 'Eel', categoryId: 4, locationId: 3, seasonId: 3 },
 
       // fishes - mountain
       { name: 'Bullhead', categoryId: 4, locationId: 4 },

@@ -232,6 +232,7 @@ module.exports = {
       { name: 'Flounder', categoryId: 4, locationId: 3, seasonId: 1 },
       { name: 'Flounder', categoryId: 4, locationId: 3, seasonId: 2 },
 
+
       // fishes - mountain
       { name: 'Bullhead', categoryId: 4, locationId: 4 },
       { name: 'Sturgeon', categoryId: 4, locationId: 4, seasonId: 2 },
@@ -246,6 +247,7 @@ module.exports = {
       {name:'Lionfish', categoryId: 4 , locationId: 8},
       {name:'Blue Discus', categoryId: 4 , locationId: 8},
       {name:'Midnight Carp', categoryId: 4 , locationId: 8},
+      {name:'Stingray', categoryId: 4 , locationId: 8},
       {name:'', categoryId: 4 , locationId: 8},
       // fishes - sewers
       {name:'Slimejack', categoryId: 4, locationId: 9, },

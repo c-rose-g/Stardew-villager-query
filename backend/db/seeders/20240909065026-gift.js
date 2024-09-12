@@ -364,6 +364,13 @@ module.exports = {
       {name: 'Pomegranate', categoryId: 6, seasonId: 3 },
 			// books
 			// animals
+      {name: 'Dinosaur Egg', categoryId: 7, locationId: 4 },
+      {name: 'Duck Egg', categoryId: 7, locationId: 6 },
+      {name: 'Duck Feather', categoryId: 7, locationId: 6 },
+      {name: 'Egg', categoryId: 7, locationId: 6 },
+      {name: 'Goat Milk', categoryId: 7, locationId: 6 },
+      {name: 'Milk', categoryId: 7, locationId: 6 },
+
 			// trinkets
 			// resources
 			// trash

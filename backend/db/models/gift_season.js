@@ -21,4 +21,3 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'gift_season',
   });
   return gift_season;
-};

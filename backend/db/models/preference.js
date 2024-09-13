@@ -30,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		{
 			sequelize,
+			timestamps: false, // if you don't want createdAt/updatedAt columns
 			modelName: "Preference",
 		}
 	);

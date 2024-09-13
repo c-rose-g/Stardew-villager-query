@@ -13,11 +13,22 @@ module.exports = (sequelize, DataTypes) => {
 	}
 	Gift_Location.init(
 		{
-			giftId: { type: DataTypes.INTEGER, allowNull:false, references:{
-        model:'Gifts',
-        key:'id'
-      } },
-			locationId: { type: DataTypes.INTEGER, allowNull },
+			giftId: {
+				type: DataTypes.INTEGER,
+				allowNull: false,
+				references: {
+					model: "Gifts",
+					key: "id",
+				},
+			},
+			locationId: {
+				type: DataTypes.INTEGER,
+				allowNull: false,
+				references: {
+					model: "Locations",
+					key: "id",
+				},
+			},
 		},
 		{
 			sequelize,

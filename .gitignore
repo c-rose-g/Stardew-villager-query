@@ -5,4 +5,5 @@ build
 *.db
 # hide folders and files
 /backend_auth
-/backend/sandbox.md
+/backend/sandbox*
+giftNames.js

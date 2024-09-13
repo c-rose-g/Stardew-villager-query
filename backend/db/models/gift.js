@@ -17,9 +17,11 @@ module.exports = (sequelize, DataTypes) => {
 			 * but for now this will satisfy the purpose of the search bar query
 			 */
 			Gift.belongsTo(models.Category, { foreignKey: "categoryId" });
-			Gift.belongsTo(models.Location, { foreignKey: "locationId" });
-			Gift.belongsTo(models.Building, { foreignKey: "buildingId" });
-			Gift.belongsToMany(models.Season,{though:'Gift_Seasons'})
+			// Gift.belongsTo(models.Location, { foreignKey: "locationId" });
+			Gift.belongsToMany(models.Location, {through:models.Gift_Category, foreignKey:'categoryId'});
+			// Gift.belongsTo(models.Building, { foreignKey: "buildingId" });
+			Gift.belongsToMany(models.Building, {through:Gift_Building, foreignKey:'buildingId'});
+			Gift.belongsToMany(models.Season,{though:models.Gift_Season, foreignKey:'seasonId'})
 			// Many-to-Many relationship with Villager
 			Gift.belongsToMany(models.Villager, {
 				through: models.Villager_Gift,
@@ -27,10 +29,7 @@ module.exports = (sequelize, DataTypes) => {
 			});
 			// Many-to-Many relationship with Preference
 			Gift.belongsToMany(models.Preferences, { through: "Gift_Preferences" });
-			// Many-to-Many relationship with building - add later
-			// Many-to-Many relationship with Location - add later
-			// Many-to-Many relationship with Season - add later
-			// Many-to-Many relationship with category - add later
+
 		}
 	}
 	Gift.init(

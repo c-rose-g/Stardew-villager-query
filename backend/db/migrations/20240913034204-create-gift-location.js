@@ -13,7 +13,7 @@ module.exports = {
 			},
 			locationId: {
 				type: Sequelize.INTEGER,
-				allowNull: false,
+				allowNull: true,
 				references: {
 					model: "Locations",
 					key: "id",

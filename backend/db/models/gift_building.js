@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			buildingId: {
 				type: DataTypes.INTEGER,
-				allowNull: false,
+				allowNull: true,
 				references: { model: "Buildings", key: "id" },
 			},
 		},

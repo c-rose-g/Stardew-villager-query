@@ -13,7 +13,7 @@ module.exports = {
 			},
 			buildingId: {
 				type: Sequelize.INTEGER,
-				allowNull: false,
+				allowNull: true,
 				references: {
 					model: "Gifts",
 					key: "id",

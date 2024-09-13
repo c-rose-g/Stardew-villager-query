@@ -13,7 +13,7 @@ module.exports = {
       },
       seasonId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references:{
           model:'Seasons',
           key:'id'

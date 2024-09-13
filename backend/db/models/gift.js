@@ -16,10 +16,22 @@ module.exports = (sequelize, DataTypes) => {
 			 * I will go back in to revise my models to include more complex associations,
 			 * but for now this will satisfy the purpose of the search bar query
 			 */
-			Gift.belongsToMany(models.Season,{though:models.Gift_Season, foreignKey:'seasonId'})
-			Gift.belongsToMany(models.Category, { through:models.Gift_Category, foreignKey: "categoryId" });
-			Gift.belongsToMany(models.Location, {through:models.Gift_Location, foreignKey:'locationId'});
-			Gift.belongsToMany(models.Building, {through:Gift_Building, foreignKey:'buildingId'});
+			Gift.belongsToMany(models.Season, {
+				though: models.Gift_Season,
+				foreignKey: "seasonId",
+			});
+			Gift.belongsToMany(models.Category, {
+				through: models.Gift_Category,
+				foreignKey: "categoryId",
+			});
+			Gift.belongsToMany(models.Location, {
+				through: models.Gift_Location,
+				foreignKey: "locationId",
+			});
+			Gift.belongsToMany(models.Building, {
+				through: models.Gift_Building,
+				foreignKey: "buildingId",
+			});
 			// Many-to-Many relationship with Villager
 			Gift.belongsToMany(models.Villager, {
 				through: models.Villager_Gift,
@@ -27,7 +39,6 @@ module.exports = (sequelize, DataTypes) => {
 			});
 			// Many-to-Many relationship with Preference
 			Gift.belongsToMany(models.Preferences, { through: "Gift_Preferences" });
-
 		}
 	}
 	Gift.init(
@@ -40,14 +51,6 @@ module.exports = (sequelize, DataTypes) => {
 			name: {
 				type: DataTypes.STRING,
 				allowNull: false,
-			},
-			buildingId: {
-				type: DataTypes.INTEGER,
-				allowNull: true,
-				references: {
-					key: "id",
-					model: "Buildings",
-				},
 			},
 		},
 		{

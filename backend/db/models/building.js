@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
 		static associate(models) {
 			// define association here
       Building.belongsTo(models.Location,{foreignKey:'locationId'});
-			Building.hasMany(models.Gift,{foreignKey:'buildingId'})
+			// Many-to-many relationship to Gift
+			Building.belongsToMany(models.Building, {through: models.Gift_Building, foreignKey:'buildingId'});
 		}
 	}
 	Building.init(

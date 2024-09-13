@@ -1,31 +1,33 @@
-'use strict';
+"use strict";
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('gift_buildings', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      giftId: {
-        type: Sequelize.INTEGER
-      },
-      buildingId: {
-        type: Sequelize.INTEGER
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
-    });
-  },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('gift_buildings');
-  }
+	async up(queryInterface, Sequelize) {
+		await queryInterface.createTable("Gift_Buildings", {
+			giftId: {
+				type: Sequelize.INTEGER,
+				allowNull: false,
+				references: {
+					model: "Gifts",
+					key: "id",
+				},
+			},
+			buildingId: {
+				type: Sequelize.INTEGER,
+				allowNull: false,
+				references: {
+					model: "Gifts",
+					key: "id",
+				},
+			}
+		});
+    // add the composite primary key
+    await queryInterface.addConstraint('Gift_Buildings',{
+      fields:['giftId','buildingId'],
+      type: 'primary key',
+      name: 'pkGiftBuilding'
+    })
+	},
+	async down(queryInterface, Sequelize) {
+		await queryInterface.dropTable("Gift_Buildings");
+	},
 };

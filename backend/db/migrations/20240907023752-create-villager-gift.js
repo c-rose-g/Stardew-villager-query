@@ -19,12 +19,13 @@ module.exports = {
           key: 'id',
         },
       },
-      preferenceLevel: {
-        type: Sequelize.STRING,
-        validate:{
-          isIn:[['loves', 'likes', 'neutrals', 'dislikes', 'hates']]
-        },
-        allowNull:false
+      preferenceId: {
+        type: Sequelize.INTEGER,
+        allowNull:false,
+        references:{
+          model:'Preferences',
+          key:"id"
+        }
       }
     });
     // Add the composite primary key

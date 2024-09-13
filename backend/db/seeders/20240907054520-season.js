@@ -12,8 +12,18 @@ module.exports = {
 		 *   isBetaMember: false
 		 * }], {});
 		 */
-		const names = ["Spring", "Summer", "Fall", "Winter", "Year-Round"];
-		return queryInterface.bulkInsert("Seasons", [{name:'Spring'},{name:'Summer'}, {name:'Fall'}, {name:'Winter'}, {name:'Year-Round'}],{});
+
+		return queryInterface.bulkInsert(
+			"Seasons",
+			[
+				{ name: "Spring" },
+				{ name: "Summer" },
+				{ name: "Fall" },
+				{ name: "Winter" },
+				{ name: "Year-Round" },
+			],
+
+		);
 	},
 
 	async down(queryInterface, Sequelize) {
@@ -23,6 +33,6 @@ module.exports = {
 		 * Example:
 		 * await queryInterface.bulkDelete('People', null, {});
 		 */
-		return queryInterface.bulkDelete("Seasons",null, {});
+		return queryInterface.bulkDelete("Seasons", null);
 	},
 };

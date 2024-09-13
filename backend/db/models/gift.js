@@ -68,7 +68,7 @@ module.exports = (sequelize, DataTypes) => {
 					model: "Seasons",
 				},
 			},
-			buldingId: {
+			buildingId: {
 				type: DataTypes.INTEGER,
 				allowNull: true,
 				references: {

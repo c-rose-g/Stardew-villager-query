@@ -12,12 +12,13 @@ module.exports = (sequelize, DataTypes) => {
 			Location.hasMany(models.Building, { foreignKey: "locationId" });
 			Location.hasMany(models.Schedule, { foreignKey: "locationId" });
 			Location.hasMany(models.House, { foreignKey: "locationId" });
-			Location.hasMany(models.Gift,{foreignKey:'locationId'});
 
 			// Many-to-Many relationship with Villager
 			Location.belongsToMany(models.Villager, {
 				through: "Villager_Locations",
 			});
+			// many-to-many relationship with Gift
+			Location.belongsToMany(models.Gift, {through:models.Gift_Location, foreignKey:'locationId'});
 		}
 	}
 	Location.init(

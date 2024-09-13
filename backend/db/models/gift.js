@@ -17,10 +17,8 @@ module.exports = (sequelize, DataTypes) => {
 			 * but for now this will satisfy the purpose of the search bar query
 			 */
 			Gift.belongsToMany(models.Season,{though:models.Gift_Season, foreignKey:'seasonId'})
-			Gift.belongsTo(models.Category, { through:models.Gift_Category, foreignKey: "categoryId" });
-			// Gift.belongsTo(models.Location, { foreignKey: "locationId" });
-			Gift.belongsToMany(models.Location, {through:models.Gift_Category, foreignKey:'categoryId'});
-			// Gift.belongsTo(models.Building, { foreignKey: "buildingId" });
+			Gift.belongsToMany(models.Category, { through:models.Gift_Category, foreignKey: "categoryId" });
+			Gift.belongsToMany(models.Location, {through:models.Gift_Location, foreignKey:'locationId'});
 			Gift.belongsToMany(models.Building, {through:Gift_Building, foreignKey:'buildingId'});
 			// Many-to-Many relationship with Villager
 			Gift.belongsToMany(models.Villager, {
@@ -42,14 +40,6 @@ module.exports = (sequelize, DataTypes) => {
 			name: {
 				type: DataTypes.STRING,
 				allowNull: false,
-			},
-			locationId: {
-				type: DataTypes.INTEGER,
-				allowNull: true,
-				references: {
-					key: "id",
-					model: "Locations",
-				},
 			},
 			buildingId: {
 				type: DataTypes.INTEGER,

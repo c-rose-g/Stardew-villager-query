@@ -1,29 +1,197 @@
-'use strict';
+"use strict";
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
-    queryInterface.bulkInsert('Schedules',[
-      {villagerId:0, locationId:0, time:'00:00',weekday:'Monday',weather:"Sunny", locationUnlocked:false, isFestival:false },
-      
-    ])
-  },
+	async up(queryInterface, Sequelize) {
+		/**
+		 * Add seed commands here.
+		 *
+		 * Example:
+		 * await queryInterface.bulkInsert('People', [{
+		 *   name: 'John Doe',
+		 *   isBetaMember: false
+		 * }], {});
+		 */
+		queryInterface.bulkInsert("Schedules", [
+			// {
+			// 	villagerId: null,
+			// 	startLocationId: null,
+			// 	endLocationId: null,
+			// 	startBuildingId: null,
+			// 	endBuildingId: null,
+			// 	seasonId: 1,
+			//   description:'this is nullable',
+			// 	time: "null",
+			// 	weekday: null,
+			// 	weather: null,
+			// 	locationUnlocked: false,
+			// 	isFestival: false,
+			// },
+			// {
+			// 	villagerId: null,
+			// 	startLocationId: null,
+			// 	endLocationId: null,
+			// 	startBuildingId: null,
+			// 	endBuildingId: null,
+			// 	seasonId: 2,
+			//   description:'this is nullable',
+			// 	time: "null",
+			// 	weekday: null,
+			// 	weather: null,
+			// 	locationUnlocked: false,
+			// 	isFestival: false,
+			// },
+			// {
+			// 	villagerId: null,
+			// 	startLocationId: null,
+			// 	endLocationId: null,
+			// 	startBuildingId: null,
+			// 	endBuildingId: null,
+			// 	seasonId: 3,
+			//   description:'this is nullable',
+			// 	time: "null",
+			// 	weekday: null,
+			// 	weather: null,
+			// 	locationUnlocked: false,
+			// 	isFestival: false,
+			// },
+			// {
+			// 	villagerId: null,
+			// 	startLocationId: null,
+			// 	endLocationId: null,
+			// 	startBuildingId: null,
+			// 	endBuildingId: null,
+			// 	seasonId: 4,
+			//   description:'this is nullable',
+			// 	time: "null",
+			// 	weekday: null,
+			// 	weather: null,
+			// 	locationUnlocked: false,
+			// 	isFestival: false,
+			// },
+			// regular schedule
+			{
+				villagerId: 1,
+				startLocationId: 1,
+				endLocationId: 1,
+				startBuildingId: 6,
+				endBuildingId: 6,
+				seasonId: 5,
+				description: "Leaves her room to go to the kitchen.",
+				time: "09:00:00",
+				weekday: null,
+				weather: null,
+				locationUnlocked: false,
+				isFestival: false,
+			},
+			{
+				villagerId: 1,
+				startLocationId: 1,
+				endLocationId: 1,
+				startBuildingId: 6,
+				endBuildingId: 6,
+				seasonId: 5,
+				description: "Leaves the kitchen to stand in Pierre's store.",
+				time: "10:30:00",
+				weekday: null,
+				weather: null,
+				locationUnlocked: false,
+				isFestival: false,
+			},
+			{
+				villagerId: 1,
+				startLocationId: 1,
+				endLocationId: 1,
+				startBuildingId: 6,
+				endBuildingId: 4,
+				seasonId: 5,
+				description: "Leaves the house to go to stand on bridge near JojaMart.",
+				time: "01:00:00",
+				weekday: null,
+				weather: null,
+				locationUnlocked: false,
+				isFestival: false,
+			},
+			{
+				villagerId: 1,
+				startLocationId: 1,
+				endLocationId: 1,
+				startBuildingId: 4,
+				endBuildingId: 4,
+				seasonId: 5,
+				description: "Standing on the bridge near JojaMart",
+				time: "01:30:00",
+				weekday: null,
+				weather: null,
+				locationUnlocked: false,
+				isFestival: false,
+			},
+			{
+				villagerId: 1,
+				startLocationId: 1,
+				endLocationId: 1,
+				startBuildingId: 4,
+				endBuildingId: 6,
+				seasonId: 4,
+				description: "Heads home.",
+				time: "04:30:00",
+				weekday: null,
+				weather: null,
+				locationUnlocked: false,
+				isFestival: false,
+			},
+			{
+				villagerId: 1,
+				startLocationId: 1,
+				endLocationId: 1,
+				startBuildingId: 6,
+				endBuildingId: 6,
+				seasonId: 4,
+				description: "In her room, playing video games.",
+				time: "05:20:00",
+				weekday: null,
+				weather: null,
+				locationUnlocked: false,
+				isFestival: false,
+			},
+			{
+				villagerId: 1,
+				startLocationId: 1,
+				endLocationId: 1,
+				startBuildingId: 6,
+				endBuildingId: 6,
+				seasonId: 4,
+				description: "Goes to bed.",
+				time: "07:30:00",
+				weekday: null,
+				weather: null,
+				locationUnlocked: false,
+				isFestival: false,
+			},
+      // {
+			// 	villagerId: null,
+			// 	startLocationId: null,
+			// 	endLocationId: null,
+			// 	startBuildingId: null,
+			// 	endBuildingId: null,
+			// 	seasonId: 4,
+			// 	description: "this is nullable",
+			// 	time: "null",
+			// 	weekday: null,
+			// 	weather: null,
+			// 	locationUnlocked: false,
+			// 	isFestival: false,
+			// },
+		]);
+	},
 
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-  }
+	async down(queryInterface, Sequelize) {
+		/**
+		 * Add commands to revert seed here.
+		 *
+		 * Example:
+		 * await queryInterface.bulkDelete('People', null, {});
+		 */
+		return queryInterface.bulkDelete("Schedules");
+	},
 };

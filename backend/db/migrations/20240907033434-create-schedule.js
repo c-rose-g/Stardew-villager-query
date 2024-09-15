@@ -16,6 +16,14 @@ module.exports = {
         },
         allowNull:false
       },
+      seasonId:{
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references:{
+          model:'Seasons',
+          key:'id'
+        }
+      },
       locationId: {
         type: Sequelize.INTEGER,
         references:{

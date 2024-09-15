@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
 			// define association here
 			Schedule.belongsTo(models.Villager,{foreignKey:'villagerId'});
 			Schedule.belongsTo(models.Location, {foreignKey:'locationId'});
+			Schedule.belongsTo(models.Season,{foreignKey:'seasonId'});
 		}
 	}
 	Schedule.init(
@@ -25,6 +26,14 @@ module.exports = (sequelize, DataTypes) => {
 				references: {
 					key: "id",
 					model: "Villagers",
+				},
+				allowNull: false,
+			},
+			seasonId:{
+				type: DataTypes.INTEGER,
+				references:{
+					model:'Seasons',
+					key:'id'
 				},
 				allowNull: false,
 			},

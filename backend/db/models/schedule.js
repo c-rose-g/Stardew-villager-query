@@ -9,9 +9,13 @@ module.exports = (sequelize, DataTypes) => {
 		 */
 		static associate(models) {
 			// define association here
-			Schedule.belongsTo(models.Villager,{foreignKey:'villagerId'});
-			Schedule.belongsTo(models.Location, {foreignKey:'locationId'});
-			Schedule.belongsTo(models.Season,{foreignKey:'seasonId'});
+			Schedule.belongsTo(models.Villager, { foreignKey: "villagerId" });
+			// Schedule.belongsTo(models.Location, {foreignKey:'locationId'});
+			Schedule.belongsTo(models.Location, { foreignKey: "startLocationId" });
+			Schedule.belongsTo(models.Location, { foreignKey: "endLocationId" });
+			Schedule.belongsTo(models.Building, { foreignKey: "startBuildingId" });
+			Schedule.belongsTo(models.Building, { foreignKey: "endBuildingId" });
+			Schedule.belongsTo(models.Season, { foreignKey: "seasonId" });
 		}
 	}
 	Schedule.init(
@@ -29,25 +33,49 @@ module.exports = (sequelize, DataTypes) => {
 				},
 				allowNull: false,
 			},
-			seasonId:{
+			seasonId: {
 				type: DataTypes.INTEGER,
-				references:{
-					model:'Seasons',
-					key:'id'
+				references: {
+					model: "Seasons",
+					key: "id",
 				},
-				allowNull: false,
+				allowNull: true,
 			},
-			locationId: {
+			startLocationId: {
 				type: DataTypes.INTEGER,
 				references: {
 					key: "id",
 					model: "Locations",
 				},
-				allowNull: false,
+				allowNull: true,
+			},
+			endLocationId: {
+				type: DataTypes.INTEGER,
+				references: {
+					key: "id",
+					model: "Locations",
+				},
+				allowNull: true,
+			},
+			startBuildingId: {
+				type: DataTypes.INTEGER,
+				references: {
+					key: "id",
+					model: "Buildings",
+				},
+				allowNull: true,
+			},
+			endBuildingId: {
+				type: DataTypes.INTEGER,
+				references: {
+					key: "id",
+					model: "Buildings",
+				},
+				allowNull: true,
 			},
 			time: {
 				type: DataTypes.TIME,
-				allowNull: false,
+				allowNull: true,
 			},
 			weekday: {
 				type: DataTypes.STRING,
@@ -60,15 +88,16 @@ module.exports = (sequelize, DataTypes) => {
 							"Thursday",
 							"Friday",
 							"Saturday",
-							"Sunday"
+							"Sunday",
 						],
 					],
 				},
-				allowNull: false,
+				allowNull: true,
 			},
 			weather: {
 				type: DataTypes.STRING,
 				validate: { isIn: [["Sunny", "Rainy", "Snowy"]] },
+				allowNull: true,
 			},
 			locationUnlocked: {
 				type: DataTypes.BOOLEAN,
@@ -79,7 +108,7 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.BOOLEAN,
 				defaultValue: false,
 				allowNull: false,
-			}
+			},
 		},
 		{
 			sequelize,

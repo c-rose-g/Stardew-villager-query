@@ -18,13 +18,14 @@ module.exports = {
       },
       seasonId:{
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references:{
           model:'Seasons',
           key:'id'
-        }
+        },
+        allowNull:true,
       },
-      locationId: {
+      startLocationId: {
         type: Sequelize.INTEGER,
         references:{
           model:'Locations',
@@ -32,6 +33,30 @@ module.exports = {
         },
         allowNull: false
       },
+      endLocationId: {
+        type: Sequelize.INTEGER,
+        references:{
+          model:'Locations',
+          key:'id'
+        },
+        allowNull: false
+      },
+      startBuildingId: {
+				type: Sequelize.INTEGER,
+				references: {
+					key: "id",
+					model: "Buildings",
+				},
+				allowNull: true,
+			},
+			endBuildingId: {
+				type: Sequelize.INTEGER,
+				references: {
+					key: "id",
+					model: "Buildings",
+				},
+				allowNull: true,
+			},
       time: {
         type: Sequelize.TIME,
         allowNull:false
@@ -46,13 +71,15 @@ module.exports = {
 							"Friday",
 							"Saturday",
 							"Sunday"]]
-        }
+        },
+        allowNull: true,
       },
       weather: {
         type: Sequelize.STRING,
         validate:{
           isIn:[["Sunny", "Rainy", "Snowy"]]
-        }
+        },
+        allowNull: true
       },
       locationUnlocked: {
         type: Sequelize.BOOLEAN,
@@ -63,11 +90,6 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         defaultValue:false,
         allowNull:false
-      },
-      isRegular: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: true,
-				allowNull: false,
       }
     });
   },

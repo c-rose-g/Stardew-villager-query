@@ -36,7 +36,6 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			seasonId: {
 				type: DataTypes.INTEGER,
-				unique: "seasonDateUnique",
 				references: {
 					key: "id",
 					model: "Seasons",
@@ -45,11 +44,10 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			date: {
 				type: DataTypes.INTEGER,
-				unique: "seasonDateUnique",
-				validate: {
-					min: 1,
-					max: 28,
-				},
+				// validate: {
+				// 	min: 1,
+				// 	max: 28,
+				// },
 				allowNull: false,
 			},
 			eventName: {

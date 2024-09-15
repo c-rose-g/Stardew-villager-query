@@ -18,7 +18,6 @@ module.exports = {
 			},
 			seasonId: {
 				type: Sequelize.INTEGER,
-				unique: true,
 				references: {
 					key: "id",
 					model: "Seasons",
@@ -27,11 +26,10 @@ module.exports = {
 			},
 			date: {
 				type: Sequelize.INTEGER,
-				unique: true,
-				validate: {
-					min: 1,
-					max: 28,
-				},
+				// validate: {
+				// 	min: 1,
+				// 	max: 28,
+				// },
 				allowNull: false,
 			},
 			eventName: {

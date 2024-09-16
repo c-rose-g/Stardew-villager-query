@@ -9,9 +9,12 @@ module.exports = (sequelize, DataTypes) => {
 		 */
 		static associate(models) {
 			// define association here
-      Building.belongsTo(models.Location,{foreignKey:'locationId'});
+			Building.belongsTo(models.Location, { foreignKey: "locationId" });
 			// Many-to-many relationship to Gift
-			Building.belongsToMany(models.Building, {through: models.Gift_Building, foreignKey:'buildingId'});
+			Building.belongsToMany(models.Gift, {
+				through: models.Gift_Building,
+				foreignKey: "buildingId",
+			});
 		}
 	}
 	Building.init(
@@ -31,8 +34,8 @@ module.exports = (sequelize, DataTypes) => {
 					key: "id",
 					model: "Locations",
 				},
-				onUpdate:'CASCADE',
-        onDelete:'SET NULL'
+				onUpdate: "CASCADE",
+				onDelete: "SET NULL",
 			},
 		},
 		{

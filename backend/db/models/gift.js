@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
 			 * but for now this will satisfy the purpose of the search bar query
 			 */
 			Gift.belongsToMany(models.Season, {
-				though: models.Gift_Season,
+				through: models.Gift_Season,
 				foreignKey: "seasonId",
 			});
 			Gift.belongsToMany(models.Category, {
@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
 				foreignKey: "giftId",
 			});
 			// Many-to-Many relationship with Preference
-			Gift.belongsToMany(models.Preferences, { through: "Gift_Preferences" });
+			Gift.belongsToMany(models.Preference, { through: "Gift_Preferences" });
 		}
 	}
 	Gift.init(

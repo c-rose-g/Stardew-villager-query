@@ -1,49 +1,62 @@
-// initialize express
-const express = require("express");
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const cors = require('cors');
+
 const app = express();
-// route handling
-const routes = require("./routes");
-// Security Middleware
-const cors = require("cors");
+
+// Enable CORS only in development
+const isProduction = process.env.NODE_ENV === 'production';
 if (!isProduction) {
-	// enable cors only in development
-	app.use(cors());
+  app.use(cors());
 }
-app.use(routes);
+
+// Middleware setup
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Routes setup
+const indexRouter = require('./routes/index');
+// const usersRouter = require('./routes/users');
+
+app.use('/', indexRouter);
+// app.use('/users', usersRouter);
 
 // Catch unhandled requests and forward to error handler.
 app.use((_req, _res, next) => {
-	const err = new Error("The requested resource couldn't be found.");
-	err.title = "Resource Not Found";
-	err.errors = ["The requested resource couldn't be found."];
-	err.status = 404;
-	next(err);
+  const err = new Error("The requested resource couldn't be found.");
+  err.title = "Resource Not Found";
+  err.errors = ["The requested resource couldn't be found."];
+  err.status = 404;
+  next(err);
 });
 
-const { ValidationError } = require("sequelize");
+const { ValidationError } = require('sequelize');
 
 // Process sequelize errors
 app.use((err, _req, _res, next) => {
-	// check if error is a Sequelize error:
-	if (err instanceof ValidationError) {
-		err.errors = err.errors.map((e) => e.message);
-		err.title = "Validation error";
-	}
-	next(err);
+  // check if error is a Sequelize error:
+  if (err instanceof ValidationError) {
+    err.errors = err.errors.map((e) => e.message);
+    err.title = "Validation error";
+  }
+  next(err);
 });
-
-const isProduction = process.env.NODE_ENV === "production";
 
 // Error formatter
 app.use((err, _req, res, _next) => {
-	res.status(err.status || 500);
-	console.error(err);
-	res.json({
-		title: err.title || "Server Error",
-		message: err.message,
-		errors: err.errors,
-		stack: isProduction ? null : err.stack,
-	});
+  res.status(err.status || 500);
+  console.error(err);
+  res.json({
+    title: err.title || "Server Error",
+    message: err.message,
+    errors: err.errors,
+    stack: isProduction ? null : err.stack,
+  });
 });
 
 module.exports = app;

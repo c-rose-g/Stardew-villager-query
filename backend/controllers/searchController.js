@@ -41,6 +41,9 @@ const search = async (req, res) => {
 			case "location":
 				result = await searchLocation(query);
 				break;
+			case "building":
+				result = await searchBuilding(query);
+				break;
 			default:
 				return res.status(400).json({ message: "Invalid search type" });
 		}
@@ -179,6 +182,14 @@ const searchLocation = async (query) => {
 
 const searchBuilding = async (query) => {
 	console.log("building search function");
+	const building = await Building.findAll({
+		where: {
+			name: {
+				[Op.like]: `%${query}%`,
+			},
+		},
+	});
+	return building;
 };
 
 const searchCalendar = async (query) => {

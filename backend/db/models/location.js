@@ -18,7 +18,10 @@ module.exports = (sequelize, DataTypes) => {
 				through: "Villager_Locations",
 			});
 			// many-to-many relationship with Gift
-			Location.belongsToMany(models.Gift, {through:models.Gift_Location, foreignKey:'locationId'});
+			Location.belongsToMany(models.Gift, {
+				through: models.Gift_Location,
+				foreignKey: "locationId",
+			});
 		}
 	}
 	Location.init(
@@ -36,6 +39,11 @@ module.exports = (sequelize, DataTypes) => {
 		{
 			sequelize,
 			modelName: "Location",
+			defaultScope: {
+				attributes: {
+					exclude: ["createdAt", "updatedAt"],
+				},
+			},
 		}
 	);
 	return Location;

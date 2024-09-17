@@ -38,9 +38,14 @@ module.exports = (sequelize, DataTypes) => {
 				foreignKey: "giftId",
 			});
 			// Super Many-to-Many relationship with Preference
-			Gift.belongsToMany(models.Preference, { through: models.Gift_Preference });
+			Gift.belongsToMany(models.Preference, {
+				through: models.Gift_Preference,
+			});
 			Gift.hasMany(models.Gift_Preference);
-			Gift.hasMany(models.Villager_Gift, { as: 'villagerGifts', foreignKey: 'giftId' });
+			Gift.hasMany(models.Villager_Gift, {
+				as: "VillagerGifts",
+				foreignKey: "giftId",
+			});
 		}
 	}
 	Gift.init(
@@ -58,6 +63,11 @@ module.exports = (sequelize, DataTypes) => {
 		{
 			sequelize,
 			modelName: "Gift",
+			defaultScope: {
+				attributes: {
+					exclude: ["createdAt", "updatedAt"],
+				},
+			},
 		}
 	);
 	return Gift;

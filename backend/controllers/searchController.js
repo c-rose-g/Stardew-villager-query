@@ -21,14 +21,18 @@ const { Op } = require("sequelize");
 // Search bar controller logic
 
 const search = async (req, res) => {
-	const { query, type } = req.query;
+	const { query, type, page, size } = req.query;
 
 	try {
 		let result;
+		parsedPage =
+			page === undefined ? 1 : page < 0 ? 1 : page > 5 ? 5 : parseInt(page);
+		parsedSize =
+			size === undefined ? 10 : size < 0 ? 1 : size > 10 ? 10 : parseInt(size);
 
 		switch (type) {
 			case "gift":
-				result = await searchGift(query);
+				result = await searchGift(query, parsedPage, parsedSize);
 				break;
 
 			default:
@@ -45,8 +49,7 @@ const search = async (req, res) => {
 // lazy loading information on location, building, season
 // eager loading information on gift and villager-gift
 // *REVIEW - do I want to use eager loading or lazy loading?
-const searchGift = async (query) => {
-
+const searchGift = async (query, page, size) => {
 	try {
 		const gifts = await Gift.findAll({
 			where: {
@@ -60,21 +63,43 @@ const searchGift = async (query) => {
 					through: {
 						attributes: ["villagerId", "giftId", "preferenceId"],
 					},
+					attributes:{exclude:['houseId','buildingId','marriage','sex','createdAt','updatedAt']}
 				},
 				{
 					model: Villager_Gift.scope("withPreferenceName"),
-					as: "villagerGifts",
+					as: "VillagerGifts",
 					attributes: { exclude: ["PreferenceId"] }, // Exclude preferenceId
 				},
-
 			],
-
+			limit: size,
+			offset: size * (page - 1),
 		});
 
-		if(!gifts.length){
-			return "Gift cannot be found, please try again :)"
+		if (!gifts.length) {
+			return "Gift cannot be found, please try again :)";
 		}
-		return gifts;
+
+		// if a gift has not been associated to a villager, return a message, otherwise return data
+		const giftNeedsAVillager = gifts.map((gift) => {
+			// jsonify the data
+
+			const giftJSON = gift.toJSON();
+			const hasVillagers =
+				Array.isArray(giftJSON.Villagers) && giftJSON.Villagers.length > 0;
+			const hasVillagerGifts =
+				Array.isArray(giftJSON.villagerGifts) &&
+				giftJSON.villagerGifts.length > 0;
+
+			if (!hasVillagers && !hasVillagerGifts) {
+				return {
+					...giftJSON,
+					message: "This gift has no villager associated to it yet.",
+				};
+			}
+
+			return giftJSON;
+		});
+		return giftNeedsAVillager;
 	} catch (err) {
 		console.log(err);
 		throw new Error("There was an error searching for gifts");

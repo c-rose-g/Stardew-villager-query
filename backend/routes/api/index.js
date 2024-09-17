@@ -1,5 +1,7 @@
 const router = require("express").Router();
-const giftRouter = require("./gifts");
-router.use("/gifts", giftRouter);
+
+const giftsRouter = require("./gifts");
+
+router.use("/gift", giftsRouter);
 
 module.exports = router;

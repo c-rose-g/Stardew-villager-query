@@ -14,8 +14,10 @@ const {
 	Season,
 	Villager_Gift,
 	Villager,
+	Gift_Preference,
 } = require("../db/models");
 
+const { Op } = require("sequelize");
 // Search bar controller logic
 
 const search = async (req, res) => {
@@ -40,9 +42,43 @@ const search = async (req, res) => {
 	}
 };
 
+// lazy loading information on location, building, season
+// eager loading information on gift and villager-gift
+// *REVIEW - do I want to use eager loading or lazy loading?
 const searchGift = async (query) => {
-	console.log("gift search function");
-	// look through the Gift table, and return information on the gift, who loves/likes/etc this gift, and where to find it
+
+	try {
+		const gifts = await Gift.findAll({
+			where: {
+				name: {
+					[Op.like]: `%${query}%`,
+				},
+			},
+			include: [
+				{
+					model: Villager,
+					through: {
+						attributes: ["villagerId", "giftId", "preferenceId"],
+					},
+				},
+				{
+					model: Villager_Gift.scope("withPreferenceName"),
+					as: "villagerGifts",
+					attributes: { exclude: ["PreferenceId"] }, // Exclude preferenceId
+				},
+
+			],
+
+		});
+
+		if(!gifts.length){
+			return "Gift cannot be found, please try again :)"
+		}
+		return gifts;
+	} catch (err) {
+		console.log(err);
+		throw new Error("There was an error searching for gifts");
+	}
 };
 
 // this has to include Villager_Gift

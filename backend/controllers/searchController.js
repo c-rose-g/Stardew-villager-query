@@ -34,7 +34,9 @@ const search = async (req, res) => {
 			case "gift":
 				result = await searchGift(query, parsedPage, parsedSize);
 				break;
-
+			case "villager":
+				result = await searchVillager(query);
+				break;
 			default:
 				return res.status(400).json({ message: "Invalid search type" });
 		}
@@ -46,9 +48,6 @@ const search = async (req, res) => {
 	}
 };
 
-// lazy loading information on location, building, season
-// eager loading information on gift and villager-gift
-// *REVIEW - do I want to use eager loading or lazy loading?
 const searchGift = async (query, page, size) => {
 	try {
 		const gifts = await Gift.findAll({
@@ -63,12 +62,21 @@ const searchGift = async (query, page, size) => {
 					through: {
 						attributes: ["villagerId", "giftId", "preferenceId"],
 					},
-					attributes:{exclude:['houseId','buildingId','marriage','sex','createdAt','updatedAt']}
+					attributes: {
+						exclude: [
+							"houseId",
+							"buildingId",
+							"marriage",
+							"sex",
+							"createdAt",
+							"updatedAt",
+						],
+					},
 				},
 				{
 					model: Villager_Gift.scope("withPreferenceName"),
 					as: "VillagerGifts",
-					attributes: { exclude: ["PreferenceId"] }, // Exclude preferenceId
+					attributes: { exclude: ["PreferenceId"] },
 				},
 			],
 			limit: size,
@@ -106,9 +114,24 @@ const searchGift = async (query, page, size) => {
 	}
 };
 
-// this has to include Villager_Gift
+// this has to include Villager_Gift?
 const searchVillager = async (query) => {
-	console.log("villager search function");
+	try {
+		const villager = await Villager.findOne({
+			where: {
+				name: {
+					[Op.like]: `%${query}%`,
+				},
+			},
+		});
+		if (villager === null) {
+			console.log("Not found!");
+		}
+		return villager;
+	} catch (err) {
+		console.log(err);
+		throw new Error("There was an error searching for gifts");
+	}
 };
 
 const searchLocation = async (query) => {

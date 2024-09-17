@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
 			});
 			Gift.belongsToMany(models.Location, {
 				through: models.Gift_Location,
-				foreignKey: "locationId",
+				foreignKey: "giftId",
 			});
 			Gift.belongsToMany(models.Building, {
 				through: models.Gift_Building,

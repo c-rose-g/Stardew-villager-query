@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
 		 */
 		static associate(models) {
 			// define association here
-			Season.hasMany(models.Villager, { foreignKey: "birthdaySeasonId" });
 			Season.hasMany(models.Calendar, { foreignKey: 'seasonId' });   // One season has many calendar entries
 			Season.belongsToMany(models.Gift, {through:models.Gift_Season, foreignKey:'seasonId'});
 		}

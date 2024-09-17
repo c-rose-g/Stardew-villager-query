@@ -15,9 +15,10 @@ const {
 	Villager_Gift,
 	Villager,
 	Gift_Preference,
+	Villager_Location,
 } = require("../db/models");
 
-const { Op } = require("sequelize");
+const { Op, where } = require("sequelize");
 // Search bar controller logic
 
 const search = async (req, res) => {
@@ -35,7 +36,10 @@ const search = async (req, res) => {
 				result = await searchGift(query, parsedPage, parsedSize);
 				break;
 			case "villager":
-				result = await searchVillager(query, parsedSize, parsedPage);
+				result = await searchVillager(query);
+				break;
+			case "location":
+				result = await searchLocation(query);
 				break;
 			default:
 				return res.status(400).json({ message: "Invalid search type" });
@@ -153,7 +157,24 @@ const searchVillager = async (query) => {
 };
 
 const searchLocation = async (query) => {
-	console.log("location search function");
+	const locationInfo = await Location.findAll({
+		where: {
+			name: {
+				[Op.like]: `%${query}%`,
+			},
+		},
+		include: [
+			{
+				model: Gift,
+				through: Gift_Location,
+			},
+			{
+				model: Villager,
+				through: Villager_Location,
+			},
+		],
+	});
+	return locationInfo;
 };
 
 const searchBuilding = async (query) => {

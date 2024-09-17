@@ -14,7 +14,7 @@ const {
 	Season,
 	Villager_Gift,
 	Villager,
-} = require("../../db/models");
+} = require("../db/models");
 
 // Search bar controller logic
 
@@ -42,8 +42,7 @@ const search = async (req, res) => {
 
 const searchGift = async (query) => {
 	console.log("gift search function");
-  // look through the Gift table, and return information on the gift, who loves/likes/etc this gift, and where to find it
-  
+	// look through the Gift table, and return information on the gift, who loves/likes/etc this gift, and where to find it
 };
 
 // this has to include Villager_Gift
@@ -70,4 +69,4 @@ const searchSchedule = async (query) => {
 const searchSeason = async (query) => {
 	console.log("season search function");
 };
-models.exports = search;
+module.exports = { search };

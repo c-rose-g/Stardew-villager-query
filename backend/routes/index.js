@@ -1,12 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const apiRouter = require('./api');
-router.use('/api', apiRouter);
+// const apiRouter = require('./api');
+// router.use('/api', apiRouter);
+const searchBarRouter = require("./searchbar");
 
-// router.get("/hello/world", function (req, res) {
-// 	res.send("Hello World!");
-// });
-
+router.use("/search", searchBarRouter);
 // Serve React build files in production - may need to update based on frontend framework
 if (process.env.NODE_ENV === "production") {
 	const path = require("path");

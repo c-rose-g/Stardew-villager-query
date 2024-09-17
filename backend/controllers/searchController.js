@@ -35,7 +35,7 @@ const search = async (req, res) => {
 				result = await searchGift(query, parsedPage, parsedSize);
 				break;
 			case "villager":
-				result = await searchVillager(query);
+				result = await searchVillager(query, parsedSize, parsedPage);
 				break;
 			default:
 				return res.status(400).json({ message: "Invalid search type" });
@@ -123,10 +123,28 @@ const searchVillager = async (query) => {
 					[Op.like]: `%${query}%`,
 				},
 			},
+			include: [
+				{
+					model: Gift,
+					through: ["villagerId", "giftId"],
+				},
+			],
+			// limit: size,
+			// offset: size * (page - 1),
 		});
-		if (villager === null) {
-			console.log("Not found!");
-		}
+		// if (villager !== null) {
+		// 	villager.Gifts.forEach((gift) => {
+		// 		delete gift.Villager_Gift.PreferenceId;
+		// 	});
+		// }
+		// for (obj in villager) {
+		// 	const gifts = villager.Gifts;
+		// 	for (let i = 0; i < gifts.length; i++) {
+		// 		let gift = gifts[i].Villager_Gift;
+
+		// 		delete gift.PreferenceId;
+		// 	}
+		// }
 		return villager;
 	} catch (err) {
 		console.log(err);

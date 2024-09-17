@@ -13,8 +13,8 @@ module.exports = (sequelize, DataTypes) => {
 			Villager_Gift.belongsTo(models.Preference, {
 				foreignKey: "preferenceId",
 			});
-			Villager_Gift.belongsTo(models.Gift, { foreignKey: 'giftId' });
-			Villager_Gift.belongsTo(models.Villager, {foreignKey:'villagerId'})
+			Villager_Gift.belongsTo(models.Gift, { foreignKey: "giftId" });
+			Villager_Gift.belongsTo(models.Villager, { foreignKey: "villagerId" });
 		}
 	}
 	Villager_Gift.init(
@@ -47,18 +47,24 @@ module.exports = (sequelize, DataTypes) => {
 		{
 			sequelize,
 			modelName: "Villager_Gift",
+
 			timestamps: false, // if you don't want createdAt/updatedAt columns
 			primaryKey: ["villagerId", "giftId"], // Composite primary key
-			scopes:{
+			defaultScope: {
+				attributes: {
+					exclude: ["PreferenceId"],
+				},
+			},
+			scopes: {
 				withPreferenceName: {
-					include: [{
+					include: [
+						{
 							model: sequelize.models.Preference,
-							attributes: ['name']
-					},
-
-				]
-			}
-			}
+							attributes: ["name"],
+						},
+					],
+				},
+			},
 		}
 	);
 	return Villager_Gift;

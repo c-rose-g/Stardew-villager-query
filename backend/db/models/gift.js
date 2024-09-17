@@ -37,8 +37,10 @@ module.exports = (sequelize, DataTypes) => {
 				through: models.Villager_Gift,
 				foreignKey: "giftId",
 			});
-			// Many-to-Many relationship with Preference
-			Gift.belongsToMany(models.Preference, { through: "Gift_Preferences" });
+			// Super Many-to-Many relationship with Preference
+			Gift.belongsToMany(models.Preference, { through: models.Gift_Preference });
+			Gift.hasMany(models.Gift_Preference);
+			Gift.hasMany(models.Villager_Gift, { as: 'villagerGifts', foreignKey: 'giftId' });
 		}
 	}
 	Gift.init(

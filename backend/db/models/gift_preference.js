@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Gift_Preference.belongsTo(models.Gift);
+      Gift_Preference.belongsTo(models.Preference)
     }
   }
   Gift_Preference.init({
@@ -21,8 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         model: 'Gifts',
         key: 'id'
       },
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE'
+
     },
     preferenceId: {
       type: DataTypes.INTEGER,
@@ -31,8 +32,7 @@ module.exports = (sequelize, DataTypes) => {
         model: 'Preferences',
         key: 'id'
       },
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE'
+
     }
   }, {
     sequelize,

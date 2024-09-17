@@ -10,8 +10,7 @@ module.exports = {
 					model: "Gifts",
 					key: "id",
 				},
-				onUpdate: "CASCADE",
-				onDelete: "CASCADE",
+
 			},
 			preferenceId: {
 				type: Sequelize.INTEGER,
@@ -20,8 +19,7 @@ module.exports = {
 					model: "Preferences",
 					key: "id",
 				},
-				onUpdate: "CASCADE",
-				onDelete: "CASCADE",
+
 			}
 		});
 	},

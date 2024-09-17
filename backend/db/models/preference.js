@@ -13,7 +13,13 @@ module.exports = (sequelize, DataTypes) => {
 			// a villager gift can have one preference
 			// a villager can have many gifts, associated by preference
 			// a Many-to-Many relationship with gift through Gift_Preference
-			Preference.belongsToMany(models.Gift, { through: "Gift_Preferences" });
+			Preference.belongsToMany(models.Gift, {
+				through: models.Gift_Preference,
+			});
+			Preference.hasMany(models.Gift_Preference);
+			// this one below is questionable
+			// Preference.belongsToMany(models.Villager, {through:models.Villager_Gift, foreignKey:'preferenceId'})
+			Preference.hasMany(models.Villager_Gift, {foreignKey:'preferenceId'});
 		}
 	}
 	Preference.init(

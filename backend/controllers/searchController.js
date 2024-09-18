@@ -181,15 +181,38 @@ const searchLocation = async (query) => {
 };
 
 const searchBuilding = async (query) => {
-	console.log("building search function");
-	const building = await Building.findAll({
+	// look for building's id
+
+	const buildingId = await Building.findOne({
 		where: {
-			name: {
-				[Op.like]: `%${query}%`,
-			},
+			[Op.like]: `%${query}%`,
 		},
 	});
-	return building;
+
+	if (!buildingId) {
+		throw new Error("Building not found");
+	}
+	return buildingId;
+	// look for building
+	// const building = await Building.findAll({
+	// 	where: { id: buildingId.id },
+
+	// 	// include: [
+	// 	// 	{
+	// 	// 		model: Building,
+	// 	// 		include: [
+	// 	// 			{
+	// 	// 				model: Gift,
+	// 	// 				through: {
+	// 	// 					model: Gift_Building,
+	// 	// 					attributes: [],
+	// 	// 				},
+	// 	// 			},
+	// 	// 		],
+	// 	// 	},
+	// 	// ],
+	// });
+	// return building;
 };
 
 const searchCalendar = async (query) => {

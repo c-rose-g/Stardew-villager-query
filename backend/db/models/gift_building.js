@@ -9,6 +9,8 @@ module.exports = (sequelize, DataTypes) => {
 		 */
 		static associate(models) {
 			// define association here
+			Gift_Building.belongsTo(models.Gift, {foreignKey:'giftId'});
+			Gift_Building.belongsTo(models.Building, {foreignKey:'buildingId'})
 		}
 	}
 	Gift_Building.init(

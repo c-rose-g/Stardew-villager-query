@@ -18,7 +18,7 @@ const {
 	Villager_Location,
 } = require("../db/models");
 
-const { Op, where } = require("sequelize");
+const { Op } = require("sequelize");
 // Search bar controller logic
 
 const search = async (req, res) => {
@@ -183,36 +183,29 @@ const searchLocation = async (query) => {
 const searchBuilding = async (query) => {
 	// look for building's id
 
-	const buildingId = await Building.findOne({
-		where: {
-			[Op.like]: `%${query}%`,
-		},
-	});
-
-	if (!buildingId) {
-		throw new Error("Building not found");
-	}
-	return buildingId;
 	// look for building
-	// const building = await Building.findAll({
-	// 	where: { id: buildingId.id },
-
-	// 	// include: [
-	// 	// 	{
-	// 	// 		model: Building,
-	// 	// 		include: [
-	// 	// 			{
-	// 	// 				model: Gift,
-	// 	// 				through: {
-	// 	// 					model: Gift_Building,
-	// 	// 					attributes: [],
-	// 	// 				},
-	// 	// 			},
-	// 	// 		],
-	// 	// 	},
-	// 	// ],
-	// });
-	// return building;
+	const building = await Building.findAll({
+		where: {
+			name:{
+				[Op.like] : `%${query}%`
+			}
+		},
+		include: [
+			// {
+				// model: Building,
+				// include: [
+					{
+						model: Gift,
+						through: {
+							model: Gift_Building,
+							attributes: [],
+						},
+					},
+				// ],
+			// },
+		],
+	});
+	return building;
 };
 
 const searchCalendar = async (query) => {

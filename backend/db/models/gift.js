@@ -40,7 +40,9 @@ module.exports = (sequelize, DataTypes) => {
 			// Super Many-to-Many relationship with Preference
 			Gift.belongsToMany(models.Preference, {
 				through: models.Gift_Preference,
+				foreignKey: "giftId",
 			});
+			// double check both of these associations
 			Gift.hasMany(models.Gift_Preference);
 			Gift.hasMany(models.Villager_Gift, {
 				as: "VillagerGifts",

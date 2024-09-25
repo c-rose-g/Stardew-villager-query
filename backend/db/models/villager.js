@@ -24,10 +24,13 @@ module.exports = (sequelize, DataTypes) => {
 			// Many-to-Many relationship with locations
 			Villager.belongsToMany(models.Location, {
 				through: models.Villager_Location,
-				foreignKey:'villagerId'
+				foreignKey: "villagerId",
 			});
 			// below one is questionable
-			Villager.belongsToMany(models.Preference, {through: models.Villager_Gift, foreignKey:"preferenceId"})
+			Villager.belongsToMany(models.Preference, {
+				through: models.Villager_Gift,
+				foreignKey: "preferenceId",
+			});
 		}
 	}
 	Villager.init(
@@ -73,11 +76,11 @@ module.exports = (sequelize, DataTypes) => {
 		{
 			sequelize,
 			modelName: "Villager",
-			defaultScope:{
-        attributes:{
-          exclude: ['createdAt','updatedAt']
-        }
-      },
+			defaultScope: {
+				attributes: {
+					exclude: ["createdAt", "updatedAt"],
+				},
+			},
 		}
 	);
 	return Villager;

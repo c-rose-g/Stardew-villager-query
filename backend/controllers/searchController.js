@@ -44,6 +44,10 @@ const search = async (req, res) => {
 			case "building":
 				result = await searchBuilding(query);
 				break;
+			case "calendar":
+				// const [season, date] = query.split(' ')
+				result = await searchCalendar(query);
+				break;
 			default:
 				return res.status(400).json({ message: "Invalid search type" });
 		}
@@ -181,35 +185,96 @@ const searchLocation = async (query) => {
 };
 
 const searchBuilding = async (query) => {
-	// look for building's id
-
-	// look for building
-	const building = await Building.findAll({
+	// Step 1: Find the building IDs that match the query
+	const buildings = await Building.findAll({
 		where: {
-			name:{
-				[Op.like] : `%${query}%`
-			}
+			name: {
+				[Op.like]: `%${query}%`,
+			},
 		},
-		include: [
-			// {
-				// model: Building,
-				// include: [
-					{
-						model: Gift,
-						through: {
-							model: Gift_Building,
-							attributes: [],
-						},
-					},
-				// ],
-			// },
-		],
+		attributes: ["id", "name"],
+		include: {
+			model: Gift,
+			through: {
+				model: Gift_Building,
+			},
+		},
 	});
-	return building;
+
+	return buildings;
 };
 
 const searchCalendar = async (query) => {
-	console.log("calendar search function");
+	// returns information regarding this particular day, if it an events exists
+	// if no event exists on such day, then return 'no event occured on this day'
+	try {
+		let season;
+		let date;
+		if (query.length > 2) {
+			[season, date] = query.split(" ");
+		} else if (Number(query)) {
+			date = query;
+		}
+
+		if (season && date) {
+			const capitalizedSeason =
+				season.charAt(0).toUpperCase() + season.slice(1).toLowerCase();
+			const findSeason = await Season.findOne({
+				where: {
+					name: capitalizedSeason,
+				},
+				attributes: ["id", "name"],
+			});
+
+			const event = await Calendar.findOne({
+				where: {
+					seasonId: findSeason.id,
+					date: date,
+				},
+			});
+
+			if (event.isBirthday) {
+				let villager = await Villager.findOne({
+					where: {
+						id: {
+							[Op.is]: event.villagerBirthdayId,
+						},
+					},
+				});
+
+				// if it's an event, return information on the festival
+				return [event, villager];
+			}
+			return event;
+		} else if (!date && season) {
+			const capitalizedSeason =
+				season.charAt(0).toUpperCase() + season.slice(1).toLowerCase();
+			const findSeason = await Season.findOne({
+				where: {
+					name: capitalizedSeason,
+				},
+				attributes: ["id", "name"],
+			});
+			const seasonEvents = await Calendar.findAll({
+				where: {
+					seasonId: findSeason.id,
+				},
+			});
+			return seasonEvents;
+		} else if (!season && date) {
+			const dates = await Calendar.findAll({
+				where: {
+					date: date,
+				},
+			});
+			return dates;
+		} else {
+			throw new Error("Invalid query: Both season and date are missing");
+		}
+	} catch (error) {
+		console.error("Error fetching calendar data:", error);
+		throw new Error("Internal Server Error");
+	}
 };
 
 const searchSchedule = async (query) => {

@@ -50,6 +50,9 @@ const search = async (req, res) => {
 			case "schedule":
 				result = await searchSchedule(query);
 				break;
+			case "season":
+				result = await searchSeason(query);
+				break;
 			default:
 				return res.status(400).json({ message: "Invalid search type" });
 		}
@@ -301,12 +304,28 @@ const searchCalendar = async (query) => {
 		throw new Error("Internal Server Error");
 	}
 };
-
+// might just combine this one with villager
 const searchSchedule = async (query) => {
 	return "schedule search function";
 };
 
+// returns gifts that can be found in a season
 const searchSeason = async (query) => {
-	return "season search function";
+
+	let seasonName = query.charAt(0).toUpperCase() + query.slice(1).toLowerCase();
+	// find season id
+	const season = await Season.findAll({
+		where:{
+			name : seasonName,
+		},
+		attributes:['id','name'],
+		include:[
+			{
+				model: Gift,
+				through: Gift_Season
+			}
+		]
+	})
+	return season
 };
 module.exports = { search };

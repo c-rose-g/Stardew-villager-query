@@ -45,8 +45,10 @@ const search = async (req, res) => {
 				result = await searchBuilding(query);
 				break;
 			case "calendar":
-				// const [season, date] = query.split(' ')
 				result = await searchCalendar(query);
+				break;
+			case "schedule":
+				result = await searchSchedule(query);
 				break;
 			default:
 				return res.status(400).json({ message: "Invalid search type" });
@@ -126,23 +128,47 @@ const searchGift = async (query, page, size) => {
 };
 
 // this has to include Villager_Gift?
+// include schedule
 const searchVillager = async (query) => {
 	try {
-		const villager = await Villager.findOne({
+		let capitalizedVillager;
+		if (query.length >= 2) {
+			capitalizedVillager =
+				query.charAt(0).toUpperCase() + query.slice(1).toLowerCase();
+		} else if (query.length === 1) {
+			capitalizedVillager =  query
+		}
+		const villager = await Villager.findAll({
 			where: {
-				name: {
-					[Op.like]: `%${query}%`,
-				},
+				// name: {
+				// 	[Op.like]: capitalizedVillager,
+				// },
+				name: capitalizedVillager,
 			},
 			include: [
 				{
 					model: Gift,
-					through: ["villagerId", "giftId"],
 				},
 			],
 			// limit: size,
 			// offset: size * (page - 1),
 		});
+
+		// if villager array only has 1 object, include schedule
+		if (villager.length === 1) {
+			id = villager[0]?.id;
+			// console.log(id)
+			const schedule = await Schedule.findAll({
+				where: {
+					villagerId: id,
+				},
+			});
+			console.log("Schedule:", schedule);
+
+			return [villager, schedule];
+		}
+		// if villager array has more than 1 object
+
 		// if (villager !== null) {
 		// 	villager.Gifts.forEach((gift) => {
 		// 		delete gift.Villager_Gift.PreferenceId;
@@ -156,7 +182,6 @@ const searchVillager = async (query) => {
 		// 		delete gift.PreferenceId;
 		// 	}
 		// }
-		return villager;
 	} catch (err) {
 		console.log(err);
 		throw new Error("There was an error searching for gifts");
@@ -278,10 +303,10 @@ const searchCalendar = async (query) => {
 };
 
 const searchSchedule = async (query) => {
-	console.log("schedule search function");
+	return "schedule search function";
 };
 
 const searchSeason = async (query) => {
-	console.log("season search function");
+	return "season search function";
 };
 module.exports = { search };

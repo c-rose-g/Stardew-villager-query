@@ -18,11 +18,11 @@ module.exports = (sequelize, DataTypes) => {
 			 */
 			Gift.belongsToMany(models.Season, {
 				through: models.Gift_Season,
-				foreignKey: "seasonId",
+				foreignKey: "giftId",
 			});
 			Gift.belongsToMany(models.Category, {
 				through: models.Gift_Category,
-				foreignKey: "categoryId",
+				foreignKey: "giftId",
 			});
 			Gift.belongsToMany(models.Location, {
 				through: models.Gift_Location,
@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
 			});
 			Gift.belongsToMany(models.Building, {
 				through: models.Gift_Building,
-				foreignKey: "buildingId",
+				foreignKey: "giftId",
 			});
 			// Many-to-Many relationship with Villager
 			Gift.belongsToMany(models.Villager, {

@@ -10,13 +10,20 @@ module.exports = (sequelize, DataTypes) => {
 		static associate(models) {
 			// define association here
 			Location.hasMany(models.Building, { foreignKey: "locationId" });
-			Location.hasMany(models.Schedule, { foreignKey: "locationId" });
+			Location.hasMany(models.Schedule, {
+				as: "StartSchedules",
+				foreignKey: "startLocationId",
+			});
+			Location.hasMany(models.Schedule, {
+				as: "EndSchedules",
+				foreignKey: "endLocationId",
+			});
 			Location.hasMany(models.House, { foreignKey: "locationId" });
 
 			// Many-to-Many relationship with Villager
 			Location.belongsToMany(models.Villager, {
 				through: models.Villager_Location,
-				foreignKey:'locationId'
+				foreignKey: "locationId",
 			});
 			// many-to-many relationship with Gift
 			Location.belongsToMany(models.Gift, {

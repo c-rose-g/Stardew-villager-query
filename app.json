@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "e949d255-3688-4538-b523-61e5a3a7186d"
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.croseg.stardewvillagersearch"
+    }
+  }
+}

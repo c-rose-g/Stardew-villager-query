@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "stardew-villager-query",
-    "slug": "stardew-villager-query",
+    "name": "stardew-valley-search",
+    "slug": "stardew-valley-search",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -31,11 +31,6 @@
     ],
     "experiments": {
       "typedRoutes": true
-    },
-    "extra": {
-      "eas": {
-        "projectId": "e949d255-3688-4538-b523-61e5a3a7186d"
-      }
     }
   }
 }

@@ -1,21 +1,24 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import React from 'react';
+import { ImageBackground, Image, StyleSheet, Platform, View, Text } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
+    <ImageBackground
+    source={require('@/assets/images/index-bg.png')}
+    style={styles.backgroundImage}
+    >
+      {/* <ThemedView style={styles.titleContainer}>Welcome!</ThemedView> */}
+
+
+    <ParallaxScrollView>
+      <ThemedText type="title">Search Bar</ThemedText>
+      {/* <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Welcome!</ThemedText>
         <HelloWave />
       </ThemedView>
@@ -45,12 +48,37 @@ export default function HomeScreen() {
           <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
           <ThemedText type="defaultSemiBold">app-example</ThemedText>.
         </ThemedText>
-      </ThemedView>
+      </ThemedView> */}
     </ParallaxScrollView>
+    </ImageBackground>
+
   );
 }
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1, // Make the image cover the entire screen
+    resizeMode: 'cover', // How the image should be resized to fit the screen
+  },
+  container: {
+    flex: 1,
+  },
+  gradient: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 24,
+    color: 'white',
+  },
+  bgImage:{
+    height: 610,
+    width: 375,
+    top: 0,
+    left: 0,
+    position: 'absolute',
+  },
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',

@@ -11,14 +11,15 @@ export const useSearch = () => {
 
     try {
       const response = await fetch(`http://localhost:8000/search?query=${query}`);
-      // console.log('this is the response >>>>>', response)
+
       if (!response.ok) {
-        // console.log('this is response not ok', response)
+
         throw new Error('Failed to fetch search results');
       }
+
       let data = await response.json()
       setResults(data);
-      console.log('DATA in search >>>', data)
+      // console.log('DATA in search >>>', data)
       return data
     } catch (err) {
 

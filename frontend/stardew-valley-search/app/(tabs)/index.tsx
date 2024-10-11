@@ -1,64 +1,58 @@
-import React from 'react';
-import { ImageBackground, Image, StyleSheet, Platform, View, Text } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
+import React, {useEffect, useRef} from 'react';
+import { ImageBackground, Image, StyleSheet, Platform, View, Text, Animated } from 'react-native';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import { LinearGradient } from 'expo-linear-gradient';
+import { SearchBar } from '@/components/SearchBar'
+import { useSearch } from '@/hooks/useSearch';
+import { Collapsible } from '@/components/Collapsible';
 
 export default function HomeScreen() {
+  const {results, search} = useSearch();
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    const startAnimation = () => {
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 1000,
+        delay: 100,
+        useNativeDriver: true,
+      }).start();
+    };
+
+    startAnimation();
+  }, [fadeAnim]);
+
   return (
-    <ImageBackground
-    source={require('@/assets/images/index-bg.png')}
-    style={styles.backgroundImage}
-    >
-      {/* <ThemedView style={styles.titleContainer}>Welcome!</ThemedView> */}
+    <View style={styles.container}>
+      <ParallaxScrollView
+        renderBackground={() => (
+          <View>
+            <ImageBackground
+              source={require('@/assets/images/index-bg.png')}
+              style={styles.backgroundImage}
+            />
+          </View>
+        )}
+        renderForeground={() => (
+          <Animated.View style={{ opacity: fadeAnim, flex: 1 }}>
+            <View style={{ height: 300, justifyContent: 'center', alignItems: 'center' }}>
+              <ThemedText type="title">Search Bar</ThemedText>
+              <SearchBar onSearch={search} />
 
-
-    <ParallaxScrollView>
-      <ThemedText type="title">Search Bar</ThemedText>
-      {/* <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView> */}
-    </ParallaxScrollView>
-    </ImageBackground>
-
+            </View>
+          </Animated.View>
+        )}
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   backgroundImage: {
-    flex: 1, // Make the image cover the entire screen
-    resizeMode: 'cover', // How the image should be resized to fit the screen
+    flex: 1,
+    resizeMode: 'cover',
   },
   container: {
     flex: 1,
@@ -72,7 +66,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: 'white',
   },
-  bgImage:{
+  bgImage: {
     height: 610,
     width: 375,
     top: 0,

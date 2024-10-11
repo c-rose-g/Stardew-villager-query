@@ -172,7 +172,6 @@ const searchVillager = async (query) => {
 			include: [
 				{
 					model: Gift,
-					model:Schedule,
 				},
 
 			],
@@ -190,7 +189,8 @@ const searchVillager = async (query) => {
 				},
 			});
 			// console.log("Schedule:", schedule);
-
+			// add schedule into villager, key name'Schedule', value'schedule'
+			villager[0].dataValues.Schedule = schedule;
 			// return [villager, schedule];
 		}
 		console.log('this is villager from backend server >>>', villager)

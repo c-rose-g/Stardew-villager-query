@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 
 interface CollapsibleResultsProps {
   results: string[];
@@ -14,10 +14,10 @@ export const CollapsibleResults: React.FC<CollapsibleResultsProps> = ({ results 
         <Text style={styles.headerText}>{isOpen ? 'Hide Results' : 'Show Results'}</Text>
       </TouchableOpacity>
       {isOpen && (
+
         <View style={styles.resultsContainer}>
-          {results.map((result, index) => (
-            <Text key={index} style={styles.resultText}>{result}</Text>
-          ))}
+          <Text>results is {results}</Text>
+
         </View>
       )}
     </View>
@@ -27,16 +27,18 @@ export const CollapsibleResults: React.FC<CollapsibleResultsProps> = ({ results 
 const styles = StyleSheet.create({
   header: {
     padding: 10,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#000000',
     borderRadius: 5,
     marginTop: 10,
   },
   headerText: {
     fontSize: 16,
     fontWeight: 'bold',
+    color:'#FFFFFF',
   },
   resultsContainer: {
     marginTop: 10,
+    backgroundColor:'#FFFFFF'
   },
   resultText: {
     fontSize: 14,

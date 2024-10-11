@@ -4,6 +4,7 @@ import { ImageBackground, StyleSheet, ViewStyle } from "react-native";
 interface BackgroundImageProps {
   source: any;
   style?: ViewStyle;
+  children:any
 }
 
 export const BackgroundImage: React.FC<BackgroundImageProps> = ({ source, style, children }) => {

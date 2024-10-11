@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, Button, Text } from 'react-native';
+import { View, TextInput, StyleSheet, Button, Text, ScrollView } from 'react-native';
 import { CollapsibleResults } from '@/components/CollapsibleResults';
 import { useSearch } from '@/hooks/useSearch';
 interface SearchBarProps {
-  onSearch: (query: string) => void;
+  onSearch: (query: string  | null ) => void;
 }
 
 export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
@@ -23,7 +23,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
       setSearchError(null);
     }
   }
-  console.log('RESULTS >>', results)
+  // console.log('RESULTS >>', results)
   return (
     <>
     <View style={styles.container}>
@@ -39,11 +39,9 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
       </View>
       {loading && !results && <Text>Loading...</Text>}
       {submitted && !loading && results.length > 0 && (
-      <View style={styles.resultsContainer}>
-        {/* <Text>Results:</Text> */}
-        {results.map((result: { name: string, schedule: object, buildingId: number,
-        houseId:number, marriage: boolean, sex: string,
-        Gifts: Array<{ name: string, Villager_Gift: { preferenceId: number } }> | null }, index) => (
+      <ScrollView style={styles.resultsContainer}>
+
+        {results.map((result: { name: string, Schedule: Array<{seasonId:number, description:string, startLocationId: number, endLocationId:number, startBuildingId:number, endBuildingId:number, time:number, weekday:string | null, weather:string | null, isFestival:boolean}>, buildingId: number, houseId:number, marriage: boolean, sex: string, Gifts: Array<{ name: string, Villager_Gift: { preferenceId: number } }> | null }, index) => (
           result.name ? (
           <View key={index}>
             <Text>
@@ -68,7 +66,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
         </View>
       ) : null
     ))}
-      </View>
+      </ScrollView>
         )}
       {submitted && !loading && !results.length && error && <Text style={{ color: 'red' }}>{error}</Text>}
       {/* <CollapsibleResults results={results} /> */}
@@ -86,6 +84,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 5,
     elevation: 3,
+
   },
   input: {
     height: 40,
@@ -95,11 +94,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 50,
   },
   resultsContainer:{
-    height:80,
-    // borderColor: '#ccc',
-    // borderWidth: 1,
-    // borderRadius: 5,
-
+    height:200,
   }
 });
 

@@ -18,53 +18,73 @@ const {
 	Villager_Location,
 } = require("../db/models");
 
-const { Op } = require("sequelize");
+const { Op, where } = require("sequelize");
+const villager = require("../db/models/villager");
 // Search bar controller logic
 
 const search = async (req, res) => {
-	const { query, type, page, size } = req.query;
-
+	// const { query, type, page, size } = req.query;
+	const { query } = req.query;
+	console.log("this is the query hitting the backend:", query);
 	try {
 		let result;
-		parsedPage =
-			page === undefined ? 1 : page < 0 ? 1 : page > 5 ? 5 : parseInt(page);
-		parsedSize =
-			size === undefined ? 10 : size < 0 ? 1 : size > 10 ? 10 : parseInt(size);
+		// parsedPage =
+		// 	page === undefined ? 1 : page < 0 ? 1 : page > 5 ? 5 : parseInt(page);
+		// parsedSize =
+		// 	size === undefined ? 10 : size < 0 ? 1 : size > 10 ? 10 : parseInt(size);
 
-		switch (type) {
-			case "gift":
-				result = await searchGift(query, parsedPage, parsedSize);
-				break;
-			case "villager":
-				result = await searchVillager(query);
-				break;
-			case "location":
-				result = await searchLocation(query);
-				break;
-			case "building":
-				result = await searchBuilding(query);
-				break;
-			case "calendar":
-				result = await searchCalendar(query);
-				break;
-			case "schedule":
-				result = await searchSchedule(query);
-				break;
-			case "season":
-				result = await searchSeason(query);
-				break;
-			default:
-				return res.status(400).json({ message: "Invalid search type" });
+		let gifts, villagers, location, building, calendar, schedule, season;
+
+		gifts = await searchGift(query);
+		villagers = await searchVillager(query);
+
+		if (gifts) {
+			result = gifts;
+
+		} else if (villagers) {
+			result = villagers;
+		} else {
+			return res.status(400).json({ message: "Invalid search type" });
 		}
+		// else if (villagers){
+		// 	result = villagers
+
+		// }
+		// switch (type) {
+		// 	case "gift":
+		// 		result = await searchGift(query, parsedPage, parsedSize);
+		// 		break;
+		// 	case "villager":
+		// 		result = await searchVillager(query);
+		// 		break;
+		// 	case "location":
+		// 		result = await searchLocation(query);
+		// 		break;
+		// 	case "building":
+		// 		result = await searchBuilding(query);
+		// 		break;
+		// 	case "calendar":
+		// 		result = await searchCalendar(query);
+		// 		break;
+		// 	case "schedule":
+		// 		result = await searchSchedule(query);
+		// 		break;
+		// 	case "season":
+		// 		result = await searchSeason(query);
+		// 		break;
+		// 	default:
+		// 		return res.status(400).json({ message: "Invalid search type" });
+		// }
 		return res.json(result);
 	} catch (err) {
+		// console.error("Error details:", err); // Log error details
 		return res
 			.status(500)
 			.json({ message: "Error processing the search", err });
 	}
 };
 
-const searchGift = async (query, page, size) => {
+const searchGift = async (query) => {
 	try {
 		const gifts = await Gift.findAll({
 			where: {
@@ -95,12 +115,13 @@ const searchGift = async (query, page, size) => {
 					attributes: { exclude: ["PreferenceId"] },
 				},
 			],
-			limit: size,
-			offset: size * (page - 1),
+			// limit: size,
+			// offset: size * (page - 1),
 		});
 
 		if (!gifts.length) {
-			return "Gift cannot be found, please try again :)";
+			// return "Gift cannot be found, please try again :)";
+			return false
 		}
 
 		// if a gift has not been associated to a villager, return a message, otherwise return data
@@ -139,7 +160,7 @@ const searchVillager = async (query) => {
 			capitalizedVillager =
 				query.charAt(0).toUpperCase() + query.slice(1).toLowerCase();
 		} else if (query.length === 1) {
-			capitalizedVillager =  query
+			capitalizedVillager = query;
 		}
 		const villager = await Villager.findAll({
 			where: {
@@ -151,7 +172,9 @@ const searchVillager = async (query) => {
 			include: [
 				{
 					model: Gift,
+					model:Schedule,
 				},
+
 			],
 			// limit: size,
 			// offset: size * (page - 1),
@@ -166,10 +189,12 @@ const searchVillager = async (query) => {
 					villagerId: id,
 				},
 			});
-			console.log("Schedule:", schedule);
+			// console.log("Schedule:", schedule);
 
-			return [villager, schedule];
+			// return [villager, schedule];
 		}
+		console.log('this is villager from backend server >>>', villager)
+		return villager
 		// if villager array has more than 1 object
 
 		// if (villager !== null) {
@@ -311,21 +336,20 @@ const searchSchedule = async (query) => {
 
 // returns gifts that can be found in a season
 const searchSeason = async (query) => {
-
 	let seasonName = query.charAt(0).toUpperCase() + query.slice(1).toLowerCase();
 	// find season id
 	const season = await Season.findAll({
-		where:{
-			name : seasonName,
+		where: {
+			name: seasonName,
 		},
-		attributes:['id','name'],
-		include:[
+		attributes: ["id", "name"],
+		include: [
 			{
 				model: Gift,
-				through: Gift_Season
-			}
-		]
-	})
-	return season
+				through: Gift_Season,
+			},
+		],
+	});
+	return season;
 };
 module.exports = { search };

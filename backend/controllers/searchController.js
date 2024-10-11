@@ -188,12 +188,9 @@ const searchVillager = async (query) => {
 					villagerId: id,
 				},
 			});
-			// console.log("Schedule:", schedule);
-			// add schedule into villager, key name'Schedule', value'schedule'
+
 			villager[0].dataValues.Schedule = schedule;
-			// return [villager, schedule];
 		}
-		console.log('this is villager from backend server >>>', villager)
 		return villager
 		// if villager array has more than 1 object
 

@@ -9,16 +9,23 @@ interface SearchBarProps {
 export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const [query, setQuery] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [searchError, setSearchError] = useState<string | null>(null); // State to track search errors
   // destructure the hook
   const { search, results, loading, error } = useSearch();
 
   const handleSearch = async() =>{
-    await search(query);
+    const searchResults = await search(query);
     setSubmitted(true);
 
+    if (!searchResults || searchResults.length === 0) {
+      setSearchError('No results found.');
+    } else {
+      setSearchError(null);
+    }
   }
   console.log('RESULTS >>', results)
   return (
+    <>
     <View style={styles.container}>
       <TextInput
         value={query}
@@ -29,32 +36,51 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
 
       />
       <Button title='Search' onPress={handleSearch} />
+      </View>
       {loading && !results && <Text>Loading...</Text>}
       {submitted && !loading && results.length > 0 && (
-        <View>
-          <Text>Results:</Text>
-    
-            {results.map((result: { name: string, schedule: object, buildingId: number, marriage: boolean, sex: string }, index) => (
-              result.name ? ( // Check if name is defined before rendering
-                <Text key={index}>
-                  {`${result.name} is a villager.`}{"\n"}
-                  {`${result.sex === 'Female' ? 'She' : 'He'} lives in ${result.buildingId}.`}{"\n"}
-                  {`They ${result.marriage ? 'are open' : 'are not open'} to marriage.`}
-                  </Text>
-                  ) : null // Avoid rendering when name is undefined
-                  ))}
-                  </View>
+      <View style={styles.resultsContainer}>
+        {/* <Text>Results:</Text> */}
+        {results.map((result: { name: string, schedule: object, buildingId: number,
+        houseId:number, marriage: boolean, sex: string,
+        Gifts: Array<{ name: string, Villager_Gift: { preferenceId: number } }> | null }, index) => (
+          result.name ? (
+          <View key={index}>
+            <Text>
+              {`${result.name} is a villager.`}{"\n"}
+              {`${result.sex === 'Female' ? 'She' : 'He'} lives in ${result.buildingId? result.buildingId: result.houseId}.`}{"\n"}
+              {`They ${result.marriage ? 'are open' : 'are not open'} to marriage.`}
+            </Text>
+            <Text>{`Want to give ${result.name} a gift?`}</Text>
+            {result.Gifts ? (
+              result.Gifts.map((gift, giftIndex) => (
+                <Text key={giftIndex}>
+                  {gift.Villager_Gift.preferenceId === 1 && `${gift.name} (Loved)`}
+                  {gift.Villager_Gift.preferenceId === 2 && `${gift.name} (Liked)`}
+                  {gift.Villager_Gift.preferenceId === 3 && `${gift.name} (Neutral)`}
+                  {gift.Villager_Gift.preferenceId === 4 && `${gift.name} (Disliked)`}
+                  {gift.Villager_Gift.preferenceId === 5 && `${gift.name} (Hated)`}
+                </Text>
+              ))
+            ) : (
+            <Text>{result.name} has no gifts they want.</Text>
+          )}
+        </View>
+      ) : null
+    ))}
+      </View>
         )}
       {submitted && !loading && !results.length && error && <Text style={{ color: 'red' }}>{error}</Text>}
       {/* <CollapsibleResults results={results} /> */}
-    </View>
+
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffff',
     borderRadius: 5,
     shadowColor: '#000',
     shadowOpacity: 0.1,
@@ -66,8 +92,15 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderWidth: 1,
     borderRadius: 5,
-    paddingHorizontal: 10,
+    paddingHorizontal: 50,
   },
+  resultsContainer:{
+    height:80,
+    // borderColor: '#ccc',
+    // borderWidth: 1,
+    // borderRadius: 5,
+
+  }
 });
 
 // export default Search

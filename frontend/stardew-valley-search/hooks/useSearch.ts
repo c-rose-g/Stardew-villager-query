@@ -21,7 +21,6 @@ export const useSearch = () => {
       let data = await response.json()
       setResults(data.results);
       setModel(data.model)
-      // console.log('this is data', data)
       return data
     } catch (err) {
 

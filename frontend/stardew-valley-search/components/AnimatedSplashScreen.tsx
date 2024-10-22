@@ -1,24 +1,27 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet, ImageBackground } from 'react-native';
+import {SafeAreaView, View, StyleSheet, ImageBackground } from 'react-native';
 import LottieView from 'lottie-react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 
 export default function AnimatedSplashScreen() {
-  const [fontsLoaded] = useFonts({
-    SpaceMono: require('@/assets/fonts/SpaceMono-Regular.ttf'),
-  });
+  // const [fontsLoaded] = useFonts({
+  //   SpaceMono: require('@/assets/fonts/SpaceMono-Regular.ttf'),
+  // });
 
-  useEffect(() => {
-    if (fontsLoaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
+  // useEffect(() => {
+  //   if (fontsLoaded) {
+  //     SplashScreen.hideAsync();
+  //   }
+  // }, [fontsLoaded]);
 
-  if (!fontsLoaded) {
-    return null;
-  }
+  // if (!fontsLoaded) {
+  //   return null;
+  // }
 
+  useEffect(() =>{
+    SplashScreen.hideAsync();
+  })
   return (
     <ImageBackground
       source={require('@/assets/images/index-bg.png')}

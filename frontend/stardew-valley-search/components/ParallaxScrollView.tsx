@@ -145,7 +145,7 @@
 // });
 
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import {SafeAreaView, View, StyleSheet } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { ImageBackground } from 'react-native';
 
@@ -156,15 +156,9 @@ type ParallaxScrollViewProps = {
   children?: React.ReactNode;
 };
 
-export default function ParallaxScrollView({
-  // backgroundColor,
-  // parallaxHeaderHeight,
-  renderBackground,
-  renderForeground,
-  children,
-}: ParallaxScrollViewProps) {
+export default function ParallaxScrollView({renderBackground, renderForeground,children,}: ParallaxScrollViewProps) {
   return (
-    <View style={[styles.container]}>
+    <SafeAreaView style={[styles.container]}>
       <ImageBackground source={require('../assets/images/index-bg.png')} style={styles.background}>
         <View>
           {renderBackground()}
@@ -176,15 +170,16 @@ export default function ParallaxScrollView({
           <View>{children}</View>
         </Animated.ScrollView>
       </ImageBackground>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1
   },
   background: {
-    flex: 1,
+    // flex:1
+    height:'100%'
   },
 });

@@ -5,11 +5,11 @@ import type { EasingFunction } from 'react-native';
 
 import { useSearch } from '@/hooks/useSearch';
 
-interface SearchBarProps {
+type SearchBarProps = {
   onSearch: (query: string | null) => void;
 }
 
-export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
+export const SearchBar = ({ onSearch }: SearchBarProps) => {
   const opacity = useState(new Animated.Value(0))[0];
   const height = useState(new Animated.Value(0))[0];
   const [query, setQuery] = useState('');

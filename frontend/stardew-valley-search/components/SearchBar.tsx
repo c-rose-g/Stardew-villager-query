@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { SafeAreaView, View, TextInput, StyleSheet, Button, Text, Animated, Easing, ScrollView } from 'react-native';
-import { VillagerResults } from '../components/VillagerResults';
+import { VillagerResults } from './SearchVillagers';
 import type { EasingFunction } from 'react-native';
 
 import { useSearch } from '@/hooks/useSearch';
@@ -32,7 +32,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
     }).start();
   };
 
-  const { search, results, loading, error, model } = useSearch();
+  const { search, results, error, model } = useSearch();
 
   const handleSearch = async () => {
     const searchResults = await search(query);
@@ -46,6 +46,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
     }
   };
 
+  console.log('this is model', model)
   const animatedStyles = {
     opacity,
     height,
@@ -63,18 +64,18 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
         />
         <Button title="Search" onPress={handleSearch} />
       </View>
-      {submitted && !loading && results.length > 0 && (
+      {submitted && results.length > 0 && (
         <Animated.View style={[styles.resultsContainer, animatedStyles]}>
           <ScrollView>
           <Text>
             { model === 'villagers' ? (<VillagerResults results={results} />)
-            : model === 'gifts' ? 'gifts'
-            : model === 'schedules' ? 'schedules' : 'no'}
+            : model === 'gifts' ? 'gifts results'
+            : model === 'schedules' ? 'schedules results' : 'no'}
           </Text>
           </ScrollView>
         </Animated.View>
       )}
-      {submitted && !loading && !results.length && searchError && (
+      {submitted && !results.length && searchError && (
         <Text style={{ color: 'red' }}>{searchError}</Text>
       )}
     </SafeAreaView>

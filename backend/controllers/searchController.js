@@ -191,7 +191,9 @@ const searchVillager = async (query) => {
 
 			villager[0].dataValues.Schedule = schedule;
 		}
-		return villager
+		return { results: villager, model: 'villagers' };
+		// return villager
+
 		// if villager array has more than 1 object
 
 		// if (villager !== null) {

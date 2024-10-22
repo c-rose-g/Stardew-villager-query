@@ -1,22 +1,40 @@
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, Button, Text, ScrollView } from 'react-native';
-import { CollapsibleResults } from '@/components/CollapsibleResults';
+import { SafeAreaView, View, TextInput, StyleSheet, Button, Text, Animated, Easing, ScrollView } from 'react-native';
 import { VillagerResults } from '../components/VillagerResults';
+import type { EasingFunction } from 'react-native';
 
 import { useSearch } from '@/hooks/useSearch';
+
 interface SearchBarProps {
-  onSearch: (query: string  | null ) => void;
+  onSearch: (query: string | null) => void;
 }
 
 export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
+  const opacity = useState(new Animated.Value(0))[0];
+  const height = useState(new Animated.Value(0))[0];
   const [query, setQuery] = useState('');
   const [submitted, setSubmitted] = useState(false);
-  const [searchError, setSearchError] = useState<string | null>(null); // State to track search errors
+  const [searchError, setSearchError] = useState<string | null>(null);
 
-  // destructure the hook
+  const animate = (easing: EasingFunction) => {
+    Animated.timing(opacity, {
+      toValue: 1,
+      duration: 400,
+      easing,
+      useNativeDriver: false,
+    }).start();
+
+    Animated.timing(height, {
+      toValue: 200, // Adjust based on desired final height of the results container
+      duration: 400,
+      easing,
+      useNativeDriver: false, // height animation cannot use the native driver
+    }).start();
+  };
+
   const { search, results, loading, error, model } = useSearch();
 
-  const handleSearch = async() =>{
+  const handleSearch = async () => {
     const searchResults = await search(query);
     setSubmitted(true);
 
@@ -24,57 +42,65 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
       setSearchError('No results found.');
     } else {
       setSearchError(null);
+      animate(Easing.out(Easing.ease)); // Trigger the animation when results are available
     }
-  }
-  // console.log('this is model:', model)
+  };
+
+  const animatedStyles = {
+    opacity,
+    height,
+  };
+
   return (
-    <>
-    <View style={styles.container}>
-      <TextInput
-        value={query}
-        placeholder="Search..."
-        style={styles.input}
-        onChangeText={setQuery}
-        onSubmitEditing={() => onSearch(query)}
-
-      />
-      <Button title='Search' onPress={handleSearch} />
+    <SafeAreaView>
+      <View style={styles.searchContainer}>
+        <TextInput
+          value={query}
+          placeholder="Search..."
+          style={styles.input}
+          onChangeText={setQuery}
+          onSubmitEditing={() => onSearch(query)}
+        />
+        <Button title="Search" onPress={handleSearch} />
       </View>
-      {loading && !results && <Text>Loading...</Text>}
       {submitted && !loading && results.length > 0 && (
-        <Text>{model === 'villagers' ? (<VillagerResults results={results} />)
-        : model === 'gifts' ? 'gifts'
-        : model === 'schedules' ? 'schedules' : 'no'
-        }</Text>
-
+        <Animated.View style={[styles.resultsContainer, animatedStyles]}>
+          <ScrollView>
+          <Text>
+            { model === 'villagers' ? (<VillagerResults results={results} />)
+            : model === 'gifts' ? 'gifts'
+            : model === 'schedules' ? 'schedules' : 'no'}
+          </Text>
+          </ScrollView>
+        </Animated.View>
       )}
-      {submitted && !loading && !results.length && error && <Text style={{ color: 'red' }}>{error}</Text>}
-      {/* <CollapsibleResults results={results} /> */}
-
-    </>
+      {submitted && !loading && !results.length && searchError && (
+        <Text style={{ color: 'red' }}>{searchError}</Text>
+      )}
+    </SafeAreaView>
   );
 };
+
 const styles = StyleSheet.create({
-  container: {
+  input: {
+    height: 40,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+  },
+  searchContainer: {
     padding: 10,
     backgroundColor: '#ffffff',
     borderRadius: 5,
     shadowColor: '#000',
     shadowOpacity: 0.1,
     shadowRadius: 5,
-    elevation: 3,
-
   },
-  input: {
-    height: 40,
-    borderColor: '#ccc',
-    borderWidth: 1,
+  resultsContainer: {
+    marginTop: 10,
+    backgroundColor: '#fff',
     borderRadius: 5,
-    paddingHorizontal: 50,
+    overflow: 'hidden', // Ensures smooth rounded corners during animation
   },
-  resultsContainer:{
-    height:200,
-  }
 });
-
-// export default Search

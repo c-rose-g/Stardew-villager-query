@@ -4,6 +4,7 @@ export const useSearch = () => {
   const [results, setResults] = useState([])
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [model, setModel] = useState('')
 
   const search = async (query: string) => {
     setLoading(true);
@@ -18,8 +19,9 @@ export const useSearch = () => {
       }
 
       let data = await response.json()
-      setResults(data);
-      // console.log('DATA in search >>>', data)
+      setResults(data.results);
+      setModel(data.model)
+      // console.log('this is data', data)
       return data
     } catch (err) {
 
@@ -30,5 +32,5 @@ export const useSearch = () => {
     }
   };
 
-  return { search, results, loading, error };
+  return { search, results, loading, error, model };
 };

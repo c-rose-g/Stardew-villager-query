@@ -2,12 +2,11 @@ import { useState } from 'react';
 
 export const useSearch = () => {
   const [results, setResults] = useState([])
-  const [loading, setLoading] = useState(false);
+
   const [error, setError] = useState<string | null>(null);
   const [model, setModel] = useState('')
 
   const search = async (query: string) => {
-    setLoading(true);
     setError(null);
 
     try {
@@ -21,15 +20,14 @@ export const useSearch = () => {
       let data = await response.json()
       setResults(data.results);
       setModel(data.model)
+      console.log('this is data in useSearch', data)
       return data
     } catch (err) {
 
       setError((err instanceof Error ? `Error: ${err.message}` : 'An error occurred'));
     }
-    finally {
-      setLoading(false);
-    }
+
   };
 
-  return { search, results, loading, error, model };
+  return { search, results, error, model };
 };

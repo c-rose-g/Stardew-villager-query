@@ -144,7 +144,7 @@ const searchGift = async (query) => {
 
 			return giftJSON;
 		});
-		return giftNeedsAVillager;
+		return {results: giftNeedsAVillager, model:"gifts"};
 	} catch (err) {
 		console.log(err);
 		throw new Error("There was an error searching for gifts");
@@ -155,34 +155,26 @@ const searchGift = async (query) => {
 // include schedule
 const searchVillager = async (query) => {
 	try {
-		let capitalizedVillager;
-		if (query.length >= 2) {
-			capitalizedVillager =
-				query.charAt(0).toUpperCase() + query.slice(1).toLowerCase();
-		} else if (query.length === 1) {
-			capitalizedVillager = query;
-		}
+		// let capitalizedVillager;
+		// if (query.length >= 2) {
+		// 	capitalizedVillager =
+		// 		query.charAt(0).toUpperCase() + query.slice(1).toLowerCase();
+		// } else if (query.length === 1) {
+		// 	capitalizedVillager = query;
+		// }
 		const villager = await Villager.findAll({
-			where: {
-				// name: {
-				// 	[Op.like]: capitalizedVillager,
-				// },
-				name: capitalizedVillager,
-			},
-			include: [
-				{
-					model: Gift,
-				},
-
-			],
+			where: {name: query},
+			include: [{model: Gift,}],
 			// limit: size,
 			// offset: size * (page - 1),
 		});
 
-		// if villager array only has 1 object, include schedule
-		if (villager.length === 1) {
+		if(!villager.length){
+			return false;
+		} else if (villager.length === 1) {
+			// if villager array only has 1 object, include schedule
 			id = villager[0]?.id;
-			// console.log(id)
+
 			const schedule = await Schedule.findAll({
 				where: {
 					villagerId: id,
@@ -192,26 +184,10 @@ const searchVillager = async (query) => {
 			villager[0].dataValues.Schedule = schedule;
 		}
 		return { results: villager, model: 'villagers' };
-		// return villager
 
-		// if villager array has more than 1 object
-
-		// if (villager !== null) {
-		// 	villager.Gifts.forEach((gift) => {
-		// 		delete gift.Villager_Gift.PreferenceId;
-		// 	});
-		// }
-		// for (obj in villager) {
-		// 	const gifts = villager.Gifts;
-		// 	for (let i = 0; i < gifts.length; i++) {
-		// 		let gift = gifts[i].Villager_Gift;
-
-		// 		delete gift.PreferenceId;
-		// 	}
-		// }
 	} catch (err) {
 		console.log(err);
-		throw new Error("There was an error searching for gifts");
+		throw new Error("There was an error searching for villagers");
 	}
 };
 

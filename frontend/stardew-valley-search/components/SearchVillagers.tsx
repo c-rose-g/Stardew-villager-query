@@ -5,7 +5,7 @@ import { useSearch } from '@/hooks/useSearch';
 import Villagers from '../../../backend/db/models/villager'
 type ComponentProps = {results: Array<any> }
 
-export const VillagerResults = ({results}:ComponentProps) => {
+export const SearchVillagers = ({results}:ComponentProps) => {
 
   // SearchBar handles search results,
   // VillagerResults takes results and adds info into JSX layout
@@ -43,7 +43,7 @@ export const VillagerResults = ({results}:ComponentProps) => {
 const styles = StyleSheet.create({
 
   container:{
-    borderColor:'#ffffff',
+    // borderColor:'#ffffff',
     // borderWidth: 1,
     // height:50,
   }

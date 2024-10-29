@@ -40,7 +40,6 @@ const search = async (req, res) => {
 
 		if (gifts) {
 			result = gifts;
-
 		} else if (villagers) {
 			result = villagers;
 		} else {
@@ -94,57 +93,65 @@ const searchGift = async (query) => {
 			},
 			include: [
 				{
-					model: Villager,
-					through: {
-						attributes: ["villagerId", "giftId", "preferenceId"],
-					},
-					attributes: {
-						exclude: [
-							"houseId",
-							"buildingId",
-							"marriage",
-							"sex",
-							"createdAt",
-							"updatedAt",
-						],
-					},
-				},
-				{
 					model: Villager_Gift.scope("withPreferenceName"),
 					as: "VillagerGifts",
 					attributes: { exclude: ["PreferenceId"] },
 				},
 			],
+			// include: [
+			// 	{
+			// 		model: Villager,
+			// 		through: {
+			// 			attributes: ["villagerId", "giftId", "preferenceId"],
+			// 		},
+			// 		attributes: {
+			// 			exclude: [
+			// 				"houseId",
+			// 				"buildingId",
+			// 				"marriage",
+			// 				"sex",
+			// 				"createdAt",
+			// 				"updatedAt",
+			// 			],
+			// 		},
+			// 	},
+			// 	{
+			// 		model: Villager_Gift.scope("withPreferenceName"),
+			// 		as: "VillagerGifts",
+			// 		attributes: { exclude: ["PreferenceId"] },
+			// 	},
+			// ],
 			// limit: size,
 			// offset: size * (page - 1),
 		});
 
 		if (!gifts.length) {
 			// return "Gift cannot be found, please try again :)";
-			return false
+			return false;
 		}
 
 		// if a gift has not been associated to a villager, return a message, otherwise return data
-		const giftNeedsAVillager = gifts.map((gift) => {
-			// jsonify the data
+		// const giftNeedsAVillager = gifts.map((gift) => {
+		// 	// jsonify the data
 
-			const giftJSON = gift.toJSON();
-			const hasVillagers =
-				Array.isArray(giftJSON.Villagers) && giftJSON.Villagers.length > 0;
-			const hasVillagerGifts =
-				Array.isArray(giftJSON.villagerGifts) &&
-				giftJSON.villagerGifts.length > 0;
+		// 	const giftJSON = gift.toJSON();
+		// 	const hasVillagers =
+		// 		Array.isArray(giftJSON.Villagers) && giftJSON.Villagers.length > 0;
+		// 	const hasVillagerGifts =
+		// 		Array.isArray(giftJSON.villagerGifts) &&
+		// 		giftJSON.villagerGifts.length > 0;
 
-			if (!hasVillagers && !hasVillagerGifts) {
-				return {
-					...giftJSON,
-					message: "This gift has no villager associated to it yet.",
-				};
-			}
+		// 	if (!hasVillagers && !hasVillagerGifts) {
+		// 		return {
+		// 			...giftJSON,
+		// 			message: "This gift has no villager associated to it yet.",
+		// 		};
+		// 	}
 
-			return giftJSON;
-		});
-		return {results: giftNeedsAVillager, model:"gifts"};
+		// 	return giftJSON;
+		// });
+		// return { results: giftNeedsAVillager, model: "gifts" };
+		return { results: gifts, model: "gifts" };
 	} catch (err) {
 		console.log(err);
 		throw new Error("There was an error searching for gifts");
@@ -163,13 +170,13 @@ const searchVillager = async (query) => {
 		// 	capitalizedVillager = query;
 		// }
 		const villager = await Villager.findAll({
-			where: {name: query},
-			include: [{model: Gift,}],
+			where: { name: query },
+			include: [{ model: Gift }],
 			// limit: size,
 			// offset: size * (page - 1),
 		});
 
-		if(!villager.length){
+		if (!villager.length) {
 			return false;
 		} else if (villager.length === 1) {
 			// if villager array only has 1 object, include schedule
@@ -183,8 +190,7 @@ const searchVillager = async (query) => {
 
 			villager[0].dataValues.Schedule = schedule;
 		}
-		return { results: villager, model: 'villagers' };
-
+		return { results: villager, model: "villagers" };
 	} catch (err) {
 		console.log(err);
 		throw new Error("There was an error searching for villagers");

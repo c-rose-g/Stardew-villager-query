@@ -46,15 +46,12 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    height: "100%",
-  },
+  container: {},
   searchContainer:{
-    height: 500,
-    // top:250,
+    // height: 300, // animate search container to move up when search results populate screen
+    height: 600,
     justifyContent: 'center',
-    alignContent:'center'
+    // alignContent:'center',
   },
   titleContainer: {
     flexDirection: 'row',

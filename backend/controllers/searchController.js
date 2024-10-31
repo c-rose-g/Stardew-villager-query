@@ -18,8 +18,7 @@ const {
 	Villager_Location,
 } = require("../db/models");
 
-const { Op, where } = require("sequelize");
-const villager = require("../db/models/villager");
+const { Op } = require("sequelize");
 // Search bar controller logic
 
 const search = async (req, res) => {
@@ -93,34 +92,15 @@ const searchGift = async (query) => {
 			},
 			include: [
 				{
-					model: Villager_Gift.scope("withPreferenceName"),
+					model: Villager_Gift,
 					as: "VillagerGifts",
-					attributes: { exclude: ["PreferenceId"] },
+					include: [
+						{ model: Villager, attributes: ["name"] },
+						{ model: Preference, attributes: ["name"] },
+					],
+					attributes: ["villagerId", "giftId", "preferenceId"],
 				},
 			],
-			// include: [
-			// 	{
-			// 		model: Villager,
-			// 		through: {
-			// 			attributes: ["villagerId", "giftId", "preferenceId"],
-			// 		},
-			// 		attributes: {
-			// 			exclude: [
-			// 				"houseId",
-			// 				"buildingId",
-			// 				"marriage",
-			// 				"sex",
-			// 				"createdAt",
-			// 				"updatedAt",
-			// 			],
-			// 		},
-			// 	},
-			// 	{
-			// 		model: Villager_Gift.scope("withPreferenceName"),
-			// 		as: "VillagerGifts",
-			// 		attributes: { exclude: ["PreferenceId"] },
-			// 	},
-			// ],
 			// limit: size,
 			// offset: size * (page - 1),
 		});
@@ -132,7 +112,7 @@ const searchGift = async (query) => {
 
 		// if a gift has not been associated to a villager, return a message, otherwise return data
 		// const giftNeedsAVillager = gifts.map((gift) => {
-		// 	// jsonify the data
+			// jsonify the data
 
 		// 	const giftJSON = gift.toJSON();
 		// 	const hasVillagers =
@@ -333,4 +313,4 @@ const searchSeason = async (query) => {
 	});
 	return season;
 };
-module.exports = { search };
+module.exports = { search, searchGift, searchVillager };

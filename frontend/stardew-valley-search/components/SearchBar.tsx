@@ -78,6 +78,7 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
       {/* <Animated.View > */}
 
         <View style={styles.searchContainer}>
+          <Text style={styles.title}>Type in a villager or giftable item in the search bar </Text>
           <TextInput
             value={query}
             placeholder="Search..."
@@ -111,6 +112,12 @@ const styles = StyleSheet.create({
   SafeAreaViewContainer:{
     // borderWidth:1,
     // borderColor:'yellow',
+  },
+  title:{
+    fontSize:20,
+    fontWeight:'300',
+    textAlign: 'center',
+
   },
   input: {
     height: 40,

@@ -304,6 +304,25 @@ module.exports = {
 			{ name: "Egg" },
 			{ name: "Goat Milk" },
 			{ name: "Milk" },
+			{ name: "Field Snack" },
+			{ name: "Tea Leaves" },
+			{ name: "Gold Bar" },
+			{ name: "Iridium Bar" },
+			{ name: "Omni Geode" },
+			{ name: "Copper Bar" },
+			{ name: "Iron Bar" },
+			{ name: "Coal" },
+			{ name: "Gold Ore" },
+			{ name: "Iridium Ore" },
+			{ name: "Refined Quartz" },
+			{ name: "Lemon Stone" },
+			{ name: "Solar Essence" },
+			{ name: "Void Essence" },
+			{ name: "Wool" },
+			{ name: "Lobster" }, //290
+			{ name: "Squid Ink" },
+			{ name: "Clay" },
+			{ name: "Truffle" }, //293
 		]);
 	},
 

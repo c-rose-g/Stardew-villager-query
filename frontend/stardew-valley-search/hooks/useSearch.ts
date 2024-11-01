@@ -10,7 +10,9 @@ export const useSearch = () => {
     setError(null);
 
     try {
-      const response = await fetch(`http://localhost:8000/search?query=${query}`);
+      // remove whitespace around the query
+      const sanitizedQuery = query.trim()
+      const response = await fetch(`http://localhost:8000/search?query=${sanitizedQuery}`);
 
       if (!response.ok) {
 

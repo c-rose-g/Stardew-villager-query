@@ -4,19 +4,31 @@ import { IndexPath, Layout, Select, SelectItem } from '@ui-kitten/components';
 
 type ComponentProps = { results : Array <any>}
 
-// interface IndexPath{
-//   row: number
-// }
-
 export const SearchGifts = ({results}:ComponentProps)=> {
-  const [selectedIdx, setSelectedIdx] = useState<IndexPath | IndexPath[]>(new IndexPath(0));
+  const [selectedIdx, setSelectedIdx] = useState<IndexPath>(new IndexPath(0));
+  const [selectedPreference, setSelectedPreference] = useState<string>("loves");
 
-  const villagerPreference = (idx:any) =>{
-    setSelectedIdx(idx)
-    
-  }
+  const preferences = ['loves', 'likes', 'is neutral about', 'dislikes', 'hates'];
 
-  console.log('this is selectedIdx =>', selectedIdx)
+  const handleSelect = (index: IndexPath | IndexPath[]) => {
+    const selectedIndex = Array.isArray(index) ? index[0] : index;
+    setSelectedIdx(selectedIndex);
+    setSelectedPreference(preferences[selectedIndex.row]);
+  };
+
+  const preferenceMap = {
+    'loves': 1,
+    'likes': 2,
+    'is neutral about': 3,
+    'dislikes': 4,
+    'hates': 5
+  };
+
+  const getVillagersByPreference = (villagerGifts: any[], preference: keyof typeof preferenceMap) => {
+    return villagerGifts.filter(vg => vg.preferenceId === preferenceMap[preference]);
+  };
+
+
   return (
     <ScrollView style={styles.container}>
       {results.map((result:{
@@ -36,28 +48,28 @@ export const SearchGifts = ({results}:ComponentProps)=> {
             {`${result.name}`}
           </Text>
           <Text style={styles.resultsText}>
-            {result.VillagerGifts?.length ? result.VillagerGifts.map(vg => (
+            {result.VillagerGifts?.length ? (
             // create a drop down list using Select from react native UI kitten
             // that allows me to toggle between Loves, Likes, Neautral, Dislikes, Hates and shows the villager with the gift preference
             // `Villagers [select] this gift`
-            <View key={index}>
-            <Layout level="1">
-              <Text>Villagers that
+            <View>
+              <Layout level="1">
                 <Select
                 selectedIndex={selectedIdx}
-                onSelect={idx => setSelectedIdx(idx)}
+                onSelect={handleSelect}
+                value={selectedPreference}
+                style={styles.selectContainer}
                 >
-                <SelectItem title='loves'/>
-                <SelectItem title='likes'/>
-                <SelectItem title='is neutral about'/>
-                <SelectItem title='dislikes'/>
-                <SelectItem title='hates'/>
-              </Select> it: {}
-                  </Text>
-            </Layout>
-
+                  {preferences.map((preference, idx) =>(
+                    <SelectItem key={idx} title={preference}/>
+                  ))}
+                </Select>
+              </Layout>
+              <Text>Villagers that {selectedPreference} this gift:</Text>
+              {getVillagersByPreference(result.VillagerGifts, selectedPreference as keyof typeof preferenceMap).map((vg, idx) => (
+                <Text key={idx}>{vg.Villager.name}</Text>
+                ))}
                 </View>
-          )
             )
 
 
@@ -73,21 +85,19 @@ export const SearchGifts = ({results}:ComponentProps)=> {
 const styles = StyleSheet.create({
   container:{
     borderWidth:1,
+    borderColor:'blue'
+
   },
   selectContainer:{
-    minHeight:128
+    height:30,
+    width:150,
   },
   title:{
     fontWeight:"bold",
     fontSize:20,
-    borderWidth:1,
-    // borderColor:'red',
-    // marginTop:30,
-    // display:'flex',
-    // justifyContent:'center'
+    textAlign: 'center',
   },
   resultsText:{
-    // fontSize:15,
-
+    fontSize:15,
   }
 })

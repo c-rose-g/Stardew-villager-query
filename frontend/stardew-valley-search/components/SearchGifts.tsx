@@ -8,7 +8,7 @@ export const SearchGifts = ({results}:ComponentProps)=> {
   const [selectedIdx, setSelectedIdx] = useState<IndexPath>(new IndexPath(0));
   const [selectedPreference, setSelectedPreference] = useState<string>("loves");
 
-  const preferences = ['loves', 'likes', 'is neutral about', 'dislikes', 'hates'];
+  const preferences = ['loves', 'likes', 'neutral', 'dislikes', 'hates'];
 
   const handleSelect = (index: IndexPath | IndexPath[]) => {
     const selectedIndex = Array.isArray(index) ? index[0] : index;
@@ -29,6 +29,8 @@ export const SearchGifts = ({results}:ComponentProps)=> {
   };
 
   return (
+    // <SafeAreaView>
+
     <ScrollView style={styles.scrollViewContainer}>
       {results.map((result: {
         id: number,
@@ -84,8 +86,8 @@ export const SearchGifts = ({results}:ComponentProps)=> {
                 </>
               ) :
               // ('No villager preferences for this gift')
-              <View style={{paddingTop:10, borderTopWidth:1, width:375}}>
-                <Text style={styles.resultsText}>No villager preferences for this gift</Text>
+              <View style={styles.resultsContainer}>
+                <Text style={[styles.resultsText,{paddingTop:10,paddingBottom:10}]}>No villager preferences for this gift</Text>
               </View>
               }
             </Text>
@@ -93,6 +95,7 @@ export const SearchGifts = ({results}:ComponentProps)=> {
         ) : <Text>There is nothing in Gifts</Text>
       ))}
     </ScrollView>
+
   )
 }
 
@@ -106,8 +109,11 @@ const styles = StyleSheet.create({
     borderColor:'ccc',
   },
   selectContainer:{
-    width: 112,
-    alignContent:'space-between'
+    minWidth: 128,
+    // marginRight:50,
+    // paddingRight:5,
+    // width:'auto',
+    // alignContent:'space-between'
   },
   selectText:{
     textAlign:'center',
@@ -115,9 +121,15 @@ const styles = StyleSheet.create({
   },
   resultsContainer:{
     paddingTop:10,
-    borderWidth:1,
+    // borderTopWidth:2,
+    borderBottomWidth:5,
     borderColor:'#ccc',
     width: 375,
+  },
+  noVillager:{
+    paddingTop:10,
+    borderTopWidth:1,
+    width:375,
   },
   title:{
     fontWeight:"bold",
@@ -126,7 +138,7 @@ const styles = StyleSheet.create({
     paddingTop:10,
   },
   resultsSubHeading:{
-    fontSize:18,
+    fontSize:20,
     textAlign: 'center',
     // borderTopWidth:1,
   },
@@ -149,5 +161,6 @@ const styles = StyleSheet.create({
   },
   villagerName: {
     fontWeight: "300",
+    // width:119,
   },
 })

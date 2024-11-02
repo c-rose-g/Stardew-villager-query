@@ -85,7 +85,6 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
             style={styles.input}
             onChangeText={setQuery}
             onSubmitEditing={() => onSearch(query)}
-            // onPress={handleClear}
             />
             {query !== '' && (
         <TouchableOpacity onPress={handleClear} style={styles.clearContainer}>
@@ -159,7 +158,7 @@ const styles = StyleSheet.create({
     left:330,
     top:11,
     // left:6,
-    width:20,
+    width:19,
     height:40,
     marginTop:-41,
 

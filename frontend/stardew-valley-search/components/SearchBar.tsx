@@ -114,7 +114,8 @@ const styles = StyleSheet.create({
     // borderColor:'yellow',
   },
   title:{
-    fontSize:20,
+    fontSize:15,
+    marginBottom:4,
     fontWeight:'300',
     textAlign: 'center',
 
@@ -136,9 +137,13 @@ const styles = StyleSheet.create({
   },
   resultsContainer: {
     marginTop: 10,
-    padding: 20,
     backgroundColor: '#fff',
     borderRadius: 5,
+    alignSelf: 'stretch',
     // overflow: 'visible', // Ensures smooth rounded corners during animation
+  },
+  row:{
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });

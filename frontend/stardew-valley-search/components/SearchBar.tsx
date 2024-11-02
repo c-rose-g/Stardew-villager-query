@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { SafeAreaView, View, TextInput, StyleSheet, Button, Text, Animated, Easing, ScrollView, FlatList } from 'react-native';
+import { SafeAreaView, View, TextInput, StyleSheet, Button, Text, Animated, Easing, TouchableOpacity, ScrollView, FlatList } from 'react-native';
 import { SearchVillagers } from './SearchVillagers';
 import { SearchGifts } from './SearchGifts';
 import type { EasingFunction } from 'react-native';
@@ -15,7 +15,6 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
   const opacity = useState(new Animated.Value(0))[0];
   const height = useState(new Animated.Value(0))[0];
   const searchBarAnim = useState(new Animated.Value(0))[0];
-
   const [query, setQuery] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
@@ -64,9 +63,10 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
       animate(Easing.out(Easing.ease)); // Trigger the animation when results are available
     }
   };
-
-
-
+  const handleClear = () => {
+    setQuery('');
+    setSubmitted(false);
+  }
   // console.log('this is model', model)
   const animatedStyles = {
     opacity,
@@ -85,7 +85,13 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
             style={styles.input}
             onChangeText={setQuery}
             onSubmitEditing={() => onSearch(query)}
+            // onPress={handleClear}
             />
+            {query !== '' && (
+        <TouchableOpacity onPress={handleClear} style={styles.clearContainer}>
+          <Text style={styles.clearButton}>X</Text>
+        </TouchableOpacity>
+      )}
           <Button title="Search" onPress={handleSearch} />
         </View>
         {submitted && results.length > 0 && (
@@ -145,5 +151,22 @@ const styles = StyleSheet.create({
   row:{
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  clearContainer:{
+    // borderWidth:1,
+    // borderColor:'green',
+    // bottom:5,
+    left:330,
+    top:11,
+    // left:6,
+    width:20,
+    height:40,
+    marginTop:-41,
+
+  },
+  clearButton:{
+    textAlign:'center',
+
+    fontWeight:'200'
   },
 });

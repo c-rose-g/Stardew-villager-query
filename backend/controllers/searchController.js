@@ -24,7 +24,7 @@ const { Op } = require("sequelize");
 const search = async (req, res) => {
 	// const { query, type, page, size } = req.query;
 	const { query } = req.query;
-	console.log("this is the query hitting the backend:", query);
+	// console.log("this is the query hitting the backend:", query);
 	try {
 		let result;
 		// parsedPage =

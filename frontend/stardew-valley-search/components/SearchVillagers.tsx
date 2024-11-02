@@ -13,16 +13,20 @@ export const SearchVillagers = ({results}:ComponentProps) => {
     <ScrollView style={styles.container}>
       {results.map((result: { name: string, Schedule: Array<{seasonId:number, description:string, startLocationId: number, endLocationId:number, startBuildingId:number, endBuildingId:number, time:number, weekday:string | null, weather:string | null, isFestival:boolean}>, buildingId: number, houseId:number, marriage: boolean, sex: string, Gifts: Array<{ name: string, Villager_Gift: { preferenceId: number } }> | null }, index) => (
           result.name ? (
+            <>
           <View key={index}>
-            <Text>
-              {`${result.name} is a villager.`}{"\n"}
-              {`${result.sex === 'Female' ? 'She' : 'He'} lives in ${result.buildingId? result.buildingId: result.houseId}.`}{"\n"}
-              {`They ${result.marriage ? 'are open' : 'are not open'} to marriage.`}
-            </Text>
-            <Text>{`Want to give ${result.name} a gift?`}</Text>
+            <Text style={styles.title}>{result.name}</Text>
+              <Text>
+                {/* {`${result.sex === 'Female' ? 'She' : 'He'} lives in ${result.buildingId? result.buildingId: result.houseId}.`}{"\n"} */}
+              {/* {`They ${result.marriage ? 'are open' : 'are not open'} to marriage.`} */}
+              </Text>
+            </View>
+            <View>
+
+            <Text style={styles.title}>{`Want to give ${result.name} a gift?`}</Text>
             {result.Gifts ? (
               result.Gifts.map((gift, giftIndex) => (
-                <Text key={giftIndex}>
+                <Text style={styles.text} key={giftIndex}>
                   {gift.Villager_Gift.preferenceId === 1 && `${gift.name} (Loved)`}
                   {gift.Villager_Gift.preferenceId === 2 && `${gift.name} (Liked)`}
                   {gift.Villager_Gift.preferenceId === 3 && `${gift.name} (Neutral)`}
@@ -31,9 +35,10 @@ export const SearchVillagers = ({results}:ComponentProps) => {
                 </Text>
               ))
             ) : (
-            <Text>{result.name} has no gifts they want.</Text>
-          )}
-        </View>
+              <Text>{result.name} has no gifts they want.</Text>
+            )}
+            </View>
+        </>
       ) : null
     ))}
     </ScrollView>
@@ -43,8 +48,19 @@ export const SearchVillagers = ({results}:ComponentProps) => {
 const styles = StyleSheet.create({
 
   container:{
-    // borderColor:'#ffffff',
-    // borderWidth: 1,
-    // height:50,
-  }
+    borderWidth: 1,
+    width:375,
+  },
+  title:{
+    fontSize:20,
+    textAlign:'center',
+  },
+  row:{
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  text: {
+    margin: 2,
+    paddingLeft:20,
+  },
 })

@@ -323,6 +323,20 @@ module.exports = {
 			{ name: "Squid Ink" },
 			{ name: "Clay" },
 			{ name: "Truffle" }, //293
+			{ name: "Large Goat Milk" },
+			{ name: "Golden Pumpkin" },
+			{ name: "Magic Rock Candy" },
+			{ name: "Pearl" },
+			{ name: "Rabbit's Foot" },
+			{ name: "Stardrop Tea" }, //299
+			{ name: "Pina Colada" },
+			{ name: "Sweet Gem Berry" },
+			{ name: "Large Milk" },
+			{ name: "Driftwood" },
+			{ name: "Void Egg" },
+			{ name: "Jack-O-Latern" },
+			{ name: "Green Algae" }, //306
+			{ name: "White Algae" },
 		]);
 	},
 

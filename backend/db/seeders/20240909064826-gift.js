@@ -108,7 +108,7 @@ module.exports = {
 			{ name: "Autumn's Bounty" },
 			{ name: "Pumpkin Soup" },
 			{ name: "Cranberry Sause" },
-			{ name: "Farmer's Lunck" },
+			{ name: "Farmer's Lunch" },
 			{ name: "Survival Burger" },
 			{ name: "Dish O' The Sea" },
 			{ name: "Miner's Treat" },
@@ -337,6 +337,7 @@ module.exports = {
 			{ name: "Jack-O-Latern" },
 			{ name: "Green Algae" }, //306
 			{ name: "White Algae" },
+			{ name: "Spice Berry" }, //307
 		]);
 	},
 

@@ -6,6 +6,7 @@ import { ThemedView } from '@/components/ThemedView';
 import { SearchBar } from '@/components/SearchBar'
 import { useSearch } from '@/hooks/useSearch';
 import { Collapsible } from '@/components/Collapsible';
+import { StatusBar } from 'expo-status-bar';
 
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, Layout, Text } from '@ui-kitten/components';
@@ -29,6 +30,8 @@ const HomeScreen = () => {
   return (
     <Layout>
       <SafeAreaView style={styles.container}>
+        <StatusBar style="auto" backgroundColor="#000" />
+
         <ParallaxScrollView
           renderBackground={() => (
             <View>
@@ -60,7 +63,8 @@ export default () => (
 
 const styles = StyleSheet.create({
   container: {
-
+    // flex: 1,
+    backgroundColor: '#000',
   },
   imageStyle:{
     height:300,

@@ -1553,7 +1553,7 @@ module.exports = {
 			// {villagerId: 29, giftId: , preferenceId: 4},
 			// {villagerId: 29, giftId: , preferenceId: 5},
 
-			// sebastian - need to add universals except dislike flowers
+			// sebastian - need to add universals except dislike flowers,hate eggs
 			{villagerId: 30, giftId: 309, preferenceId: 1},
 			{villagerId: 30, giftId: 210, preferenceId: 1},
 			{villagerId: 30, giftId: 77, preferenceId: 1},
@@ -1632,7 +1632,14 @@ module.exports = {
 			{villagerId: 30, giftId: 238, preferenceId: 4},
 			{villagerId: 30, giftId: 251, preferenceId: 4},
 
-			// {villagerId: 30, giftId: , preferenceId: 5},
+			{villagerId: 30, giftId: 292, preferenceId: 5},
+			{villagerId: 30, giftId: 41, preferenceId: 5},
+			{villagerId: 30, giftId: 79, preferenceId: 5},
+			{villagerId: 30, giftId: 35, preferenceId: 5},
+			{villagerId: 30, giftId: 300, preferenceId: 5},
+			{villagerId: 30, giftId: 270, preferenceId: 5},
+			{villagerId: 30, giftId: 272, preferenceId: 5},
+			{villagerId: 30, giftId: 310, preferenceId: 5},
 
 			// shane
 			// {villagerId: 31, giftId: , preferenceId: 1},

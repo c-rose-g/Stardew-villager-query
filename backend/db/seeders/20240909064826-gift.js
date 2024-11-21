@@ -107,7 +107,7 @@ module.exports = {
 			{ name: "Ice Cream" },
 			{ name: "Autumn's Bounty" },
 			{ name: "Pumpkin Soup" },
-			{ name: "Cranberry Sause" },
+			{ name: "Cranberry Sauce" },
 			{ name: "Farmer's Lunch" },
 			{ name: "Survival Burger" },
 			{ name: "Dish O' The Sea" },

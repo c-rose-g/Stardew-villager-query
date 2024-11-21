@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { SafeAreaView, View, TextInput, StyleSheet, Button, Text, Animated, Easing, TouchableOpacity, ScrollView, FlatList } from 'react-native';
+import { Input } from '@ui-kitten/components';
 import { SearchVillagers } from './SearchVillagers';
 import { SearchGifts } from './SearchGifts';
 import type { EasingFunction } from 'react-native';

@@ -34,12 +34,14 @@ const HomeScreen = () => {
             <View>
               <ImageBackground
                 source={require('@/assets/images/index-bg.png')}
+                // style={styles.imageStyle}
                 />
             </View>
           )}
           renderForeground={() => (
             <Animated.View style={{ opacity: fadeAnim, flex: 1 }}>
               <View style={styles.searchContainer}>
+
                 <SearchBar onSearch={() => {}} />
               </View>
             </Animated.View>
@@ -57,7 +59,12 @@ export default () => (
 );
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+
+  },
+  imageStyle:{
+    height:300,
+  },
   searchContainer:{
     // height: 300, // animate search container to move up when search results populate screen
     height: 600,

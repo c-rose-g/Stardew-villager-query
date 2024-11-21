@@ -1553,7 +1553,7 @@ module.exports = {
 			// {villagerId: 29, giftId: , preferenceId: 4},
 			// {villagerId: 29, giftId: , preferenceId: 5},
 
-			// sebastian - need to add universals
+			// sebastian - need to add universals except dislike flowers
 			{villagerId: 30, giftId: 309, preferenceId: 1},
 			{villagerId: 30, giftId: 210, preferenceId: 1},
 			{villagerId: 30, giftId: 77, preferenceId: 1},
@@ -1608,8 +1608,30 @@ module.exports = {
 			{ villagerId: 30, giftId: 196, preferenceId: 3 },
 			{ villagerId: 30, giftId: 162, preferenceId: 3 },
 
+			{villagerId: 30, giftId: 129, preferenceId: 4},
+			{villagerId: 30, giftId: 116, preferenceId: 4},
+			{villagerId: 30, giftId: 117, preferenceId: 4},
+			{villagerId: 30, giftId: 118, preferenceId: 4},
+			{villagerId: 30, giftId: 150, preferenceId: 4},
+			{villagerId: 30, giftId: 130, preferenceId: 4},
+			{villagerId: 30, giftId: 134, preferenceId: 4},
+			{villagerId: 30, giftId: 119, preferenceId: 4},
+			{villagerId: 30, giftId: 151, preferenceId: 4},
+			{villagerId: 30, giftId: 120, preferenceId: 4},
+			{villagerId: 30, giftId: 147, preferenceId: 4},
+			{villagerId: 30, giftId: 121, preferenceId: 4},
+			{villagerId: 30, giftId: 135, preferenceId: 4},
+			{villagerId: 30, giftId: 123, preferenceId: 4},
+			{villagerId: 30, giftId: 136, preferenceId: 4},
+			// flowers except poppy
+			{villagerId: 30, giftId: 126, preferenceId: 4},
+			{villagerId: 30, giftId: 132, preferenceId: 4},
+			{villagerId: 30, giftId: 223, preferenceId: 4},
+			{villagerId: 30, giftId: 212, preferenceId: 4},
+			{villagerId: 30, giftId: 236, preferenceId: 4},
+			{villagerId: 30, giftId: 238, preferenceId: 4},
+			{villagerId: 30, giftId: 251, preferenceId: 4},
 
-			// {villagerId: 30, giftId: , preferenceId: 4},
 			// {villagerId: 30, giftId: , preferenceId: 5},
 
 			// shane

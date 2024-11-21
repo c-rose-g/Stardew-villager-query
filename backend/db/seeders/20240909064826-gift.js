@@ -338,6 +338,7 @@ module.exports = {
 			{ name: "Green Algae" }, //306
 			{ name: "White Algae" },
 			{ name: "Spice Berry" }, //307
+			{ name: "Joja Cola" }, //308
 		]);
 	},
 

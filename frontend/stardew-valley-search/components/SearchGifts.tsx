@@ -101,7 +101,8 @@ export const SearchGifts = ({results}:ComponentProps)=> {
 
 const styles = StyleSheet.create({
   scrollViewContainer:{
-    width: 375
+    // width: 375
+    flex:1,
   },
   container:{
     width: 375,

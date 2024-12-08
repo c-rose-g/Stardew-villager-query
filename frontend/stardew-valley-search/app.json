@@ -13,13 +13,6 @@
     "ios": {
       "supportsTablet": true
     },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff",
-        "resizeMode": "cover"
-      }
-    },
     "web": {
       "bundler": "metro",
       "output": "static",
@@ -31,10 +24,6 @@
     ],
     "experiments": {
       "typedRoutes": true
-    },
-    "iosStatusBar": {
-      "hidden": false,
-      "style": "dark"
     }
   }
 }

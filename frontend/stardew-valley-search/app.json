@@ -31,6 +31,10 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "iosStatusBar": {
+      "hidden": false,
+      "style": "dark"
     }
   }
 }

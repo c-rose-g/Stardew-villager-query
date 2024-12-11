@@ -8,10 +8,8 @@ import { useSearch } from '@/hooks/useSearch';
 import { Collapsible } from '@/components/Collapsible';
 import { StatusBar } from 'expo-status-bar';
 
-import * as eva from '@eva-design/eva';
-import { ApplicationProvider, Layout, Text } from '@ui-kitten/components';
 
-const HomeScreen = () => {
+export default function HomeScreen () {
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -28,7 +26,6 @@ const HomeScreen = () => {
   }, [fadeAnim]);
 
   return (
-    <Layout>
       <SafeAreaView style={styles.container}>
         <StatusBar style="auto" backgroundColor="#000" />
 
@@ -51,15 +48,8 @@ const HomeScreen = () => {
           )}
           />
       </SafeAreaView>
-    </Layout>
   );
 }
-
-export default () => (
-  <ApplicationProvider {...eva} theme={eva.light}>
-    <HomeScreen />
-  </ApplicationProvider>
-);
 
 const styles = StyleSheet.create({
   container: {

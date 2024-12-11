@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, Button, Text, ScrollView } from 'react-native';
+import { View, TextInput, StyleSheet, Button, Text, ScrollView, SafeAreaView } from 'react-native';
 import { CollapsibleResults } from '@/components/CollapsibleResults';
 import { useSearch } from '@/hooks/useSearch';
 import Villagers from '../../../backend/db/models/villager'
@@ -10,15 +10,18 @@ export const SearchVillagers = ({results}:ComponentProps) => {
   // SearchBar handles search results,
   // VillagerResults takes results and adds info into JSX layout
   return(
-    <ScrollView style={styles.container}>
-      {results.map((result: { name: string, Schedule: Array<{seasonId:number, description:string, startLocationId: number, endLocationId:number, startBuildingId:number, endBuildingId:number, time:number, weekday:string | null, weather:string | null, isFestival:boolean}>, buildingId: number, houseId:number, marriage: boolean, sex: string, Gifts: Array<{ name: string, Villager_Gift: { preferenceId: number } }> | null }, index) => (
-          result.name ? (
-            <>
-          <View key={index}>
+
+    <SafeAreaView style={styles.container}>
+
+    {/* <View style={styles.container}> */}
+      {results.map((result: { id: number, name: string, Schedule: Array<{seasonId: number, description: string, startLocationId: number, endLocationId: number, startBuildingId: number, endBuildingId: number, time: number, weekday: string | null, weather: string | null, isFestival: boolean}>, buildingId: number, houseId: number, marriage: boolean, sex: string, Gifts: Array<{ name: string, Villager_Gift: { preferenceId: number } }> | null }, index) => (
+        result.name ? (
+          <>
+          <View key={result.id}>
             <Text style={styles.title}>{result.name}</Text>
               <Text>
-                {/* {`${result.sex === 'Female' ? 'She' : 'He'} lives in ${result.buildingId? result.buildingId: result.houseId}.`}{"\n"} */}
-              {/* {`They ${result.marriage ? 'are open' : 'are not open'} to marriage.`} */}
+                {`${result.sex === 'Female' ? 'She' : 'He'} lives in ${result.buildingId? result.buildingId: result.houseId}.`}{"\n"}
+              {`${result.sex === 'Female' ? 'She' : 'He'}${result.marriage ? 'are open' : 'are not open'} to marriage.`}
               </Text>
             </View>
             <View>
@@ -41,7 +44,9 @@ export const SearchVillagers = ({results}:ComponentProps) => {
         </>
       ) : null
     ))}
-    </ScrollView>
+    {/* </View> */}
+
+    </SafeAreaView>
   )
 }
 
@@ -49,7 +54,6 @@ const styles = StyleSheet.create({
 
   container:{
     borderWidth: 1,
-    width:375,
   },
   title:{
     fontSize:20,

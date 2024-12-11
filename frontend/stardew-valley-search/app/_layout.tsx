@@ -1,15 +1,13 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { View } from 'react-native';
 import { Stack } from 'expo-router';
 import { useState, useEffect } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import AnimatedSplashScreen from '../components/AnimatedSplashScreen';
-import { useColorScheme } from '@/hooks/useColorScheme';
-
+import { SafeAreaProvider  } from 'react-native-safe-area-context';
 // Prevent the default splash screen from hiding automatically
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
   const [isSplashVisible, setSplashVisible] = useState(true);
 
   useEffect(() => {
@@ -20,7 +18,9 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+
+    <View style={{flex:1}}>
+
       {isSplashVisible ? (
         <AnimatedSplashScreen />
       ) : (
@@ -29,6 +29,7 @@ export default function RootLayout() {
           <Stack.Screen name="+not-found" />
         </Stack>
       )}
-    </ThemeProvider>
+
+      </View>
   );
 }

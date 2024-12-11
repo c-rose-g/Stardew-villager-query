@@ -1,20 +1,22 @@
 import React, {useState} from "react";
 import { SafeAreaView, View, ScrollView, StyleSheet, Text } from "react-native";
-import { IndexPath, Layout, Select, SelectItem } from '@ui-kitten/components';
+// import { IndexPath, Layout, Select, SelectItem } from '@ui-kitten/components';
 
 type ComponentProps = { results : Array <any>}
-
+/*
+you need to replace the ui kitten drop down menu code for
+*/
 export const SearchGifts = ({results}:ComponentProps)=> {
-  const [selectedIdx, setSelectedIdx] = useState<IndexPath>(new IndexPath(0));
+  // const [selectedIdx, setSelectedIdx] = useState<IndexPath>(new IndexPath(0));
   const [selectedPreference, setSelectedPreference] = useState<string>("loves");
 
   const preferences = ['loves', 'likes', 'neutral', 'dislikes', 'hates'];
 
-  const handleSelect = (index: IndexPath | IndexPath[]) => {
-    const selectedIndex = Array.isArray(index) ? index[0] : index;
-    setSelectedIdx(selectedIndex);
-    setSelectedPreference(preferences[selectedIndex.row]);
-  };
+  // const handleSelect = (index: IndexPath | IndexPath[]) => {
+    // const selectedIndex = Array.isArray(index) ? index[0] : index;
+    // setSelectedIdx(selectedIndex);
+    // setSelectedPreference(preferences[selectedIndex.row]);
+  // };
 
   const preferenceMap = {
     'loves': 1,
@@ -54,13 +56,15 @@ export const SearchGifts = ({results}:ComponentProps)=> {
                 </View>
                   <View style={styles.resultsContainer}>
                     <Text style={styles.resultsSubHeading}>
-                      Villagers that <Layout level="1" >
+                      Villagers that
+                      {/* <Layout level="1" >
                         <Select style={styles.selectContainer}  selectedIndex={selectedIdx} onSelect={handleSelect} value={selectedPreference} placeholder={'preference'}>
                           {preferences.map((preference, idx) => (
                             <SelectItem key={idx} title={preference} />
                           ))}
                         </Select>
-                      </Layout> this gift:
+                      </Layout> */}
+                      this gift:
                     </Text>
                     {getVillagersByPreference(result.VillagerGifts, selectedPreference as keyof typeof preferenceMap)
                       .map((vg, idx) => (

@@ -1,14 +1,15 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { SafeAreaView, View, TextInput, StyleSheet, Button, Text, Animated, Easing, TouchableOpacity, ScrollView, FlatList } from 'react-native';
-import { Input } from '@ui-kitten/components';
+
 import { SearchVillagers } from './SearchVillagers';
 import { SearchGifts } from './SearchGifts';
 import type { EasingFunction } from 'react-native';
 
-import { useSearch } from '@/hooks/useSearch';
+import { useSearch } from '../hooks/useSearch';
 
 type SearchBarProps = {
   onSearch: (query: string | null) => void;
+  style?: object;
 }
 
 export const SearchBar = ({ onSearch }: SearchBarProps) => {
@@ -75,11 +76,10 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
   };
 
   return (
-    <SafeAreaView style={styles.SafeAreaViewContainer}>
-      {/* <Animated.View > */}
-
+    <SafeAreaView style={[styles.container]}>
         <View style={styles.searchContainer}>
-          <Text style={styles.title}>Type in a giftable villager or item in the search bar </Text>
+          <Text style={styles.title}>Search a giftable villager or item </Text>
+          <View style={styles.inputRow}>
           <TextInput
             value={query}
             placeholder="Search..."
@@ -88,10 +88,11 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
             onSubmitEditing={() => onSearch(query)}
             />
             {query !== '' && (
-        <TouchableOpacity onPress={handleClear} style={styles.clearContainer}>
+              <TouchableOpacity onPress={handleClear} style={styles.clearContainer}>
           <Text style={styles.clearButton}>X</Text>
         </TouchableOpacity>
       )}
+      </View>
           <Button title="Search" onPress={handleSearch} />
         </View>
         {submitted && results.length > 0 && (
@@ -108,22 +109,23 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
         {submitted && !results.length && searchError && (
           <Text style={{ color: 'red' }}>{searchError}</Text>
         )}
-
-      {/* </Animated.View> */}
-    </SafeAreaView>
+        </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  SafeAreaViewContainer:{
-    // borderWidth:1,
-    // borderColor:'yellow',
+  container:{
+    width:375,
   },
   title:{
-    fontSize:15,
-    marginBottom:4,
-    fontWeight:'400',
+    fontSize:20,
+    marginBottom:10,
+    marginTop:10,
+    fontWeight:'600',
     textAlign: 'center',
+  },
+  inputRow:{
+    flexDirection: 'row',
 
   },
   input: {
@@ -132,41 +134,44 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,
+    // flex:1,
+    width:360
   },
   searchContainer: {
-    padding: 10,
     backgroundColor: '#ffffff',
+
     borderRadius: 5,
-    // shadowColor: '#fff',
-    // shadowOpacity: 0.1,
-    // shadowRadius: 5,
+    padding: 10,
+    shadowColor: '#fff',
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
   },
   resultsContainer: {
     marginTop: 10,
     backgroundColor: '#fff',
     borderRadius: 5,
     alignSelf: 'stretch',
-    // overflow: 'visible', // Ensures smooth rounded corners during animation
+
+    // overflow: 'visible', // Esures smooth rounded corners during animation
   },
   row:{
-    flexDirection: 'row',
-    alignItems: 'center',
+    // flexDirection: 'row',
+    // alignItems: 'center',
   },
   clearContainer:{
+    // left:330,
+    // top:11,
+    // width:19,
+    // height:40,
+    // marginTop:-41,
     // borderWidth:1,
-    // borderColor:'green',
-    // bottom:5,
-    left:330,
-    top:11,
-    // left:6,
-    width:19,
-    height:40,
-    marginTop:-41,
-
+    // borderColor:'red',
+    right:20,
+    justifyContent:'center',
   },
   clearButton:{
-    textAlign:'center',
-
-    fontWeight:'200'
+    color:'#aaa',
+    // textAlign:'center',
+    fontWeight:'500'
   },
 });

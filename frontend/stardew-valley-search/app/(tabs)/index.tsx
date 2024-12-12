@@ -38,14 +38,8 @@ export default function HomeScreen ({renderBackground, renderForeground, childre
               </View>
               </Animated.View>
         </View>
-          <View>
-            <Animated.View style={{ flex: 1 }}>
-              <View style={styles.searchContainer}>
-                <SearchBar onSearch={() => {}} />
-                </View>
-                </Animated.View>
-          </View>
-          {/* <View>{children}</View> */}
+
+          <View>{children}</View>
       </ImageBackground>
       </View>
   );

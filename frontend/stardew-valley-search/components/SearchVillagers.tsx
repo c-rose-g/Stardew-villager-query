@@ -9,7 +9,7 @@ export const SearchVillagers = ({results}:ComponentProps) => {
   // VillagerResults takes results and adds info into JSX layout
   return (
     <SafeAreaView style={[styles.container]}>
-      <View style={[styles.box]}>
+      <View style={styles.box}>
       {results.map((result:{
         id: number;
         name: string;
@@ -51,8 +51,8 @@ export const SearchVillagers = ({results}:ComponentProps) => {
             <View key={result.id}>
               <Text style={[styles.subContainer, styles.title, {backgroundColor:'#d4e9f5', textAlign:'center'}]}>{result.name}</Text>
               <Image style={{ height:100, marginTop:5, marginBottom:5 }} resizeMode="contain" src='https://stardewvalleywiki.com/mediawiki/images/0/04/Alex.png'/>
-              <View style={{}}>
-              <Text style={[styles.subContainer, styles.title , {backgroundColor:'#14a006', color:'#fff', textAlign:'center'}]}>Facts</Text>
+              <View style={[styles.subContainer, {backgroundColor:'#14a006',justifyContent:'center',}]}>
+              <Text style={[styles.textShadow, styles.title, {color:'#fff', textAlign:'center'}]}>Facts</Text>
               </View>
               <View style={styles.row}>
                 <View style={[styles.subContainer, styles.greenContainer]}>
@@ -86,17 +86,20 @@ export const SearchVillagers = ({results}:ComponentProps) => {
                               acc[preference] = [];
                             }
                             acc[preference].push(gift.Gift.name);
+                            console.log(acc[preference], preference)
                             return acc;
                           }, {})
-                        ).map(([preference, gifts]) => (
+                        ).sort(([a], [b]) => {
+                          const order = ["Loves", "Likes", "Neutrals", "Dislikes", "Hates"];
+                          return order.indexOf(a) - order.indexOf(b);
+                        })
+                        .map(([preference, gifts]) => (
                           <View key={preference}>
                             <Text style={styles.preference}>{preference}</Text>
-                            {/* <View style={{flexDirection:'row'}}> */}
 
                             {(gifts as string[]).map((gift, idx) => (
                               <Text style={styles.text} key={idx}>{gift}</Text>))}
                               </View>
-                              // </View>
                               ))
                   ) : (
                     <View>
@@ -119,14 +122,19 @@ export const SearchVillagers = ({results}:ComponentProps) => {
 const styles = StyleSheet.create({
 
   container:{
-    backgroundColor:"#bffaf4",
+    backgroundColor:"#97cbed",
     alignItems:'center',
     padding:20,
   },
   subContainer:{
-    borderWidth:.5,
+    // borderWidth:.5,
     margin:2,
-    borderColor:'#95c1da',
+    // borderColor:'#95c1da',
+    borderColor:'#12185b',
+    shadowColor: '#12185b',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 5,
+    shadowRadius: 1,
   },
   greenContainer:{
     backgroundColor:'#14a006',
@@ -148,6 +156,8 @@ const styles = StyleSheet.create({
     fontSize:20,
     fontFamily: "Arial",
     fontWeight: 'bold',
+    marginTop:2,
+    marginBottom:2,
   },
   row:{
     flexDirection: 'row',

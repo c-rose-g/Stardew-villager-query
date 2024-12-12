@@ -112,7 +112,7 @@ const searchGift = async (query) => {
 
 		// if a gift has not been associated to a villager, return a message, otherwise return data
 		// const giftNeedsAVillager = gifts.map((gift) => {
-			// jsonify the data
+		// jsonify the data
 
 		// 	const giftJSON = gift.toJSON();
 		// 	const hasVillagers =
@@ -151,25 +151,38 @@ const searchVillager = async (query) => {
 		// }
 		const villager = await Villager.findAll({
 			where: { name: query },
-			include: [{ model: Gift }],
+			// include: [{ model: Gift }],
+			include: [
+				{
+					model: Villager_Gift,
+					as: "VillagerGifts",
+					include: [
+						{ model: Villager, attributes: ["name"] },
+						{ model: Preference, attributes: ["name"] },
+						{ model: Gift, attributes: ["name"] },
+					],
+					attributes: ["villagerId", "giftId", "preferenceId"],
+				},
+			],
 			// limit: size,
 			// offset: size * (page - 1),
 		});
 
 		if (!villager.length) {
 			return false;
-		} else if (villager.length === 1) {
-			// if villager array only has 1 object, include schedule
-			id = villager[0]?.id;
-
-			const schedule = await Schedule.findAll({
-				where: {
-					villagerId: id,
-				},
-			});
-
-			villager[0].dataValues.Schedule = schedule;
 		}
+		// else if (villager.length === 1) {
+		// 	// if villager array only has 1 object, include schedule
+		// 	id = villager[0]?.id;
+
+		// 	const schedule = await Schedule.findAll({
+		// 		where: {
+		// 			villagerId: id,
+		// 		},
+		// 	});
+
+		// 	villager[0].dataValues.Schedule = schedule;
+		// }
 		return { results: villager, model: "villagers" };
 	} catch (err) {
 		console.log(err);

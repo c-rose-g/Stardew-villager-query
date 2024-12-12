@@ -73,30 +73,6 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
     handleClear()
   };
 
-  const resultsTrue = async () =>{
-    <Animated.View style={[styles.resultsContainer, animatedStyles]}>
-            <ScrollView>
-            <View>
-              <Text>
-                { model === 'villagers' ? (<SearchVillagers results={results} />)
-                :  (<SearchGifts results={results}/>)
-                }
-              </Text>
-            </View>
-            </ScrollView>
-          </Animated.View>
-  }
-
-  const noResults = async () => {
-    <Animated.View style={[styles.resultsContainer, animatedStyles]}>
-            <ScrollView>
-              <View>
-                <Text>{searchError}</Text>
-              </View>
-            </ScrollView>
-          </Animated.View>
-  }
-
   // console.log('this is model', model)
   const animatedStyles = {
     opacity,
@@ -117,6 +93,9 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
                 onChangeText={setQuery}
                 clearButtonMode='while-editing'
                 onSubmitEditing={() => onSearch(query)}
+                // enablesReturnKeyAutomatically = {true}
+                keyboardAppearance='dark'
+                enterKeyHint='done'
                 />
                 {query !== '' && (
                   <TouchableOpacity onPress={handleClear} >
@@ -130,8 +109,8 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
 
         </View>
         {submitted && results.length > 0 && (
-          <Animated.View style={[styles.resultsContainer, animatedStyles]}>
-            <View>
+          <Animated.View style={[animatedStyles]}>
+            <View style={styles.resultsContainer}>
               <ScrollView>
 
               <Text>
@@ -161,6 +140,10 @@ const styles = StyleSheet.create({
   container:{
     // width:375,
     // flex:1,
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
   },
   title:{
     fontSize:20,
@@ -181,24 +164,22 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     flex:1,
-    justifyContent:'center',
-    // width:375
+    // justifyContent:'center',
   },
   searchContainer: {
     backgroundColor: '#ffffff',
-    borderRadius: 5,
 
+    borderRadius: 5,
     paddingTop:10,
     paddingBottom:10,
-    shadowColor: '#fff',
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
   },
   resultsContainer: {
     marginTop: 10,
-    backgroundColor: '#fff',
+    backgroundColor:'#97c9e8',
     borderRadius: 5,
     alignSelf: 'stretch',
+    height:500,
+    // height:'auto',
     // overflow: 'visible', // Esures smooth rounded corners during animation
   },
   row:{

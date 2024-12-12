@@ -49,16 +49,16 @@ export const SearchVillagers = ({results}:ComponentProps) => {
 
           return result.name ? (
             <View key={result.id}>
-              <Text style={[styles.subContainer, styles.title, {backgroundColor:'#d4e9f5', textAlign:'center'}]}>{result.name}</Text>
+              <Text style={[ styles.title,styles.subContainer, {backgroundColor:'#d4e9f5', textAlign:'center'}]}>{result.name}</Text>
               <Image style={{ height:100, marginTop:5, marginBottom:5 }} resizeMode="contain" src='https://stardewvalleywiki.com/mediawiki/images/0/04/Alex.png'/>
-              <View style={[styles.subContainer, {backgroundColor:'#14a006',justifyContent:'center',}]}>
+              <View style={[ styles.subContainer, {backgroundColor:'#14a006',justifyContent:'center',}]}>
               <Text style={[styles.textShadow, styles.title, {color:'#fff', textAlign:'center'}]}>Facts</Text>
               </View>
               <View style={styles.row}>
-                <View style={[styles.subContainer, styles.greenContainer]}>
+                <View style={[styles.subContainer, styles.greenContainer, ]}>
                   <Text style={[styles.title, styles.textShadow, {textAlign:'center',}]}>Home</Text>
                 </View>
-                <Text style={[styles.subContainer, styles.infoContainer]}>
+                <Text style={[styles.infoContainer, {margin:2,}]}>
                   {`${result.sex === 'Female' ? 'She' : 'He'} lives ${house ? `at ${house.address}` : building ? `at ${building.name}` : 'at an unknown location'}.`}
                   </Text>
               </View>
@@ -66,7 +66,7 @@ export const SearchVillagers = ({results}:ComponentProps) => {
                   <View style={[styles.subContainer, styles.greenContainer]}>
                     <Text style={[styles.title, styles.textShadow, {textAlign:'center',}]}>Marriage</Text>
                   </View>
-                  <Text style={[styles.subContainer, styles.infoContainer]}>
+                  <Text style={[styles.infoContainer, {margin:2,}]}>
                     {`${result.sex === 'Female' ? 'She' : 'He'}${result.marriage ? ' is open' : ' is not open'} to marriage. `}
                     </Text>
               </View>
@@ -76,7 +76,7 @@ export const SearchVillagers = ({results}:ComponentProps) => {
                   <View style={[styles.subContainer, styles.greenContainer]}>
                     <Text style={[styles.title, styles.textShadow, {textAlign:'center'}]}>{`Gift Ideas`}</Text>
                     </View>
-                    <View style={[styles.subContainer, styles.infoContainer]}>
+                    <View style={[styles.infoContainer, {margin:2,}]}>
 
                       {result.VillagerGifts.length ? (
                         Object.entries(
@@ -125,16 +125,18 @@ const styles = StyleSheet.create({
     backgroundColor:"#97cbed",
     alignItems:'center',
     padding:20,
+
   },
   subContainer:{
     // borderWidth:.5,
+
     margin:2,
     // borderColor:'#95c1da',
     borderColor:'#12185b',
     shadowColor: '#12185b',
     shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 5,
-    shadowRadius: 1,
+    shadowOpacity: .5,
+    shadowRadius: .5,
   },
   greenContainer:{
     backgroundColor:'#14a006',
@@ -169,6 +171,12 @@ const styles = StyleSheet.create({
   },
   textShadow:{
     shadowColor: '#12185b',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 1,
+    shadowRadius: 1,
+    color:'#fff'
+  },
+  upperTextShadow:{ shadowColor: '#12185b',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 1,
     shadowRadius: 1,

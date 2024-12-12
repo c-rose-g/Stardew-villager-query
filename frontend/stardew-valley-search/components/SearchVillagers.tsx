@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, Button, Text, ScrollView, SafeAreaView } from 'react-native';
+import { View, TextInput, StyleSheet, Button, Text, ScrollView, SafeAreaView, Image } from 'react-native';
 
 type ComponentProps = {results: Array<any> }
 
@@ -8,10 +8,8 @@ export const SearchVillagers = ({results}:ComponentProps) => {
   // SearchBar handles search results,
   // VillagerResults takes results and adds info into JSX layout
   return (
-    <SafeAreaView >
-
-    {/* <ScrollView style={styles.scrollContainer}> */}
-      <View style={styles.box}>
+    <SafeAreaView style={[styles.container]}>
+      <View style={[styles.box]}>
       {results.map((result:{
         id: number;
         name: string;
@@ -51,53 +49,69 @@ export const SearchVillagers = ({results}:ComponentProps) => {
 
           return result.name ? (
             <View key={result.id}>
-              <Text style={styles.title}>{result.name}</Text>
-              <Text>
-                {`${result.sex === 'Female' ? 'She' : 'He'} lives ${
-                  house ? `at ${house.address}` : building ? `at ${building.name}` : 'at an unknown location'
-                }.`}
-                {'\n'}
-                {`${result.sex === 'Female' ? 'She' : 'He'}${
-                  result.marriage ? ' is open' : ' is not open'
-                } to marriage.`}
-              </Text>
-              <View style ={{borderWidth:1, borderColor:'blue'}}>
-                <Text style={styles.title}>{`Want to give ${result.name} a gift?`}</Text>
-                {/* <View> */}
-
-                {/* </View> */}
-                {result.VillagerGifts ? (
-                  Object.entries(
-                    result.VillagerGifts.reduce((acc: any, gift: any) => {
-                      const preference = gift.Preference.name;
-                      if (!acc[preference]) {
-                        acc[preference] = [];
-                      }
-                      acc[preference].push(gift.Gift.name);
-                      return acc;
-                    }, {})
-                  ).map(([preference, gifts]) => (
-                    <View key={preference}>
-                      <Text style={styles.preference}>{preference}</Text>
-                      {(gifts as string[]).map((gift, idx) => (
-                        <Text style={styles.text} key={idx}>
-                          {gift}
-                        </Text>
-                      ))}
-                    </View>
-                  ))
-                ) : (
-                  <View>
-                  <Text style={{borderWidth:1, borderColor:'grey'}}>{result.name} has no gifts they want.</Text>
+              <Text style={[styles.subContainer, styles.title, {backgroundColor:'#d4e9f5', textAlign:'center'}]}>{result.name}</Text>
+              <Image style={{ height:100, marginTop:5, marginBottom:5 }} resizeMode="contain" src='https://stardewvalleywiki.com/mediawiki/images/0/04/Alex.png'/>
+              <View style={{}}>
+              <Text style={[styles.subContainer, styles.title , {backgroundColor:'#14a006', color:'#fff', textAlign:'center'}]}>Facts</Text>
+              </View>
+              <View style={styles.row}>
+                <View style={[styles.subContainer, styles.greenContainer]}>
+                  <Text style={[styles.title, styles.textShadow, {textAlign:'center',}]}>Home</Text>
+                </View>
+                <Text style={[styles.subContainer, styles.infoContainer]}>
+                  {`${result.sex === 'Female' ? 'She' : 'He'} lives ${house ? `at ${house.address}` : building ? `at ${building.name}` : 'at an unknown location'}.`}
+                  </Text>
+              </View>
+              <View style={styles.row}>
+                  <View style={[styles.subContainer, styles.greenContainer]}>
+                    <Text style={[styles.title, styles.textShadow, {textAlign:'center',}]}>Marriage</Text>
                   </View>
-                )}
+                  <Text style={[styles.subContainer, styles.infoContainer]}>
+                    {`${result.sex === 'Female' ? 'She' : 'He'}${result.marriage ? ' is open' : ' is not open'} to marriage. `}
+                    </Text>
+              </View>
+
+
+                <View style={{flexDirection:'row'}}>
+                  <View style={[styles.subContainer, styles.greenContainer]}>
+                    <Text style={[styles.title, styles.textShadow, {textAlign:'center'}]}>{`Gift Ideas`}</Text>
+                    </View>
+                    <View style={[styles.subContainer, styles.infoContainer]}>
+
+                      {result.VillagerGifts.length ? (
+                        Object.entries(
+                          result.VillagerGifts.reduce((acc: any, gift: any) => {
+                            const preference = gift.Preference.name;
+                            if (!acc[preference]) {
+                              acc[preference] = [];
+                            }
+                            acc[preference].push(gift.Gift.name);
+                            return acc;
+                          }, {})
+                        ).map(([preference, gifts]) => (
+                          <View key={preference}>
+                            <Text style={styles.preference}>{preference}</Text>
+                            {/* <View style={{flexDirection:'row'}}> */}
+
+                            {(gifts as string[]).map((gift, idx) => (
+                              <Text style={styles.text} key={idx}>{gift}</Text>))}
+                              </View>
+                              // </View>
+                              ))
+                  ) : (
+                    <View>
+                    <Text>{result.name} has no gifts they want.</Text>
+                    </View>
+                  )}
+                </View>
               </View>
             </View>
+
           ) : null;
         }
       )}
+
       </View>
-      {/* </ScrollView> */}
     </SafeAreaView>
   );
 }
@@ -105,25 +119,35 @@ export const SearchVillagers = ({results}:ComponentProps) => {
 const styles = StyleSheet.create({
 
   container:{
-    // flex:1,
-    // height: 150,
-    // backgroundColor: 'lightblue',
-    // margin: 10,
-    // padding: 20,
+    backgroundColor:"#bffaf4",
+    alignItems:'center',
+    padding:20,
   },
-  // scrollContainer: {
-  //   flexGrow: 1,
-  // },
-  box:{
-    flex:1,
-    // height: 150,
+  subContainer:{
+    borderWidth:.5,
+    margin:2,
+    borderColor:'#95c1da',
+  },
+  greenContainer:{
+    backgroundColor:'#14a006',
     justifyContent:'center',
+    width:100,
+  },
+  infoContainer:{
+    backgroundColor:'#d4e9f5',
+    width:247,
+    paddingBottom:5,
+  },
+  box:{
+    // justifyContent:'center',
     width:375,
-    marginLeft:14,
+    borderWidth:10,
+    borderColor:'#f99304',
   },
   title:{
     fontSize:20,
-    textAlign:'center',
+    fontFamily: "Arial",
+    fontWeight: 'bold',
   },
   row:{
     flexDirection: 'row',
@@ -133,9 +157,18 @@ const styles = StyleSheet.create({
     margin: 2,
     paddingLeft:20,
   },
+  textShadow:{
+    shadowColor: '#12185b',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 1,
+    shadowRadius: 1,
+    color:'#fff'
+  },
   preference: {
     fontSize: 18,
     fontWeight: 'bold',
     marginTop: 10,
+    fontFamily: "Arial",
+
   },
 })

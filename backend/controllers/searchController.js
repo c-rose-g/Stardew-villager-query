@@ -1,3 +1,4 @@
+const { default: ModelManager } = require("sequelize/lib/model-manager");
 const {
 	Building,
 	Calendar,
@@ -163,7 +164,10 @@ const searchVillager = async (query) => {
 					],
 					attributes: ["villagerId", "giftId", "preferenceId"],
 				},
+				{ model: Building },
+				{ model: House },
 			],
+			// include:[{ model: Building }]
 			// limit: size,
 			// offset: size * (page - 1),
 		});

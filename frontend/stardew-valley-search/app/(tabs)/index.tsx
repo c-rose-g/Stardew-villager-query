@@ -1,15 +1,16 @@
 import React, {useEffect, useRef} from 'react';
-import {SafeAreaView, ImageBackground, Image, StyleSheet, Platform, View, Animated } from 'react-native';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import {SafeAreaView, Animated, ImageBackground, Image, StyleSheet, Platform, View } from 'react-native';
 import { SearchBar } from '@/components/SearchBar'
-import { useSearch } from '@/hooks/useSearch';
-import { Collapsible } from '@/components/Collapsible';
 import { StatusBar } from 'expo-status-bar';
 
+type ParallaxScrollViewProps = {
 
-export default function HomeScreen () {
+  renderBackground: () => React.ReactElement;
+  renderForeground: () => React.ReactElement;
+  children?: React.ReactNode;
+};
+
+export default function HomeScreen ({renderBackground, renderForeground, children}: ParallaxScrollViewProps) {
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -25,35 +26,34 @@ export default function HomeScreen () {
     startAnimation();
   }, [fadeAnim]);
 
+
   return (
-      <SafeAreaView style={styles.container}>
-        <StatusBar style="auto" backgroundColor="#000" />
-
-        <ParallaxScrollView
-          renderBackground={() => (
-            <View>
-              <ImageBackground
-                source={require('@/assets/images/index-bg.png')}
-                // style={styles.imageStyle}
-                />
-            </View>
-          )}
-          renderForeground={() => (
-            <Animated.View style={{ opacity: fadeAnim, flex: 1 }}>
-              <View style={styles.searchContainer}>
-
-                <SearchBar onSearch={() => {}} />
+      <View style={styles.container}>
+        <StatusBar style="auto" />
+        <ImageBackground source={require('@/assets/images/index-bg.png')} style={styles.background}>
+        <View>
+          <Animated.View style={{ opacity: fadeAnim, flex: 1 }}>
+            <View style={styles.searchContainer}>
+              <SearchBar onSearch={() => {}} />
               </View>
-            </Animated.View>
-          )}
-          />
-      </SafeAreaView>
+              </Animated.View>
+        </View>
+          <View>
+            <Animated.View style={{ flex: 1 }}>
+              <View style={styles.searchContainer}>
+                <SearchBar onSearch={() => {}} />
+                </View>
+                </Animated.View>
+          </View>
+          {/* <View>{children}</View> */}
+      </ImageBackground>
+      </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
+    flex: 1,
     backgroundColor: '#000',
   },
   imageStyle:{
@@ -61,13 +61,17 @@ const styles = StyleSheet.create({
   },
   searchContainer:{
     // height: 300, // animate search container to move up when search results populate screen
-    height: 600,
+    height: 800,
     justifyContent: 'center',
-    // alignContent:'center',
+    alignContent:'center',
   },
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
+  },
+  background: {
+    flex:1,
+    height:'100%'
   },
 });

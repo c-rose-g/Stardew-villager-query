@@ -144,42 +144,42 @@
 //   },
 // });
 
-import React from 'react';
-import {SafeAreaView, View, StyleSheet } from 'react-native';
-import Animated from 'react-native-reanimated';
-import { ImageBackground } from 'react-native';
+// import React from 'react';
+// import {SafeAreaView, View, StyleSheet } from 'react-native';
+// import Animated from 'react-native-reanimated';
+// import { ImageBackground } from 'react-native';
 
-type ParallaxScrollViewProps = {
+// type ParallaxScrollViewProps = {
 
-  renderBackground: () => React.ReactElement;
-  renderForeground: () => React.ReactElement;
-  children?: React.ReactNode;
-};
+//   renderBackground: () => React.ReactElement;
+//   renderForeground: () => React.ReactElement;
+//   children?: React.ReactNode;
+// };
 
-export default function ParallaxScrollView({renderBackground, renderForeground,children,}: ParallaxScrollViewProps) {
-  return (
-    <SafeAreaView style={[styles.container]}>
-      <ImageBackground source={require('../assets/images/index-bg.png')} style={styles.background}>
-        <View>
-          {renderBackground()}
-        </View>
-        <Animated.ScrollView>
-          <View>
-            {renderForeground()}
-          </View>
-          <View>{children}</View>
-        </Animated.ScrollView>
-      </ImageBackground>
-    </SafeAreaView>
-  );
-}
+// export default function ParallaxScrollView({renderBackground, renderForeground,children,}: ParallaxScrollViewProps) {
+//   return (
+//     <SafeAreaView style={[styles.container]}>
+//       <ImageBackground source={require('../assets/images/index-bg.png')} style={styles.background}>
+//         <View>
+//           {renderBackground()}
+//         </View>
+//         <Animated.ScrollView>
+//           <View>
+//             {renderForeground()}
+//           </View>
+//           <View>{children}</View>
+//         </Animated.ScrollView>
+//       </ImageBackground>
+//     </SafeAreaView>
+//   );
+// }
 
-const styles = StyleSheet.create({
-  container: {
-    // flex: 1
-  },
-  background: {
-    // flex:1
-    height:'100%'
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     // flex: 1
+//   },
+//   background: {
+//     // flex:1
+//     height:'100%'
+//   },
+// });

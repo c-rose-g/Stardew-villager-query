@@ -16,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
 			// One villager may have a birthday event in the calendar
 			Villager.hasMany(models.Calendar, { foreignKey: "villagerBirthdayId" });
 			Villager.hasMany(models.Schedule, { foreignKey: "villagerId" });
+			Villager.hasMany(models.Villager_Gift, {
+				as: 'VillagerGifts',
+				foreignKey:'villagerId'
+			})
 			// Creates junction table 'Villager_Gifts'
 			Villager.belongsToMany(models.Gift, {
 				through: models.Villager_Gift,
@@ -31,6 +35,7 @@ module.exports = (sequelize, DataTypes) => {
 				through: models.Villager_Gift,
 				foreignKey: "preferenceId",
 			});
+
 		}
 	}
 	Villager.init(

@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { SafeAreaView, View, TextInput, StyleSheet, Button, Text, Animated, Easing, TouchableOpacity, ScrollView, FlatList } from 'react-native';
+import { SafeAreaView, View, TextInput, StyleSheet, Button, Text, Animated, Easing, TouchableOpacity, ScrollView, Keyboard, TouchableWithoutFeedback } from 'react-native';
 
 import { SearchVillagers } from './SearchVillagers';
 import { SearchGifts } from './SearchGifts';
+import { Ionicons } from '@expo/vector-icons';
 import type { EasingFunction } from 'react-native';
 
 import { useSearch } from '../hooks/useSearch';
@@ -53,6 +54,11 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
 
 
   const { search, results, error, model } = useSearch();
+  const handleClear = () => {
+    setQuery('');
+    // setSubmitted(false);
+    // Keyboard.dismiss()
+  }
 
   const handleSearch = async () => {
     const searchResults = await search(query);
@@ -64,11 +70,33 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
       setSearchError(null);
       animate(Easing.out(Easing.ease)); // Trigger the animation when results are available
     }
+    handleClear()
   };
-  const handleClear = () => {
-    setQuery('');
-    setSubmitted(false);
+
+  const resultsTrue = async () =>{
+    <Animated.View style={[styles.resultsContainer, animatedStyles]}>
+            <ScrollView>
+            <View>
+              <Text>
+                { model === 'villagers' ? (<SearchVillagers results={results} />)
+                :  (<SearchGifts results={results}/>)
+                }
+              </Text>
+            </View>
+            </ScrollView>
+          </Animated.View>
   }
+
+  const noResults = async () => {
+    <Animated.View style={[styles.resultsContainer, animatedStyles]}>
+            <ScrollView>
+              <View>
+                <Text>{searchError}</Text>
+              </View>
+            </ScrollView>
+          </Animated.View>
+  }
+
   // console.log('this is model', model)
   const animatedStyles = {
     opacity,
@@ -76,38 +104,54 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
   };
 
   return (
-    <SafeAreaView style={[styles.container]}>
+    <SafeAreaView style={styles.container}>
         <View style={styles.searchContainer}>
           <Text style={styles.title}>Search a giftable villager or item </Text>
-          <View style={styles.inputRow}>
-          <TextInput
-            value={query}
-            placeholder="Search..."
-            style={styles.input}
-            onChangeText={setQuery}
-            onSubmitEditing={() => onSearch(query)}
-            />
-            {query !== '' && (
-              <TouchableOpacity onPress={handleClear} style={styles.clearContainer}>
-          <Text style={styles.clearButton}>X</Text>
-        </TouchableOpacity>
-      )}
-      </View>
-          <Button title="Search" onPress={handleSearch} />
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View>
+              <View style={styles.inputRow}>
+                <TextInput
+                value={query}
+                placeholder="Search..."
+                style={styles.input}
+                onChangeText={setQuery}
+                clearButtonMode='while-editing'
+                onSubmitEditing={() => onSearch(query)}
+                />
+                {query !== '' && (
+                  <TouchableOpacity onPress={handleClear} >
+                    <Ionicons name="close-circle" size={30} color="#aaa" style={styles.clearContainer} />
+                  </TouchableOpacity>
+                )}
+              </View>
+                <Button title="Search" onPress={handleSearch} />
+            </View>
+          </TouchableWithoutFeedback>
+
         </View>
         {submitted && results.length > 0 && (
           <Animated.View style={[styles.resultsContainer, animatedStyles]}>
             <View>
+              <ScrollView>
+
               <Text>
                 { model === 'villagers' ? (<SearchVillagers results={results} />)
                 : model === 'gifts' ? (<SearchGifts results={results}/>)
                 : model === 'schedules' ? 'schedules results' : 'no'}
               </Text>
+                </ScrollView>
             </View>
           </Animated.View>
         )}
+
         {submitted && !results.length && searchError && (
-          <Text style={{ color: 'red' }}>{searchError}</Text>
+          <Animated.View style={[styles.resultsContainer, animatedStyles]}>
+            <View>
+              {/* <ScrollView> */}
+                <Text style={{ color: 'red' }}>{searchError}</Text>
+              {/* </ScrollView> */}
+            </View>
+          </Animated.View>
         )}
         </SafeAreaView>
   );
@@ -115,7 +159,8 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
 
 const styles = StyleSheet.create({
   container:{
-    width:375,
+    // width:375,
+    // flex:1,
   },
   title:{
     fontSize:20,
@@ -126,7 +171,8 @@ const styles = StyleSheet.create({
   },
   inputRow:{
     flexDirection: 'row',
-
+    paddingLeft:20,
+    paddingRight:20,
   },
   input: {
     height: 40,
@@ -134,14 +180,16 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,
-    // flex:1,
-    width:360
+    flex:1,
+    justifyContent:'center',
+    // width:375
   },
   searchContainer: {
     backgroundColor: '#ffffff',
-
     borderRadius: 5,
-    padding: 10,
+
+    paddingTop:10,
+    paddingBottom:10,
     shadowColor: '#fff',
     shadowOpacity: 0.1,
     shadowRadius: 5,
@@ -151,7 +199,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 5,
     alignSelf: 'stretch',
-
     // overflow: 'visible', // Esures smooth rounded corners during animation
   },
   row:{
@@ -159,19 +206,16 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
   },
   clearContainer:{
-    // left:330,
-    // top:11,
-    // width:19,
-    // height:40,
-    // marginTop:-41,
-    // borderWidth:1,
-    // borderColor:'red',
-    right:20,
-    justifyContent:'center',
+    position:'absolute',
+    right:5,
+    top:5,
   },
   clearButton:{
-    color:'#aaa',
-    // textAlign:'center',
-    fontWeight:'500'
+    color:'#fff',
+    textAlign:'center',
+    fontWeight:'bold',
+    fontFamily:'arial',
+    // paddingLeft: 20,
+    marginTop: 5,
   },
 });

@@ -9,8 +9,12 @@ module.exports = (sequelize, DataTypes) => {
 		 */
 		static associate(models) {
 			// define association here
-			Gift_Season.belongsTo(models.Gift, {foreignKey:'giftId'});
-			Gift_Season.belongsTo(models.Season, {foreignKey:'seasonId'})
+			Gift_Season.belongsTo(models.Gift, {
+				foreignKey: "giftId",
+			});
+			Gift_Season.belongsTo(models.Season, {
+				foreignKey: "seasonId",
+			});
 		}
 	}
 	Gift_Season.init(
@@ -31,6 +35,11 @@ module.exports = (sequelize, DataTypes) => {
 			modelName: "Gift_Season",
 			timestamps: false,
 			primaryKey: ["giftId", "seasonId"],
+			defaultScope: {
+				attributes: {
+					exclude: ["giftId", "seasonId", "createdAt", "updatedAt"],
+				},
+			},
 		}
 	);
 	return Gift_Season;

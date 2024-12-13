@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, Button, Text, ScrollView, SafeAreaView, Image } from 'react-native';
+import { Dimensions, View, TextInput, StyleSheet, Button, Text, ScrollView, SafeAreaView, Image } from 'react-native';
+import { Collapsible } from './Collapsible'; // Adjust the import path as necessary
 
 type ComponentProps = {results: Array<any> }
 
@@ -7,12 +8,33 @@ export const SearchVillagers = ({results}:ComponentProps) => {
 
   // SearchBar handles search results,
   // VillagerResults takes results and adds info into JSX layout
+  // TODO: container size, remove the right spacing around the whole container, might be in SearchBar, check both
+  const { width, height } = Dimensions.get('window');
+
+  const container = {
+    backgroundColor:"#97cbed",
+    flex:1,
+
+    // padding:20,
+  };
+
+  const resultMapContainer = {
+    width: width / 1.053,
+  };
+
+  const infoContainer = {
+    backgroundColor:'#d4e9f5',
+    width:width /1.52,
+    paddingBottom:5,
+  };
+
   return (
-    <SafeAreaView style={[styles.container]}>
-      <View style={styles.box}>
+    <SafeAreaView style={[container]}>
+      <View>
       {results.map((result:{
         id: number;
         name: string;
+        imageURL: string;
         sex: string;
         marriage: boolean;
         houseId: number | null;
@@ -41,16 +63,17 @@ export const SearchVillagers = ({results}:ComponentProps) => {
           address: string;
           locationId: number
         } | null;
-      }, index) =>
-        {
+      }, index) => {
           // Set Building and House to null if they are empty
           const building = result.Building && Object.keys(result.Building).length ? result.Building : null;
           const house = result.House && Object.keys(result.House).length ? result.House : null;
 
           return result.name ? (
-            <View key={result.id}>
+            <View key={result.id} style={resultMapContainer}>
+
               <Text style={[ styles.title,styles.subContainer, {backgroundColor:'#d4e9f5', textAlign:'center'}]}>{result.name}</Text>
-              <Image style={{ height:100, marginTop:5, marginBottom:5 }} resizeMode="contain" src='https://stardewvalleywiki.com/mediawiki/images/0/04/Alex.png'/>
+              <Image style={{ height:150, paddingBottom:3, paddingTop:34}} resizeMode="contain" source={{uri:result.imageURL}}/>
+
               <View style={[ styles.subContainer, {backgroundColor:'#14a006',justifyContent:'center',}]}>
               <Text style={[styles.textShadow, styles.title, {color:'#fff', textAlign:'center'}]}>Facts</Text>
               </View>
@@ -58,7 +81,7 @@ export const SearchVillagers = ({results}:ComponentProps) => {
                 <View style={[styles.subContainer, styles.greenContainer, ]}>
                   <Text style={[styles.title, styles.textShadow, {textAlign:'center',}]}>Home</Text>
                 </View>
-                <Text style={[styles.infoContainer, {margin:2,}]}>
+                <Text style={[infoContainer, {margin:2,}]}>
                   {`${result.sex === 'Female' ? 'She' : 'He'} lives ${house ? `at ${house.address}` : building ? `at ${building.name}` : 'at an unknown location'}.`}
                   </Text>
               </View>
@@ -66,17 +89,16 @@ export const SearchVillagers = ({results}:ComponentProps) => {
                   <View style={[styles.subContainer, styles.greenContainer]}>
                     <Text style={[styles.title, styles.textShadow, {textAlign:'center',}]}>Marriage</Text>
                   </View>
-                  <Text style={[styles.infoContainer, {margin:2,}]}>
+                  <Text style={[infoContainer, {margin:2,}]}>
                     {`${result.sex === 'Female' ? 'She' : 'He'}${result.marriage ? ' is open' : ' is not open'} to marriage. `}
                     </Text>
               </View>
-
 
                 <View style={{flexDirection:'row'}}>
                   <View style={[styles.subContainer, styles.greenContainer]}>
                     <Text style={[styles.title, styles.textShadow, {textAlign:'center'}]}>{`Gift Ideas`}</Text>
                     </View>
-                    <View style={[styles.infoContainer, {margin:2,}]}>
+                    <View style={[infoContainer, {margin:2,}]}>
 
                       {result.VillagerGifts.length ? (
                         Object.entries(
@@ -86,23 +108,21 @@ export const SearchVillagers = ({results}:ComponentProps) => {
                               acc[preference] = [];
                             }
                             acc[preference].push(gift.Gift.name);
-                            console.log(acc[preference], preference)
                             return acc;
                           }, {})
                         ).sort(([a], [b]) => {
                           const order = ["Loves", "Likes", "Neutrals", "Dislikes", "Hates"];
                           return order.indexOf(a) - order.indexOf(b);
-                        })
-                        .map(([preference, gifts]) => (
-                          <View key={preference}>
+                        }).map(([preference, gifts]) => (
+                              <View key={preference}>
                             <Text style={styles.preference}>{preference}</Text>
 
                             {(gifts as string[]).map((gift, idx) => (
                               <Text style={styles.text} key={idx}>{gift}</Text>))}
                               </View>
                               ))
-                  ) : (
-                    <View>
+                            ) : (
+                              <View>
                     <Text>{result.name} has no gifts they want.</Text>
                     </View>
                   )}
@@ -110,9 +130,9 @@ export const SearchVillagers = ({results}:ComponentProps) => {
               </View>
             </View>
 
-          ) : null;
-        }
-      )}
+) : null;
+}
+)}
 
       </View>
     </SafeAreaView>
@@ -123,13 +143,12 @@ const styles = StyleSheet.create({
 
   container:{
     backgroundColor:"#97cbed",
-    alignItems:'center',
-    padding:20,
-
+    flex:1,
+    // alignItems:'center',
+    // padding:20,
   },
   subContainer:{
     // borderWidth:.5,
-
     margin:2,
     // borderColor:'#95c1da',
     borderColor:'#12185b',

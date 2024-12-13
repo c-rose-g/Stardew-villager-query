@@ -25,7 +25,7 @@ const { Op } = require("sequelize");
 const search = async (req, res) => {
 	// const { query, type, page, size } = req.query;
 	const { query } = req.query;
-	// console.log("this is the query hitting the backend:", query);
+	console.log("this is the query hitting the backend:", query);
 	try {
 		let result;
 		// parsedPage =
@@ -106,8 +106,7 @@ const searchGift = async (query) => {
 					model: Gift_Season,
 					as: "GiftSeasons",
 					include: [{ model: Season, attributes: ["name"] }],
-					attributes: ["giftId"]
-
+					attributes: ["giftId", "seasonId"],
 				},
 			],
 			// limit: size,

@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from 'react';
-import {SafeAreaView, Animated, ImageBackground, Image, StyleSheet, Platform, View } from 'react-native';
+import { Dimensions, SafeAreaView, Animated, ImageBackground, Image, StyleSheet, Platform, View } from 'react-native';
 import { SearchBar } from '@/components/SearchBar'
 import { StatusBar } from 'expo-status-bar';
 
@@ -12,6 +12,20 @@ type ParallaxScrollViewProps = {
 
 export default function HomeScreen ({renderBackground, renderForeground, children}: ParallaxScrollViewProps) {
   const fadeAnim = useRef(new Animated.Value(0)).current;
+  const { width, height } = Dimensions.get('window');
+
+  const container = {
+    flex: 1,
+  };
+  const searchContainer = {
+    height: height,
+    width: width,
+    justifyContent: 'center' as 'center',
+  };
+
+  const background = {
+    height:height,
+  };
 
   useEffect(() => {
     const startAnimation = () => {
@@ -28,12 +42,12 @@ export default function HomeScreen ({renderBackground, renderForeground, childre
 
 
   return (
-      <View style={styles.container}>
-        <StatusBar style="auto" />
-        <ImageBackground source={require('@/assets/images/index-bg.png')} style={styles.background}>
-        <View>
-          <Animated.View style={{ opacity: fadeAnim, flex: 1 }}>
-            <View style={styles.searchContainer}>
+      <View style={{flex:1}}>
+        {/* <StatusBar backgroundColor="#fff" style='auto'/> */}
+        <ImageBackground source={require('@/assets/images/index-bg.png')} style={background}>
+        <View style={container}>
+          <Animated.View style={{ opacity: fadeAnim, flex: 2 }}>
+            <View style={searchContainer}>
               <SearchBar onSearch={() => {}} />
               </View>
               </Animated.View>
@@ -49,15 +63,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
-  },
-  imageStyle:{
-    height:300,
-  },
-  searchContainer:{
-    // height: 300, // animate search container to move up when search results populate screen
-    height: 800,
-    justifyContent: 'center',
-    alignContent:'center',
   },
   titleContainer: {
     flexDirection: 'row',

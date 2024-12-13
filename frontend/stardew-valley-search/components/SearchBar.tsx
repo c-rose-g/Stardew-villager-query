@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { SafeAreaView, View, TextInput, StyleSheet, Button, Text, Animated, Easing, TouchableOpacity, ScrollView, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { Dimensions, RefreshControl, SafeAreaView, View, TextInput, StyleSheet, Button, Text, Animated, Easing, TouchableOpacity, ScrollView, Keyboard, TouchableWithoutFeedback } from 'react-native';
 
 import { SearchVillagers } from './SearchVillagers';
 import { SearchGifts } from './SearchGifts';
@@ -14,13 +14,14 @@ type SearchBarProps = {
 }
 
 export const SearchBar = ({ onSearch }: SearchBarProps) => {
-
+  const { width, height } = Dimensions.get('window');
   const opacity = useState(new Animated.Value(0))[0];
-  const height = useState(new Animated.Value(0))[0];
+  const animatedHeight = useState(new Animated.Value(0))[0];
   const searchBarAnim = useState(new Animated.Value(0))[0];
   const [query, setQuery] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect( () => {
 
@@ -44,11 +45,11 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
       useNativeDriver: false,
     }).start();
 
-    Animated.timing(height, {
-      toValue: 450, // Adjust based on desired final height of the results container
+    Animated.timing(animatedHeight, {
+      toValue: 450, // Adjust based on desired final animatedHeight of the results container
       duration: 400,
       easing,
-      useNativeDriver: false, // height animation cannot use the native driver
+      useNativeDriver: false, // animatedHeight animation cannot use the native driver
     }).start();
   };
 
@@ -76,12 +77,35 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
   // console.log('this is model', model)
   const animatedStyles = {
     opacity,
-    height,
+    animatedHeight,
   };
 
+  const box = {
+    borderWidth:10,
+    borderColor:'#f99304',
+    height: height / 1.71,
+  };
+  const resultsContainer = {
+    marginTop: 10,
+    borderRadius: 5,
+    height:height / 2,
+    backgroundColor:"#97cbed",
+  }
+
+  const searchContainer = {
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    paddingTop:10,
+    paddingBottom:10,
+    borderWidth:10,
+    borderColor:'#fff',
+    width: width,
+  }
   return (
-    <SafeAreaView style={styles.container}>
-        <View style={styles.searchContainer}>
+    <SafeAreaView>
+      <View style={[{alignSelf:'center'}]}>
+
+        <View style={[searchContainer]}>
           <Text style={styles.title}>Search a giftable villager or item </Text>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View>
@@ -110,7 +134,7 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
         </View>
         {submitted && results.length > 0 && (
           <Animated.View style={[animatedStyles]}>
-            <View style={styles.resultsContainer}>
+            <View style={[resultsContainer, box]}>
               <ScrollView>
 
               <Text>
@@ -132,18 +156,18 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
             </View>
           </Animated.View>
         )}
+        </View>
         </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container:{
-    // width:375,
-    // flex:1,
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.5,
-    shadowRadius: 4,
+    // shadowColor: '#12185b',
+    // shadowOffset: { width: 0, height: 2 },
+    // shadowOpacity: 0.5,
+    // shadowRadius: 4,
+    // width: 400,
   },
   title:{
     fontSize:20,
@@ -158,8 +182,9 @@ const styles = StyleSheet.create({
     paddingRight:20,
   },
   input: {
-    height: 40,
+    // color:'#ccc',
     borderColor: '#ccc',
+    height: 40,
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,
@@ -167,24 +192,22 @@ const styles = StyleSheet.create({
     // justifyContent:'center',
   },
   searchContainer: {
-    backgroundColor: '#ffffff',
-
+    backgroundColor: '#fff',
     borderRadius: 5,
     paddingTop:10,
     paddingBottom:10,
+    borderWidth:10,
+    borderColor:'#fff',
   },
   resultsContainer: {
     marginTop: 10,
-    backgroundColor:'#97c9e8',
     borderRadius: 5,
-    alignSelf: 'stretch',
-    height:500,
-    // height:'auto',
-    // overflow: 'visible', // Esures smooth rounded corners during animation
+    height:520,
+
   },
-  row:{
-    // flexDirection: 'row',
-    // alignItems: 'center',
+  box:{
+    borderWidth:10,
+    borderColor:'#f99304',
   },
   clearContainer:{
     position:'absolute',

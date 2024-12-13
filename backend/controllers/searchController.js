@@ -98,8 +98,16 @@ const searchGift = async (query) => {
 					include: [
 						{ model: Villager, attributes: ["name"] },
 						{ model: Preference, attributes: ["name"] },
+						// { model: Gift, attributes: ["name"] },
 					],
-					attributes: ["villagerId", "giftId", "preferenceId"],
+					// attributes: ["villagerId", "preferenceId"],
+				},
+				{
+					model: Gift_Season,
+					as: "GiftSeasons",
+					include: [{ model: Season, attributes: ["name"] }],
+					attributes: ["giftId"]
+
 				},
 			],
 			// limit: size,
@@ -152,24 +160,20 @@ const searchVillager = async (query) => {
 		// }
 		const villager = await Villager.findAll({
 			where: { name: query },
-			// include: [{ model: Gift }],
+			// attributes: ["id", "name", "imageUrl", "sex", "marriage", "houseId", "buildingId"],
 			include: [
 				{
 					model: Villager_Gift,
 					as: "VillagerGifts",
 					include: [
-						{ model: Villager, attributes: ["name"] },
 						{ model: Preference, attributes: ["name"] },
 						{ model: Gift, attributes: ["name"] },
 					],
-					attributes: ["villagerId", "giftId", "preferenceId"],
+					attributes: ["giftId", "preferenceId"],
 				},
 				{ model: Building },
 				{ model: House },
 			],
-			// include:[{ model: Building }]
-			// limit: size,
-			// offset: size * (page - 1),
 		});
 
 		if (!villager.length) {
@@ -187,6 +191,7 @@ const searchVillager = async (query) => {
 
 		// 	villager[0].dataValues.Schedule = schedule;
 		// }
+		console.log({ results: villager, model: "villagers" });
 		return { results: villager, model: "villagers" };
 	} catch (err) {
 		console.log(err);

@@ -13,8 +13,12 @@ module.exports = (sequelize, DataTypes) => {
 			Villager_Gift.belongsTo(models.Preference, {
 				foreignKey: "preferenceId",
 			});
-			Villager_Gift.belongsTo(models.Gift, { foreignKey: "giftId" });
-			Villager_Gift.belongsTo(models.Villager, { foreignKey: "villagerId" });
+			Villager_Gift.belongsTo(models.Gift, {
+				foreignKey: "giftId",
+			});
+			Villager_Gift.belongsTo(models.Villager, {
+				foreignKey: "villagerId",
+			});
 		}
 	}
 	Villager_Gift.init(
@@ -52,7 +56,7 @@ module.exports = (sequelize, DataTypes) => {
 			primaryKey: ["villagerId", "giftId"], // Composite primary key
 			defaultScope: {
 				attributes: {
-					exclude: ["PreferenceId"],
+					exclude: ["villagerId", "PreferenceId", "preferenceId"],
 				},
 			},
 			scopes: {

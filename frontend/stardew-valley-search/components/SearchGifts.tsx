@@ -1,117 +1,166 @@
 import React, {useState} from "react";
-import { SafeAreaView, View, ScrollView, StyleSheet, Text } from "react-native";
-// import { IndexPath, Layout, Select, SelectItem } from '@ui-kitten/components';
-
+import { Dimensions, SafeAreaView, View, ScrollView, StyleSheet, Text, Image } from "react-native";
+import DropDownPicker from 'react-native-dropdown-picker'
 type ComponentProps = { results : Array <any>}
-/*
-you need to replace the ui kitten drop down menu code for
-*/
+
 export const SearchGifts = ({results}:ComponentProps)=> {
-  // const [selectedIdx, setSelectedIdx] = useState<IndexPath>(new IndexPath(0));
-  const [selectedPreference, setSelectedPreference] = useState<string>("loves");
+  const { width, height } = Dimensions.get('window');
 
-  const preferences = ['loves', 'likes', 'neutral', 'dislikes', 'hates'];
-
-  // const handleSelect = (index: IndexPath | IndexPath[]) => {
-    // const selectedIndex = Array.isArray(index) ? index[0] : index;
-    // setSelectedIdx(selectedIndex);
-    // setSelectedPreference(preferences[selectedIndex.row]);
-  // };
-
-  const preferenceMap = {
-    'loves': 1,
-    'likes': 2,
-    'is neutral about': 3,
-    'dislikes': 4,
-    'hates': 5
+  const container = {
+    width: width,
+    backgroundColor:"#97cbed",
+    // padding:20,
   };
 
-  const getVillagersByPreference = (villagerGifts: any[], preference: keyof typeof preferenceMap) => {
-    return villagerGifts.filter(vg => vg.preferenceId === preferenceMap[preference]);
+  const greenContainer = {
+    backgroundColor:'#14a006',
+    width:width /3.9,
+  };
+
+  const infoContainer = {
+    backgroundColor:'#d4e9f5',
+    width:247,
+    paddingBottom:5,
+  };
+
+  const box = {
+    width:375,
+  };
+
+  const resultsContainer = {
+    paddingTop:10,
+    borderBottomWidth:5,
+    borderColor:'#ccc',
+    width: 375,
   };
 
   return (
-    // <SafeAreaView>
+    <SafeAreaView style={container}>
+      <View>
+        {results.map((result: {
+          id: number;
+          name: string;
+          VillagerGifts: Array<{
+            giftId: number;
+            Villager: { name: string };
+            Preference: { name: string  | null};
+          }>;
+          GiftSeasons: Array<{
+            giftId: number;
+            Season: {name: string};
+          }>
+          | null;
+        }, index) =>{
 
-    <ScrollView style={styles.scrollViewContainer}>
-      {results.map((result: {
-        id: number,
-        name: string,
-        VillagerGifts: Array<{
-          villagerId: number,
-          giftId: number,
-          preferenceId: number,
-          Villager: { name: string },
-          Preference: { name: string }
-        }> | null
-      }, index) => (
-        result.name ? (
-          <View key={index}>
-            <Text style={styles.title}>{`${result.name}`}</Text>
-            <Text>
-              {result.VillagerGifts?.length ? (
-                <>
-                <View>
+          return result.name ? (
+          <View key={result.id}>
 
-                </View>
-                  <View style={styles.resultsContainer}>
-                    <Text style={styles.resultsSubHeading}>
-                      Villagers that
-                      {/* <Layout level="1" >
-                        <Select style={styles.selectContainer}  selectedIndex={selectedIdx} onSelect={handleSelect} value={selectedPreference} placeholder={'preference'}>
-                          {preferences.map((preference, idx) => (
-                            <SelectItem key={idx} title={preference} />
-                          ))}
-                        </Select>
-                      </Layout> */}
-                      this gift:
-                    </Text>
-                    {getVillagersByPreference(result.VillagerGifts, selectedPreference as keyof typeof preferenceMap)
-                      .map((vg, idx) => (
-                        <View key={idx}>
-                          <Text style={styles.villagerName}>{vg.Villager.name}</Text>
-                        </View>
-                      ))
-                      .reduce((acc, curr, idx) => {
-                        if (idx % 3 === 0) acc.push([]);
-                        acc[acc.length - 1].push(curr);
-                        return acc;
-                      }, [] as any[][])
-                      .map((row, rowIndex) => (
-                        <View key={rowIndex} style={[styles.row, styles.resultsText]}>
-                          {row.map((cell: any, cellIndex: number) => (
-                            <View key={cellIndex} style={styles.column}>
-                              {cell}
-                            </View>
-                          ))}
-                        </View>
-                      ))}
-                  </View>
-                </>
-              ) :
-              // ('No villager preferences for this gift')
-              <View style={styles.resultsContainer}>
-                <Text style={[styles.resultsText,{paddingTop:10,paddingBottom:10}]}>No villager preferences for this gift</Text>
+            <Text style={[styles.title, styles.subContainer, {backgroundColor:'#d4e9f5', textAlign:'center'}]}>{`${result.name}`}</Text>
+            <Image style={{ height:150, paddingBottom:3, borderWidth:1 }} resizeMode="contain" />
+
+            <View style={[ styles.subContainer, {backgroundColor:'#14a006',justifyContent:'center',}]}>
+              <Text style={[styles.title, styles.textShadow, {color:'#fff', textAlign:'center'}]}>Facts</Text>
               </View>
-              }
-            </Text>
-          </View>
-        ) : <Text>There is nothing in Gifts</Text>
-      ))}
-    </ScrollView>
+              <View style={styles.row}>
+                <View style={[styles.subContainer, greenContainer, ]}>
+                  <Text style={[styles.title, styles.textShadow, {textAlign:'center',}]}>Seasons</Text>
+                </View>
+                <Text style={[infoContainer, {margin:2,}]}>
 
+                  </Text>
+              </View>
+              {result.VillagerGifts?.length ? (
+                <View style={{flexDirection:'row'}}>
+                  <View style={[styles.subContainer, greenContainer,]}>
+                    <Text style={[styles.title, styles.textShadow, {textAlign:'center', flex:1, }]}>{`Villagers`}</Text>
+                    </View>
+                      <View style={[infoContainer, {margin:2, flex:2}]}>
+                        <View>
+                          <Text style={styles.preference}></Text>
+                          <Text style={styles.text} ></Text>
+                          </View>
+                        </View>
+                    </View>
+                  ) :
+                  <View style={styles.resultsContainer}>
+                    <Text style={[styles.resultsText,{paddingTop:10,paddingBottom:10}]}>No villager preferences for this gift</Text>
+                    </View>}
+              </View>
+          ) : <Text>There is nothing in Gifts</Text>
+      }
+      )}
+    </View>
+  </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
-  scrollViewContainer:{
-    // width: 375
-    flex:1,
-  },
+
   container:{
-    width: 375,
-    height: 80,
-    borderColor:'ccc',
+    // backgroundColor:"#97cbed",
+    // alignItems:'center',
+    // margin:20,
+    // flex:1,
+
+  },
+  subContainer:{
+    // borderWidth:.5,
+    margin:2,
+    // borderColor:'#95c1da',
+    // borderColor:'#12185b',
+    shadowColor: '#12185b',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: .5,
+    shadowRadius: .5,
+  },
+  // greenContainer:{
+  //   backgroundColor:'#14a006',
+  //   justifyContent:'center',
+  //   width:100,
+  // },
+  // infoContainer:{
+  //   backgroundColor:'#d4e9f5',
+  //   width:247,
+  //   paddingBottom:5,
+  // },
+  // box:{
+  //   // justifyContent:'center',
+  //   width:375,
+  // },
+  title:{
+    fontSize:20,
+    fontFamily: "Arial",
+    fontWeight: 'bold',
+    marginTop:2,
+    marginBottom:2,
+  },
+  row:{
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  text: {
+    margin: 2,
+    paddingLeft:20,
+  },
+  textShadow:{
+    shadowColor: '#12185b',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 1,
+    shadowRadius: 1,
+    color:'#fff'
+  },
+  upperTextShadow:{ shadowColor: '#12185b',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 1,
+    shadowRadius: 1,
+    color:'#fff'
+  },
+  preference: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: 10,
+    fontFamily: "Arial",
+
   },
   selectContainer:{
     minWidth: 128,
@@ -136,12 +185,12 @@ const styles = StyleSheet.create({
     borderTopWidth:1,
     width:375,
   },
-  title:{
-    fontWeight:"bold",
-    fontSize:25,
-    textAlign: 'center',
-    paddingTop:10,
-  },
+  // title:{
+  //   fontWeight:"bold",
+  //   fontSize:25,
+  //   textAlign: 'center',
+  //   paddingTop:10,
+  // },
   resultsSubHeading:{
     fontSize:20,
     textAlign: 'center',
@@ -152,13 +201,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     alignContent:"space-between",
   },
-  row:{
-    flexDirection: 'row',
-    justifyContent:'space-between',
-    marginVertical:10,
-    height:30,
-    width: 375,
-  },
+  // row:{
+  //   flexDirection: 'row',
+  //   justifyContent:'space-between',
+  //   marginVertical:10,
+  //   height:30,
+  //   width: 375,
+  // },
   column: {
     flex: 1,
     alignItems: "center",

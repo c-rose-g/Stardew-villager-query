@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
 			 * I will go back in to revise my models to include more complex associations,
 			 * but for now this will satisfy the purpose of the search bar query
 			 */
+			// Many-to-Many relationship with Villager
 			Gift.belongsToMany(models.Season, {
 				through: models.Gift_Season,
 				foreignKey: "giftId",
@@ -32,7 +33,6 @@ module.exports = (sequelize, DataTypes) => {
 				through: models.Gift_Building,
 				foreignKey: "giftId",
 			});
-			// Many-to-Many relationship with Villager
 			Gift.belongsToMany(models.Villager, {
 				through: models.Villager_Gift,
 				foreignKey: "giftId",
@@ -43,10 +43,17 @@ module.exports = (sequelize, DataTypes) => {
 				foreignKey: "giftId",
 			});
 			// double check both of these associations
-			Gift.hasMany(models.Gift_Preference);
+			Gift.hasMany(models.Gift_Preference, {
+				as: "GiftPreferences",
+				foreignKey: "giftId",
+			});
 			Gift.hasMany(models.Villager_Gift, {
 				as: "VillagerGifts",
 				foreignKey: "giftId",
+			});
+			Gift.hasMany(models.Gift_Season, {
+				as: "GiftSeasons",
+				foreign: "giftId",
 			});
 		}
 	}

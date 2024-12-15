@@ -7,6 +7,27 @@ import { SearchVillagers } from "./SearchVillagers";
 
 type ComponentProps = { results : Array <any>}
 
+// TODO: add interface outside
+interface VillagerGift {
+  villagerId: number;
+  preferenceId: number;
+  Villager: { name: string };
+  Preference: { name: string | null };
+}
+
+interface GiftSeason {
+  giftId: number;
+  Season: { name: string };
+}
+
+interface Result {
+  id: number;
+  name: string;
+  VillagerGifts: VillagerGift[];
+  GiftSeasons: GiftSeason[];
+  
+}
+
 export const SearchGifts = ({results}:ComponentProps) => {
   const navigation = useNavigation();
   const { width, height } = Dimensions.get('window');
@@ -20,41 +41,26 @@ export const SearchGifts = ({results}:ComponentProps) => {
   const greenContainer = {
     backgroundColor:'#14a006',
     width:width /3.9,
+    height: height / 6.7,
   };
 
   const infoContainer = {
     // backgroundColor:'#d4e9f5',
-    width: width / 4,
+    // width: width / 4,
     // paddingLeft:3,
     // paddingBottom:5,
     // paddingRight: 30,
   };
-
-  const textWidth ={
-    width: width / 5,
-    marginLeft:5,
-  };
-
-  const test = {
-    width: width / 6.2,
-  }
   const seasonInfoContainer ={
     marginTop: 2,
     marginRight:-10,
-    // marginLeft:10,
     width:width / 1.5 , //------------> put this back
     backgroundColor:'#d4e9f5',
-    // borderWidth:1,
-    // borderWidth:1
-
   };
-// Todo: ====> FIX WIDTH PROBLEM IN VILLAGER INFO CONTAINER AND TRY TO MOVE VILLAGER NAME IN THE MIDDLE OF GREEN CONTAINER (IDK IF IT'LL LOOK BETTER)
   const villagerInfoContainer = {
     marginTop: 2,
     marginRight:-10,
-    // borderWidth:1,
-    // marginLeft:10,
-    width:width / 1.5, //------------> put this back
+    width:width / 1.5,
     backgroundColor:'#d4e9f5'
   }
   const box = {
@@ -67,30 +73,10 @@ export const SearchGifts = ({results}:ComponentProps) => {
     borderColor:'#ccc',
     width: 375,
   };
-
-  const QueerBar = (x: any) => {
-    /*
-    change query from searchGift to searchVillager/villager
-    need to link villager
-    result.VillagerGifts.map(villager => {
-                        const villagerNames = villager.Villager && villager.Villager.name ? villager.Villager.name : 'there is no villager';
-
-                        return (
-                        <View key={villager.giftId} style={{flexDirection:'row', paddingLeft:5}}>
-
-                          <View style={{alignSelf:'center'}}>
-
-                          <Text style={[infoContainer, {}]} key={villager.giftId} >{villagerNames}</Text>
-                          </View>
-
-                        </View>
-                      )})
-    */
-
-
-  //  useSearch();
-
+  const villagerInfoWidth = {
+    width: width / 7.7,
   }
+
   return (
     <SafeAreaView style={container}>
       <View>
@@ -113,22 +99,22 @@ export const SearchGifts = ({results}:ComponentProps) => {
                   <Text key={`result-gift-name-text-title-${index}`} style={[styles.title, styles.textShadow, {textAlign:'center', justifyContent:'center', marginTop:2, marginBottom:2}]}>Name</Text>
                 </View>
                   <View key={`result-gift-name-text-info${index}`} style={[seasonInfoContainer,{flexDirection:'row', paddingLeft:5, }]}>
-                    <View style={{alignSelf:'center', }}>
-                    <Text style={[infoContainer, {width:200} ]}>{`${result.name}`}</Text>
+                    <View key={`result-gift-name-align-self-${index}`} style={{alignSelf:'center', }}>
+                    <Text key={`result-gift-name-${index}`} style={[infoContainer, {width:200} ]}>{`${result.name}`}</Text>
                     </View>
                   </View>
               </View>
-              <View style={{flexDirection:'row' }}>
-                <View key={`result-seasons-${index}`} style={[styles.subContainer, greenContainer, { justifyContent:'center' }]}>
+              <View key={`result-seasons-name-row-${index}`} style={{flexDirection:'row' }}>
+                <View key={`result-seasons-green-container${index}`} style={[styles.subContainer, greenContainer, { justifyContent:'center' }]}>
                   <Text key={`result-seasons-text-${index}`} style={[styles.title, styles.textShadow, {textAlign:'center', justifyContent:'center', marginTop:2, marginBottom:2}]}>Seasons</Text>
                 </View>
-                <View style={[seasonInfoContainer, {flexDirection:'row', paddingLeft:5}]}>
+                <View key={`result-season-info-row-${index}`} style={[seasonInfoContainer, {flexDirection:'row', paddingLeft:5}]}>
                     {result.GiftSeasons.length ?
                     (result.GiftSeasons.map((season: any) => {
                         const seasonName = season.Season && season.Season.name ? season.Season.name : null ;
 
                         return (
-                        <View key={season.id} style={{alignSelf:'center'}}>
+                        <View key={`${season.id}`} style={{alignSelf:'center'}}>
                             <Text key={season.id} style={[infoContainer, {} ]}>
                               {seasonName}
                             </Text>
@@ -154,45 +140,59 @@ export const SearchGifts = ({results}:ComponentProps) => {
                         </View>
               </View>
 
-              <View style={styles.row}>
-              <View style={[styles.subContainer, greenContainer, ]}>
+              <View style={[styles.row, { }]}>
+              <View style={[styles.subContainer, greenContainer, {height:'auto'}]}>
                   <Text style={[styles.title, styles.textShadow, {textAlign:'center',}]}>Villagers</Text>
                 </View>
-                <View style={[villagerInfoContainer, {marginTop:2, paddingLeft:5}]}>
-                  <View style={[]}>
+                <View style={[villagerInfoContainer, {marginTop:2, paddingLeft:5, }]}>
+                  <View style={{}}>
                   {
                     result.VillagerGifts.length ? (
                       Object.entries(
+
                         result.VillagerGifts.reduce((acc: any, villager: any) => {
                           const preference = villager.Preference?.name || "Unknown";
                           const villagerName = villager.Villager?.name || "Unknown";
 
+                          // console.log('this is a villager array?? ======>,', villager)
                           if (!acc[preference]) {
-                            acc[preference] = [];
+                            acc[preference] = [[]];
                           }
-                          console.log('this is acc[preference]', acc[preference])
-                          acc[preference].push(villagerName);
-                          console.log('this is acc ======>', acc)
+
+                          if (acc[preference][acc[preference].length - 1].length === 3) {
+                            acc[preference].push([]);
+                          }
+
+                          acc[preference][acc[preference].length - 1].push(villagerName);
                           return acc;
+
                         }, {})
                       )
                       .sort(([a], [b]) => {
                         const order = ["Loves", "Likes", "Neutrals", "Dislikes", "Hates"];
                         return order.indexOf(a) - order.indexOf(b);
                       })
-                      .map(([preference, villagers]) => (
-                        <View key={preference} style={{}}>
-                          <Text key={`preference-container-${preference}`} style={styles.preference}>{preference}</Text>
-                          <View style={{flexDirection:'row', }}>
-                          {(villagers as string[]).map((villager: string, idx: number) => (
+                      .map(([preference, villagers]) => {
 
-                            <View style={[test, {alignSelf:'center' }]} >
-                            <Text style={[infoContainer, textWidth,  {marginTop:5,}]}  key={`${preference}-${idx}`}>{villager}</Text>
+                        const formattedVillagers = (villagers as string[][]).map(innerArray =>
+                          innerArray.map((villager, index) =>
+                            index < innerArray.length ? villager + " " : villager
+                          )
+                        );
+
+                        return (
+                          <View key={preference} style={{}}>
+                            <Text key={`preference-container-${preference}`} style={[styles.preference,{}]}>{preference}</Text>
+                            <View style={{ flexDirection:'row'}}>
+                              {formattedVillagers.flat().map((villager: string, idx: number) => (
+                                <View style={[villagerInfoWidth,{ width:'auto',}]} key={`${preference}-${idx}`}>
+                                  <Text style={[infoContainer, styles.villagerText, {marginTop:5, textAlign:'center', }]}>{villager}</Text>
+                                </View>
+                              ))}
                             </View>
-                          ))}
                           </View>
-                        </View>
-                      ))
+                        );
+                      })
                     ) : (
                     <Text>No villagers associated with this gift</Text>
                     )}
@@ -263,6 +263,9 @@ const styles = StyleSheet.create({
     margin: 2,
     paddingLeft:20,
   },
+  villagerText:{
+    fontSize:12,
+  },
   textShadow:{
     shadowColor: '#12185b',
     shadowOffset: { width: 0, height: 2 },
@@ -279,7 +282,7 @@ const styles = StyleSheet.create({
   preference: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginTop: 10,
+    // marginTop: 10,
     fontFamily: "Arial",
   },
   selectContainer:{

@@ -139,7 +139,7 @@ export const SearchGifts = ({results}:ComponentProps) => {
               </View>
 
               <View style={[{ flexDirection:'row'}]}>
-                <View style={[styles.subContainer, greenContainer, {height:'auto'}]}>
+                <View style={[styles.subContainer, greenContainer, {height:'auto', justifyContent:'center'}]}>
                   <Text style={[styles.title, styles.textShadow, {textAlign:'center',}]}>Villagers</Text>
                 </View>
                 <View style={[villagerInfoContainer, {marginTop:2, paddingLeft:5, }]}>
@@ -181,10 +181,10 @@ export const SearchGifts = ({results}:ComponentProps) => {
                         return (
                           <View key={preference} style={{}}>
                             <Text key={`preference-container-${preference}`} style={[styles.preference,{}]}>{preference}</Text>
-                            <View style={{ flexDirection:'row'}}>
+                            <View key={`${villagers}`} style={{ flexDirection:'row'}}>
                               {formattedVillagers.flat().map((villager: string, idx: number) => (
-                                <View style={[villagerInfoWidth,{ width:'auto',}]} key={`${preference}-${idx}`}>
-                                  <Text style={[ styles.villagerText, {marginTop:5, textAlign:'center', }]}>{villager}</Text>
+                                <View key={`${villager}-${idx}`} style={[villagerInfoWidth,{ width:'auto',}]}>
+                                  <Text key={`${villager}-${idx}-${villager}-text`} style={[ styles.villagerText, {marginTop:5, textAlign:'center', }]}>{villager}</Text>
                                 </View>
                               ))}
                             </View>

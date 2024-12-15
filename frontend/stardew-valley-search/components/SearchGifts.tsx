@@ -5,53 +5,48 @@ import { useSearch } from "@/hooks/useSearch";
 import DropDownPicker from 'react-native-dropdown-picker';
 import { SearchVillagers } from "./SearchVillagers";
 
-type ComponentProps = { results : Array <any>}
 
-// TODO: add interface outside
-interface VillagerGift {
+type VillagerGift = {
   villagerId: number;
   preferenceId: number;
   Villager: { name: string };
   Preference: { name: string | null };
-}
+};
 
-interface GiftSeason {
+type GiftSeason = {
   giftId: number;
   Season: { name: string };
-}
-interface groupPreferences{
-  preference: Array<{ name: string }>
-}
-interface Result {
+};
+
+type groupedPreferences = {
+  [preference: string]: string[];
+};
+
+type SearchResult = {
   id: number;
   name: string;
   VillagerGifts: VillagerGift[];
   GiftSeasons: GiftSeason[];
-  groupPreferences: groupPreferences
-}
+  groupedPreferences: groupedPreferences;
+};
 
+type ComponentProps = { results : SearchResult[];
+
+};
 export const SearchGifts = ({results}:ComponentProps) => {
   const navigation = useNavigation();
   const { width, height } = Dimensions.get('window');
 
+  // styles using window width and height
   const container = {
     width: width,
     backgroundColor:"#97cbed",
-    // padding:20,
   };
 
   const greenContainer = {
     backgroundColor:'#14a006',
     width:width /3.9,
     height: height / 6.7,
-  };
-
-  const infoContainer = {
-    // backgroundColor:'#d4e9f5',
-    // width: width / 4,
-    // paddingLeft:3,
-    // paddingBottom:5,
-    // paddingRight: 30,
   };
   const seasonInfoContainer ={
     marginTop: 2,
@@ -79,20 +74,31 @@ export const SearchGifts = ({results}:ComponentProps) => {
     width: width / 7.7,
   }
 
+
+  const groupByFour = (villagers: string[]): string[][] =>
+
+    villagers.reduce((acc: string[][], villager, idx) => {
+        if (idx % 4 === 0) acc.push([]);
+        acc[acc.length - 1].push(villager);
+        return acc;
+    },[]);
+
+
+
   return (
     <SafeAreaView style={container}>
       <View>
         <Text style={[styles.title, styles.subContainer, {backgroundColor:'#d4e9f5', textAlign:'center', height: 30, }]}>Gift Information</Text>
-        {results.map((result:Result, index) => {
+        {results.map((result, index) => {
 
           return result.name ? (
           <View key={result.id} style={{marginTop:20,}}>
             {/* <Text key={`result-name-${result.id}`} style={[styles.title, styles.subContainer, {backgroundColor:'#d4e9f5', textAlign:'center', height: 30, }]}>{`${result.name}`}</Text> */}
             {/* <Image key={`result-image-${result.id}`} style={{}} resizeMode="contain" /> */}
-            <View key={`result-facts-${index}`} style={[ styles.subContainer, {backgroundColor:'#14a006',justifyContent:'center',}]}>
-              <Text key={`result-facts-text-${index}`}  style={[styles.title, styles.textShadow, {color:'#fff', textAlign:'center'}]}>Facts</Text>
+            <View key={`result-facts-container-${index}`} style={[ styles.subContainer, {backgroundColor:'#14a006',justifyContent:'center',}]}>
+              <Text key={`result-facts-title-text-${index}`}  style={[styles.title, styles.textShadow, {color:'#fff', textAlign:'center'}]}>Facts</Text>
               </View>
-              <View key={`result-gift-name-row-${index}`} style={{flexDirection:'row',}}>
+              <View key={`result-gift-name-row-${index}-container`} style={{flexDirection:'row',}}>
                 <View key={`result-gift-name-${index}`}  style={[styles.subContainer, greenContainer, { justifyContent:'center'}]}>
                   <Text key={`result-gift-name-text-title-${index}`} style={[styles.title, styles.textShadow, {textAlign:'center', justifyContent:'center', marginTop:2, marginBottom:2}]}>Name</Text>
                 </View>
@@ -102,109 +108,68 @@ export const SearchGifts = ({results}:ComponentProps) => {
                     </View>
                   </View>
               </View>
-              <View key={`result-seasons-name-row-${index}`} style={{flexDirection:'row' }}>
-                <View key={`result-seasons-green-container${index}`} style={[styles.subContainer, greenContainer, { justifyContent:'center' }]}>
+              <View key={`result-seasons-name-row-${index}-container`} style={{flexDirection:'row' }}>
+                <View key={`result-seasons-names-${index}-column`} style={[styles.subContainer, greenContainer, { justifyContent:'center' }]}>
                   <Text key={`result-seasons-text-${index}`} style={[styles.title, styles.textShadow, {textAlign:'center', justifyContent:'center', marginTop:2, marginBottom:2}]}>Seasons</Text>
                 </View>
-                <View key={`result-season-info-row-${index}`} style={[seasonInfoContainer, {flexDirection:'row', paddingLeft:5}]}>
+                <View key={`result-season-info-row-${index}-column`} style={[seasonInfoContainer, {flexDirection:'row', paddingLeft:5}]}>
                     {result.GiftSeasons.length ?
-                    (result.GiftSeasons.map((season: any) => {
-                        const seasonName = season.Season && season.Season.name ? season.Season.name : null ;
+                    ( <Text key={`result-season-info-text-${index}`} style={{ alignSelf: 'center' }}>
+                      {result.GiftSeasons
+                        .map((season: any) => (season.Season && season.Season.name ? season.Season.name : null))
+                        .filter(Boolean) // Remove any null or undefined values
+                        .join(', ')} {/* Join all season names with ", " */}
+                    </Text>
+                    ):(
+                          <View key={`no-result-season-info-${index}`} style={{flexDirection:'row', paddingLeft:5}}>
+                            <View key={`no-result-season-info-align-self-${index}`} style={{alignSelf:'center'}}>
 
-                        return (
-                        <View key={`${season.id}`} style={{alignSelf:'center'}}>
-                            <Text key={season.id} style={[ {} ]}>
-                              {seasonName}
-                            </Text>
-                            </View>
-                        )
-                      }))
-                      .reduce((acc: any[], season: any, idx: number) => {
-                        if (idx % 3 === 0) {
-                          acc.push([]);
-                        }
-                        acc[acc.length - 1].push(season);
-                        return acc;
-                      }, [])
-                        :
-                        (
-                          <View style={{flexDirection:'row', paddingLeft:5}}>
-                            <View style={{alignSelf:'center'}}>
-
-                            <Text style={[ {}]}>No Seasons associated with this gift</Text>
+                            <Text key={`no-result-season-info-text-${index}`} style={[ {}]}>No Seasons associated with this gift</Text>
                             </View>
                           </View>
                         ) }
                         </View>
               </View>
 
-              <View style={[{ flexDirection:'row'}]}>
-                <View style={[styles.subContainer, greenContainer, {height:'auto', justifyContent:'center'}]}>
-                  <Text style={[styles.title, styles.textShadow, {textAlign:'center',}]}>Villagers</Text>
+              <View key={`result-reactions-row-container`} style={[{ flexDirection:'row'}]}>
+                <View key={`result-reactions-title-column`} style={[styles.subContainer, greenContainer, {height:'auto', justifyContent:'center'}]}>
+                  <Text key={`result-reactions-title-column-text`} style={[styles.title, styles.textShadow, {textAlign:'center',}]}>Reactions</Text>
                 </View>
-                <View style={[villagerInfoContainer, {marginTop:2, paddingLeft:5, }]}>
-                  <View style={{}}>
-                  {
-                    result.VillagerGifts.length ? (
-                      Object.entries(
+                <View key={`result-reactions-info-column`} style={[villagerInfoContainer, {marginTop:2, }]}>
 
-                        result.VillagerGifts.reduce((acc: any, villager: any) => {
-                          const preference = villager.Preference?.name || "Unknown";
-                          const villagerName = villager.Villager?.name || "Unknown";
+                  {result.groupedPreferences && Object.keys(result.groupedPreferences).length === 0 ? (
+                    <View key={`no-result-reactions-info`} style={{ flexDirection:'row', paddingLeft:5, alignContent:'center', height:135}} >
+                    <View style={{alignSelf:'center', }}>
+                      <Text key={`no-result-reactions-info-text`} style={{}}>No villagers associated with this gift</Text>
+                      </View>
+                      </View>
+                  ):(
 
-                          // console.log('this is a villager array?? ======>,', villager)
-                          if (!acc[preference]) {
-                            acc[preference] = [[]];
-                          }
+                    result.groupedPreferences && Object.entries(result.groupedPreferences).sort(([a], [b]) => {
+                      const order = ["Loves", "Likes", "Neutrals", "Dislikes", "Hates"];
+                      return order.indexOf(a) - order.indexOf(b);
+                    }).map(([preference, villagers]) =>{
+                      const rows = groupByFour(villagers);
+                      return(
+                        <View key={`result-reactions-info-${preference}`}>
+                        <Text key={`result-reactions-title-text-${villagers}-${preference}-`}style={[styles.preference, {margin:2}]}>{preference}</Text>
+                        {rows.map((villagerGroup, idx) =>(
 
-                          if (acc[preference][acc[preference].length - 1].length === 3) {
-                            acc[preference].push([]);
-                          }
+                          <Text key={`result-reactions-villager-name-text-${idx}-`} style={{margin:2, paddingLeft:2}}>{villagerGroup.join(", ")}</Text>
 
-                          acc[preference][acc[preference].length - 1].push(villagerName);
-                          return acc;
+                        ))}
+                      </View>
+                    )
+                  })
 
-                        }, {})
-                      )
-                      .sort(([a], [b]) => {
-                        const order = ["Loves", "Likes", "Neutrals", "Dislikes", "Hates"];
-                        return order.indexOf(a) - order.indexOf(b);
-                      })
-                      .map(([preference, villagers]) => {
 
-                        const formattedVillagers = (villagers as string[][]).map(innerArray =>
-                          innerArray.map((villager, index) =>
-                            index < innerArray.length ? villager + " " : villager
-                          )
-                        );
+                  )}
 
-                        return (
-                          <View key={preference} style={{}}>
-                            <Text key={`preference-container-${preference}`} style={[styles.preference,{}]}>{preference}</Text>
-                            <View key={`${villagers}`} style={{ flexDirection:'row'}}>
-                              {formattedVillagers.flat().map((villager: string, idx: number) => (
-                                <View key={`${villager}-${idx}`} style={[villagerInfoWidth,{ width:'auto',}]}>
-                                  <Text key={`${villager}-${idx}-${villager}-text`} style={[ styles.villagerText, {marginTop:5, textAlign:'center', }]}>{villager}</Text>
-                                </View>
-                              ))}
-                            </View>
-                          </View>
-                        );
-                      })
-                    ) : (
-
-                      <View style={{ flexDirection:'row', paddingLeft:5, alignContent:'center', height:135}} >
-                        <View style={{alignSelf:'center', }}>
-                          <Text style={{}}>No villagers associated with this gift</Text>
-                          </View>
-                          </View>
-                    )}
-                  </View>
                 </View>
               </View>
             </View>
             ) :
-            <Text style={[infoContainer, {marginTop:2}]}>There is nothing in Gifts</Text>
+            <Text key={`no-result-name`} style={[{marginTop:2}]}>There is nothing in Gifts</Text>
 
             }
 

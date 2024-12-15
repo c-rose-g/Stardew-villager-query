@@ -12,7 +12,8 @@ export const useSearch = () => {
     try {
       // remove whitespace around the query
       const sanitizedQuery = query.trim()
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/search?query=${sanitizedQuery}`);
+      // find mobile in .env
+      const response = await fetch(`http://localhost:8000/search?query=${sanitizedQuery}`);
 
       if (!response.ok) {
 

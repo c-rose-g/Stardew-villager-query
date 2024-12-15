@@ -36,7 +36,6 @@ const search = async (req, res) => {
 		let gifts, villagers, location, building, calendar, schedule, season;
 
 		gifts = await searchGift(query);
-		console.log('SearchGift Output:', gifts);
 
 		villagers = await searchVillager(query);
 
@@ -115,7 +114,7 @@ const searchGift = async (query) => {
 			// offset: size * (page - 1),
 		});
 
-		if (!gifts.length) return [];
+		if (!gifts.length) return false;
 
 	// 	return gifts.map((gift) => {
 	// 		const giftData = gift.toJSON();

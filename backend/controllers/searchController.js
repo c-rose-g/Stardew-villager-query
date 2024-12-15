@@ -1,4 +1,3 @@
-const { default: ModelManager } = require("sequelize/lib/model-manager");
 const {
 	Building,
 	Calendar,
@@ -23,62 +22,30 @@ const { Op } = require("sequelize");
 // Search bar controller logic
 
 const search = async (req, res) => {
-	// const { query, type, page, size } = req.query;
-	const { query } = req.query;
-	console.log("this is the query hitting the backend:", query);
-	try {
-		let result;
-		// parsedPage =
-		// 	page === undefined ? 1 : page < 0 ? 1 : page > 5 ? 5 : parseInt(page);
-		// parsedSize =
-		// 	size === undefined ? 10 : size < 0 ? 1 : size > 10 ? 10 : parseInt(size);
 
-		let gifts, villagers, location, building, calendar, schedule, season;
+	const { query } = req.query;
+
+	try {
+		let result, gifts, villagers, location, building, calendar, schedule, season;
 
 		gifts = await searchGift(query);
 
 		villagers = await searchVillager(query);
 
-		if (gifts) {
-			result = gifts
+		if (gifts && gifts.length > 0) {
+			result = { results: gifts, model: "gifts" };
 
-		} else if (villagers) {
-			result = villagers;
+		} else if (villagers && villagers.length > 0) {
+			result = { results: villagers, model: "villagers" };
+
 		} else {
-			return res.status(400).json({ message: "Invalid search type" });
+			return res.status(404).json({ message: "No results found." });
 		}
-		// else if (villagers){
-		// 	result = villagers
 
-		// }
-		// switch (type) {
-		// 	case "gift":
-		// 		result = await searchGift(query, parsedPage, parsedSize);
-		// 		break;
-		// 	case "villager":
-		// 		result = await searchVillager(query);
-		// 		break;
-		// 	case "location":
-		// 		result = await searchLocation(query);
-		// 		break;
-		// 	case "building":
-		// 		result = await searchBuilding(query);
-		// 		break;
-		// 	case "calendar":
-		// 		result = await searchCalendar(query);
-		// 		break;
-		// 	case "schedule":
-		// 		result = await searchSchedule(query);
-		// 		break;
-		// 	case "season":
-		// 		result = await searchSeason(query);
-		// 		break;
-		// 	default:
-		// 		return res.status(400).json({ message: "Invalid search type" });
-		// }
 		return res.json(result);
+
 	} catch (err) {
-		// console.error("Error details:", err); // Log error details
+
 		return res
 			.status(500)
 			.json({ message: "Error processing the search", err });
@@ -88,6 +55,7 @@ const search = async (req, res) => {
 const searchGift = async (query) => {
 	try {
 		const gifts = await Gift.findAll({
+
 			where: {
 				name: {
 					[Op.like]: `%${query}%`,
@@ -101,7 +69,7 @@ const searchGift = async (query) => {
 						{ model: Villager, attributes: ["name"] },
 						{ model: Preference, attributes: ["name"] },
 					],
-					attributes: ["villagerId", "preferenceId", ],
+					attributes: ["villagerId", "preferenceId"],
 				},
 				{
 					model: Gift_Season,
@@ -110,50 +78,49 @@ const searchGift = async (query) => {
 					attributes: ["giftId", "seasonId"],
 				},
 			],
-			// limit: size,
-			// offset: size * (page - 1),
+
 		});
 
-		if (!gifts.length) return false;
+		if (!gifts.length) return [];
 
-	// 	return gifts.map((gift) => {
-	// 		const giftData = gift.toJSON();
-	// 		const groupedPreferences = giftData.VillagerGifts.reduce((acc, villagerGift) => {
-	// 				const preference = villagerGift.Preference?.name || "Unknown";
-	// 				const villagerName = villagerGift.Villager?.name || "Unknown";
+			return gifts.map((gift) => {
+				
+				// jsonify the data
+				const giftData = gift.toJSON();
 
-	// 				if (!acc[preference]) acc[preference] = [];
-	// 				acc[preference].push(villagerName);
+				// reduce VillagerGifts and create arrays of villager names
+				const groupedPreferences = giftData.VillagerGifts.reduce(
+					(acc, villagerGift) => {
+						const preference = villagerGift.Preference?.name;
+						const villager = villagerGift.Villager?.name;
 
-	// 				return acc;
-	// 		}, {});
+						// if preference key doesn't exist in acc obj, create a new array value for said preference key
+						if (!acc[preference]) acc[preference] = [];
 
-	// 		return{
-	// 				...giftData,
-	// 				groupedPreferences,
-	// 		};
-	// });
-		return { results: gifts, model: "gifts" };
+						// push villagerName into preference key
+						acc[preference].push(villager);
+
+						return acc;
+					}, {});
+
+				return {
+					...giftData,
+					groupedPreferences,
+				};
+
+			});
+
 	} catch (err) {
 		console.log(err);
 		throw new Error("There was an error searching for gifts");
 	}
 };
 
-// this has to include Villager_Gift?
-// include schedule
 const searchVillager = async (query) => {
 	try {
-		// let capitalizedVillager;
-		// if (query.length >= 2) {
-		// 	capitalizedVillager =
-		// 		query.charAt(0).toUpperCase() + query.slice(1).toLowerCase();
-		// } else if (query.length === 1) {
-		// 	capitalizedVillager = query;
-		// }
+
 		const villager = await Villager.findAll({
 			where: { name: query },
-			// attributes: ["id", "name", "imageUrl", "sex", "marriage", "houseId", "buildingId"],
 			include: [
 				{
 					model: Villager_Gift,
@@ -169,23 +136,9 @@ const searchVillager = async (query) => {
 			],
 		});
 
-		if (!villager.length) {
-			return false;
-		}
-		// else if (villager.length === 1) {
-		// 	// if villager array only has 1 object, include schedule
-		// 	id = villager[0]?.id;
+		if (!villager.length) return [];
 
-		// 	const schedule = await Schedule.findAll({
-		// 		where: {
-		// 			villagerId: id,
-		// 		},
-		// 	});
-
-		// 	villager[0].dataValues.Schedule = schedule;
-		// }
-		console.log({ results: villager, model: "villagers" });
-		return { results: villager, model: "villagers" };
+		return villager;
 	} catch (err) {
 		console.log(err);
 		throw new Error("There was an error searching for villagers");

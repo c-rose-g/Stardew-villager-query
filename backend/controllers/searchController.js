@@ -22,11 +22,17 @@ const { Op } = require("sequelize");
 // Search bar controller logic
 
 const search = async (req, res) => {
-
 	const { query } = req.query;
 
 	try {
-		let result, gifts, villagers, location, building, calendar, schedule, season;
+		let result,
+			gifts,
+			villagers,
+			location,
+			building,
+			calendar,
+			schedule,
+			season;
 
 		gifts = await searchGift(query);
 
@@ -34,18 +40,14 @@ const search = async (req, res) => {
 
 		if (gifts && gifts.length > 0) {
 			result = { results: gifts, model: "gifts" };
-
 		} else if (villagers && villagers.length > 0) {
 			result = { results: villagers, model: "villagers" };
-
 		} else {
 			return res.status(404).json({ message: "No results found." });
 		}
 
 		return res.json(result);
-
 	} catch (err) {
-
 		return res
 			.status(500)
 			.json({ message: "Error processing the search", err });
@@ -55,7 +57,6 @@ const search = async (req, res) => {
 const searchGift = async (query) => {
 	try {
 		const gifts = await Gift.findAll({
-
 			where: {
 				name: {
 					[Op.like]: `%${query}%`,
@@ -78,38 +79,36 @@ const searchGift = async (query) => {
 					attributes: ["giftId", "seasonId"],
 				},
 			],
-
 		});
 
 		if (!gifts.length) return [];
 
-			return gifts.map((gift) => {
-				
-				// jsonify the data
-				const giftData = gift.toJSON();
+		return gifts.map((gift) => {
+			// jsonify the data
+			const giftData = gift.toJSON();
 
-				// reduce VillagerGifts and create arrays of villager names
-				const groupedPreferences = giftData.VillagerGifts.reduce(
-					(acc, villagerGift) => {
-						const preference = villagerGift.Preference?.name;
-						const villager = villagerGift.Villager?.name;
+			// reduce VillagerGifts and create arrays of villager names
+			const groupedPreferences = giftData.VillagerGifts.reduce(
+				(acc, villagerGift) => {
+					const preference = villagerGift.Preference?.name;
+					const villager = villagerGift.Villager?.name;
 
-						// if preference key doesn't exist in acc obj, create a new array value for said preference key
-						if (!acc[preference]) acc[preference] = [];
+					// if preference key doesn't exist in acc obj, create a new array value for said preference key
+					if (!acc[preference]) acc[preference] = [];
 
-						// push villagerName into preference key
-						acc[preference].push(villager);
+					// push villagerName into preference key
+					acc[preference].push(villager);
 
-						return acc;
-					}, {});
+					return acc;
+				},
+				{}
+			);
 
-				return {
-					...giftData,
-					groupedPreferences,
-				};
-
-			});
-
+			return {
+				...giftData,
+				groupedPreferences,
+			};
+		});
 	} catch (err) {
 		console.log(err);
 		throw new Error("There was an error searching for gifts");
@@ -118,7 +117,6 @@ const searchGift = async (query) => {
 
 const searchVillager = async (query) => {
 	try {
-
 		const villager = await Villager.findAll({
 			where: { name: query },
 			include: [

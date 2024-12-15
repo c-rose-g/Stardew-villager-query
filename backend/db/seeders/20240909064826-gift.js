@@ -340,6 +340,7 @@ module.exports = {
 			{ name: "Spice Berry" }, //307
 			{ name: "Joja Cola" }, //308
 			{ name: "Frog Egg" },
+			{name:'Snail'},
 		]);
 	},
 

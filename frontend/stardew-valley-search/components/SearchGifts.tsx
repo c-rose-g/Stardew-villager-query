@@ -19,13 +19,15 @@ interface GiftSeason {
   giftId: number;
   Season: { name: string };
 }
-
+interface groupPreferences{
+  preference: Array<{ name: string }>
+}
 interface Result {
   id: number;
   name: string;
   VillagerGifts: VillagerGift[];
   GiftSeasons: GiftSeason[];
-  
+  groupPreferences: groupPreferences
 }
 
 export const SearchGifts = ({results}:ComponentProps) => {
@@ -81,11 +83,7 @@ export const SearchGifts = ({results}:ComponentProps) => {
     <SafeAreaView style={container}>
       <View>
         <Text style={[styles.title, styles.subContainer, {backgroundColor:'#d4e9f5', textAlign:'center', height: 30, }]}>Gift Information</Text>
-        {results.map((result: {
-          id: number;
-          name: string;
-          VillagerGifts: Array<{ villagerId: number; preferenceId:number; Villager: { name: string }; Preference: { name: string  | null}; }>;
-          GiftSeasons: Array<{ giftId: number; Season: {name: string};}> }, index) => {
+        {results.map((result:Result, index) => {
 
           return result.name ? (
           <View key={result.id} style={{marginTop:20,}}>

@@ -36,10 +36,13 @@ const search = async (req, res) => {
 		let gifts, villagers, location, building, calendar, schedule, season;
 
 		gifts = await searchGift(query);
+		console.log('SearchGift Output:', gifts);
+
 		villagers = await searchVillager(query);
 
 		if (gifts) {
-			result = gifts;
+			result = gifts
+
 		} else if (villagers) {
 			result = villagers;
 		} else {
@@ -98,9 +101,8 @@ const searchGift = async (query) => {
 					include: [
 						{ model: Villager, attributes: ["name"] },
 						{ model: Preference, attributes: ["name"] },
-						// { model: Gift, attributes: ["name"] },
 					],
-					// attributes: ["villagerId", "preferenceId"],
+					attributes: ["villagerId", "preferenceId", ],
 				},
 				{
 					model: Gift_Season,
@@ -113,32 +115,25 @@ const searchGift = async (query) => {
 			// offset: size * (page - 1),
 		});
 
-		if (!gifts.length) {
-			// return "Gift cannot be found, please try again :)";
-			return false;
-		}
+		if (!gifts.length) return [];
 
-		// if a gift has not been associated to a villager, return a message, otherwise return data
-		// const giftNeedsAVillager = gifts.map((gift) => {
-		// jsonify the data
+	// 	return gifts.map((gift) => {
+	// 		const giftData = gift.toJSON();
+	// 		const groupedPreferences = giftData.VillagerGifts.reduce((acc, villagerGift) => {
+	// 				const preference = villagerGift.Preference?.name || "Unknown";
+	// 				const villagerName = villagerGift.Villager?.name || "Unknown";
 
-		// 	const giftJSON = gift.toJSON();
-		// 	const hasVillagers =
-		// 		Array.isArray(giftJSON.Villagers) && giftJSON.Villagers.length > 0;
-		// 	const hasVillagerGifts =
-		// 		Array.isArray(giftJSON.villagerGifts) &&
-		// 		giftJSON.villagerGifts.length > 0;
+	// 				if (!acc[preference]) acc[preference] = [];
+	// 				acc[preference].push(villagerName);
 
-		// 	if (!hasVillagers && !hasVillagerGifts) {
-		// 		return {
-		// 			...giftJSON,
-		// 			message: "This gift has no villager associated to it yet.",
-		// 		};
-		// 	}
+	// 				return acc;
+	// 		}, {});
 
-		// 	return giftJSON;
-		// });
-		// return { results: giftNeedsAVillager, model: "gifts" };
+	// 		return{
+	// 				...giftData,
+	// 				groupedPreferences,
+	// 		};
+	// });
 		return { results: gifts, model: "gifts" };
 	} catch (err) {
 		console.log(err);

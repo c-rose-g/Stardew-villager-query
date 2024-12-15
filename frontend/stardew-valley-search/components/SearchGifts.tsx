@@ -74,7 +74,6 @@ export const SearchGifts = ({results}:ComponentProps) => {
     width: width / 7.7,
   }
 
-
   const groupByFour = (villagers: string[]): string[][] =>
 
     villagers.reduce((acc: string[][], villager, idx) => {
@@ -83,17 +82,14 @@ export const SearchGifts = ({results}:ComponentProps) => {
         return acc;
     },[]);
 
-
-
   return (
     <SafeAreaView style={container}>
       <View>
         <Text style={[styles.title, styles.subContainer, {backgroundColor:'#d4e9f5', textAlign:'center', height: 30, }]}>Gift Information</Text>
         {results.map((result, index) => {
 
-          return result.name ? (
+          return  (
           <View key={result.id} style={{marginTop:20,}}>
-            {/* <Text key={`result-name-${result.id}`} style={[styles.title, styles.subContainer, {backgroundColor:'#d4e9f5', textAlign:'center', height: 30, }]}>{`${result.name}`}</Text> */}
             {/* <Image key={`result-image-${result.id}`} style={{}} resizeMode="contain" /> */}
             <View key={`result-facts-container-${index}`} style={[ styles.subContainer, {backgroundColor:'#14a006',justifyContent:'center',}]}>
               <Text key={`result-facts-title-text-${index}`}  style={[styles.title, styles.textShadow, {color:'#fff', textAlign:'center'}]}>Facts</Text>
@@ -168,8 +164,8 @@ export const SearchGifts = ({results}:ComponentProps) => {
                 </View>
               </View>
             </View>
-            ) :
-            <Text key={`no-result-name`} style={[{marginTop:2}]}>There is nothing in Gifts</Text>
+            )
+
 
             }
 

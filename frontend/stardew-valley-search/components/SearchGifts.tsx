@@ -98,7 +98,7 @@ export const SearchGifts = ({results}:ComponentProps) => {
                 </View>
                   <View key={`result-gift-name-text-info${index}`} style={[seasonInfoContainer,{flexDirection:'row', paddingLeft:5, }]}>
                     <View key={`result-gift-name-align-self-${index}`} style={{alignSelf:'center', }}>
-                    <Text key={`result-gift-name-${index}`} style={[infoContainer, {width:200} ]}>{`${result.name}`}</Text>
+                    <Text key={`result-gift-name-${index}`} style={[ {width:200} ]}>{`${result.name}`}</Text>
                     </View>
                   </View>
               </View>
@@ -113,7 +113,7 @@ export const SearchGifts = ({results}:ComponentProps) => {
 
                         return (
                         <View key={`${season.id}`} style={{alignSelf:'center'}}>
-                            <Text key={season.id} style={[infoContainer, {} ]}>
+                            <Text key={season.id} style={[ {} ]}>
                               {seasonName}
                             </Text>
                             </View>
@@ -131,15 +131,15 @@ export const SearchGifts = ({results}:ComponentProps) => {
                           <View style={{flexDirection:'row', paddingLeft:5}}>
                             <View style={{alignSelf:'center'}}>
 
-                            <Text style={[infoContainer, {}]}>No Seasons associated with this gift</Text>
+                            <Text style={[ {}]}>No Seasons associated with this gift</Text>
                             </View>
                           </View>
                         ) }
                         </View>
               </View>
 
-              <View style={[styles.row, { }]}>
-              <View style={[styles.subContainer, greenContainer, {height:'auto'}]}>
+              <View style={[{ flexDirection:'row'}]}>
+                <View style={[styles.subContainer, greenContainer, {height:'auto'}]}>
                   <Text style={[styles.title, styles.textShadow, {textAlign:'center',}]}>Villagers</Text>
                 </View>
                 <View style={[villagerInfoContainer, {marginTop:2, paddingLeft:5, }]}>
@@ -184,7 +184,7 @@ export const SearchGifts = ({results}:ComponentProps) => {
                             <View style={{ flexDirection:'row'}}>
                               {formattedVillagers.flat().map((villager: string, idx: number) => (
                                 <View style={[villagerInfoWidth,{ width:'auto',}]} key={`${preference}-${idx}`}>
-                                  <Text style={[infoContainer, styles.villagerText, {marginTop:5, textAlign:'center', }]}>{villager}</Text>
+                                  <Text style={[ styles.villagerText, {marginTop:5, textAlign:'center', }]}>{villager}</Text>
                                 </View>
                               ))}
                             </View>
@@ -192,7 +192,12 @@ export const SearchGifts = ({results}:ComponentProps) => {
                         );
                       })
                     ) : (
-                    <Text>No villagers associated with this gift</Text>
+
+                      <View style={{ flexDirection:'row', paddingLeft:5, alignContent:'center', height:135}} >
+                        <View style={{alignSelf:'center', }}>
+                          <Text style={{}}>No villagers associated with this gift</Text>
+                          </View>
+                          </View>
                     )}
                   </View>
                 </View>

@@ -24,26 +24,15 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="developer"
+        name="about"
         options={{
-          title: 'Developer',
+          title: 'Info',
           tabBarIcon: ({ color }) => (
             <TabBarIcon
-            name={'person-outline'}
+            name={'information-circle-outline'}
             color={color}
-            onPress={() => Linking.openURL('https://c-rose-g.github.io/')}/>
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="github"
-        options={{
-          title: 'github',
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon
-            name={'logo-github'}
-            color={color}
-            onPress={() => Linking.openURL('https://github.com/c-rose-g/Stardew-villager-query/')}/>
+
+            />
           ),
         }}
       />

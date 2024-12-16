@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 export const useSearch = () => {
-  const [results, setResults] = useState([])
+  const [results, setResults] = useState<any[]>([])
 
   const [error, setError] = useState<string | null>(null);
   const [model, setModel] = useState('')
@@ -23,7 +23,7 @@ export const useSearch = () => {
       let data = await response.json()
       setResults(data.results);
       setModel(data.model)
-      console.log('this is data in useSearch', data)
+
       return data
     } catch (err) {
 

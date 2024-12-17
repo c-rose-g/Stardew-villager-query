@@ -63,27 +63,22 @@ const About = () => {
             <View style={[ styles.subContainer, {backgroundColor:'#14a006',justifyContent:'center',}]}>
               <Text style={[styles.textShadow, styles.title, {color:'#fff', textAlign:'center', fontWeight:'bold', marginLeft:10, marginBottom:5,}]}>Search Bar Basics</Text>
               </View>
-            <Text key={`row-1-info-bold-not-bold`} style={[styles.fontFamilyArial, {marginLeft:10, marginBottom:5, marginTop:5, fontSize:16,}]}>
-            <Text style={[styles.fontFamilyArial,{fontWeight:'bold'}]}>Type Keywords: </Text>Start typing in the search bar to find exactly what you're looking for.
+            <Text key={`row-1-info-bold-not-bold`} style={[styles.fontFamilyArial, {marginLeft:10, marginBottom:5, marginTop:5, fontSize:16, }]}>
+            <Text style={[styles.fontFamilyArial,{fontWeight:'bold', }]}>Type Keywords: </Text>Start typing in the search bar to find exactly what you're looking for.
             </Text>
-            <Text style={[styles.fontFamilyArial, {paddingLeft:15, marginBottom:5, fontSize:16,}]}>{'\u2022'} Example: Search for "Emily" to find information <View style={{paddingLeft:10, }}>
+            <Text style={[styles.fontFamilyArial, {paddingLeft:15, marginBottom:5, fontSize:16, }]}>{'\u2022'} Example: Search for "Emily" to find information <View style={{paddingLeft:10, }}>
               <Text style={{fontSize:16}}>about Emily, or type "Amethyst" to explore gift preferences.</Text></View></Text>
             <View style={[ styles.subContainer, {backgroundColor:'#14a006',justifyContent:'center',}]}>
               <Text style={[styles.textShadow, styles.title, {color:'#fff', textAlign:'center', fontWeight:'bold', marginLeft:10, marginBottom:5,}]}>What You Can Search For</Text>
               </View>
-            <Text style={[styles.fontFamilyArial, {marginLeft:10 , marginBottom:5, fontSize:16, marginTop:5,}]}><Text style={{fontWeight:'bold', }}>Villagers: </Text>Learn about their favorite gifts and
-            <View style={{paddingLeft:10, }}>
-              <Text style={{fontSize:16}}>facts.
-              </Text>
-            </View>
-            </Text>
+            <Text style={[styles.fontFamilyArial, {marginLeft:10 , marginBottom:5, fontSize:16, marginTop:5,}]}><Text style={{fontWeight:'bold', }}>Villagers: </Text>Learn about their favorite gifts and facts.</Text>
             <Text style={[styles.fontFamilyArial, {marginLeft:10, marginBottom:5, fontSize:16,}]}><Text style={{fontWeight:'bold'}}>Gifts: </Text><Text>Discover which villagers react to a gift.</Text></Text>
 
             <View style={[ styles.subContainer, {backgroundColor:'#14a006',justifyContent:'center',}]}>
               <Text style={[styles.textShadow, styles.title, {color:'#fff', textAlign:'center', fontWeight:'bold', marginLeft:10, marginBottom:5,}]}>Results Layout</Text>
               </View>
-            <Text style={[styles.fontFamilyArial, {marginLeft:10, marginBottom:5, fontSize:16, marginTop:5,}]}><Text style={{fontWeight:'bold'}}>Villagers: </Text>Displays their name, address, and favorite gifts.</Text>
-            <Text style={[styles.fontFamilyArial, {marginLeft:10, marginBottom:5, fontSize:16, }]}><Text style={{fontWeight:'bold'}}>Gifts: </Text>Shows a list of villager reactions and the season the gifts are found.</Text>
+            <Text style={[styles.fontFamilyArial, {marginLeft:10, marginBottom:5, fontSize:16, marginTop:5,}]}><Text style={{fontWeight:'bold'}}>Villagers: </Text>Displays their name, address, and their reactions to gifts.</Text>
+            <Text style={[styles.fontFamilyArial, {marginLeft:10, marginBottom:5, fontSize:16, }]}><Text style={{fontWeight:'bold'}}>Gifts: </Text>Shows a list of villager reactions and the season(s) in which the gifts are found.</Text>
 
             <View style={[ styles.subContainer, {backgroundColor:'#14a006',justifyContent:'center', }]}>
               <Text style={[styles.textShadow, styles.title, {color:'#fff', textAlign:'center', fontWeight:'bold', marginLeft:10, marginBottom:5,}]}>Still Need Help?</Text>
@@ -93,7 +88,7 @@ const About = () => {
 
           <View key={`row-2`} style={{ padding:3, }}>
 
-            <Text key={`row-2-info-text`} style={[styles.fontFamilyArial, {marginLeft:10, marginBottom:5, marginTop:5, fontSize:16, }]}>The app is an independent tool developed to enhance players' experience. It is not affiliated with ConcernedApe.</Text>
+            <Text key={`row-2-info-text`} style={[styles.fontFamilyArial, {marginLeft:10, marginBottom:5, marginTop:5, fontSize:16, paddingRight:10, }]}>The app is an independent tool developed to enhance players' experience. It is not affiliated with ConcernedApe.</Text>
           </View>
 
           <View key={`row-3`} style={{ padding:3, }}>
@@ -107,13 +102,13 @@ const About = () => {
               <View style={{marginTop:10, }}>
                 <Text key={`row-3-info-text`} style={[styles.fontFamilyArial, {marginLeft:2, marginBottom:5, paddingLeft:10, paddingRight:10, fontSize:16,}]}>Hi! I'm Cindy, a passionate software engineer and developer. I built this app to make exploring and searching Stardew Valley game data fast, seamless, and fun.</Text>
                 <Text style={[styles.fontFamilyArial, {marginLeft:2, marginBottom:5, paddingLeft:10, paddingRight:10, fontSize:16,}]}>Feel free to explore more of my projects and connect with me here:</Text>
-                <View style={{marginTop:4,}}>
-                <Text style={[styles.fontFamilyArial, {marginLeft:2, paddingLeft:10, fontSize:16,}]}>{'\u2022'} Visit My<TouchableOpacity style={{}} onPress={() => openLink('https://c-rose-g.github.io/')}><Text style={[styles.fontFamilyArial, {marginLeft:2, fontSize:16, fontWeight:'bold', marginBottom:-4}]}>Website</Text>
+                <View style={{marginTop:4, paddingLeft:5}}>
+                <Text style={[styles.fontFamilyArial, {marginLeft:2, paddingLeft:15, fontSize:16, marginBottom:5}]}>{'\u2022'} Visit my<TouchableOpacity style={{}} onPress={() => openLink('https://c-rose-g.github.io/')}><Text style={[styles.fontFamilyArial, {marginLeft:2, fontSize:16, fontWeight:'bold', marginBottom:-4}]}>Website</Text>
                   </TouchableOpacity>
                 </Text>
                 </View>
 
-                <Text style={[styles.fontFamilyArial, {marginLeft:2, marginBottom:5, paddingLeft:10, paddingRight:10, fontSize:16,}]}>{'\u2022'} Check Out My<TouchableOpacity  onPress={() => openLink('https://github.com/c-rose-g')}><Text style={[styles.fontFamilyArial, {marginLeft:2, fontSize:16, fontWeight:'bold', marginBottom:-4}]}>GitHub</Text></TouchableOpacity>
+                <Text style={[styles.fontFamilyArial, {marginLeft:2, marginBottom:5, paddingLeft:20, paddingRight:10, fontSize:16,}]}>{'\u2022'} Check out my<TouchableOpacity  onPress={() => openLink('https://github.com/c-rose-g')}><Text style={[styles.fontFamilyArial, {marginLeft:2, fontSize:16, fontWeight:'bold', marginBottom:-4}]}>GitHub</Text></TouchableOpacity>
 
 
                 </Text>

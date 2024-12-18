@@ -340,7 +340,17 @@ module.exports = {
 			{ name: "Spice Berry" }, //307
 			{ name: "Joja Cola" }, //308
 			{ name: "Frog Egg" },
-			{name:'Snail'},
+			{ name: "Snail" }, //311
+			{ name: "Pearl" },
+			{ name: "Monster Compendium" },
+			{ name: "Monster Musk" }, //314
+			{ name: "Life Elixir" },
+			{ name: "Treasure Chest" }, //316
+			{ name: "Dried Mushrooms" }, //317
+			{ name: "Dried Fruit" }, //318
+			{ name: "Raisins" }, //319
+			{ name: "Roe" },
+			{ name: "Qi Fruit" }, //321
 		]);
 	},
 

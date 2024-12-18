@@ -45,7 +45,8 @@ module.exports = {
       {name:'Artifacts'},
       {name:'Special'},
       {name:'Ingredients'},
-      {name:'Monster Loot'}
+      {name:'Monster Loot'},
+      {name: 'Craftable Items'},
     ])
   },
 

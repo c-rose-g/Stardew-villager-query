@@ -1,17 +1,13 @@
 import { StyleSheet, Image, Animated, Text, View, SafeAreaView, ImageBackground, Dimensions, ScrollView, useColorScheme, Linking, TouchableOpacity} from 'react-native'
 import React from 'react'
 import { StatusBar } from 'expo-status-bar';
+import { Colors } from '@/constants/Colors';
 
 const About = () => {
-
   const { width, height } = Dimensions.get('window');
-
-  // const aboutDeveloper = () =>{
-  //   const openLink = (url) => {
-  //     Linking.openURL(url).catch((err) =>
-  //       console.error('Failed to open URL:', err)
-  //     );
-  // }
+  const colorScheme = useColorScheme();
+  const themeTextStyle = colorScheme === 'light' ? Colors.light : Colors.dark;
+  const themeContainerStyle = colorScheme === 'light' ? Colors.light : Colors.dark;
 
   const windowHeight = {
     height: height,
@@ -47,7 +43,8 @@ const About = () => {
 
   return (
 
-      <SafeAreaView style={{backgroundColor:'#000'}}>
+      <SafeAreaView style={[{ backgroundColor: themeContainerStyle.background }, {flex:1}]}>
+        <StatusBar style='auto' />
       <ImageBackground style={windowHeight} source={require('@/assets/images/index-bg.png')}>
       <View style={{ flexDirection:'column', alignItems:'center', }}>
 

@@ -7,7 +7,8 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-
+  const theme = colorScheme === 'dark' ? 'dark' : 'light'; // Define your lightTheme and darkTheme objects
+  const backgroundColor = colorScheme === 'dark' ? 'black' : 'white';
   return (
     <Tabs
       screenOptions={{

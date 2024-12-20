@@ -11,7 +11,11 @@
       "foregroundImage": "./assets/images/index-bg.png"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "userInterfaceStyle":"automatic",
+      "splash":{
+        "image":"./assets/images/index-bg.png"
+      }
     },
     "web": {
       "bundler": "metro",
@@ -20,7 +24,12 @@
     },
     "plugins": [
       "expo-router",
-      "expo-font"
+      "expo-font",
+      ["expo-splash-screen",
+      {
+        "image":"./assets/images/index-bg.png",
+        "resizeMode": "cover"
+      }]
     ],
     "experiments": {
       "typedRoutes": true

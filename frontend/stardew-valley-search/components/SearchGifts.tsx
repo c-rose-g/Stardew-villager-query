@@ -47,11 +47,12 @@ export const SearchGifts = ({results}:ComponentProps) => {
     backgroundColor:'#14a006',
     width:width /3.9,
     height: height / 6.7,
+
   };
   const seasonInfoContainer ={
     marginTop: 2,
     marginRight:-10,
-    width:width / 1.5 , //------------> put this back
+    width:width / 1.5 ,
     backgroundColor:'#d4e9f5',
   };
   const villagerInfoContainer = {
@@ -90,37 +91,36 @@ export const SearchGifts = ({results}:ComponentProps) => {
 
           return  (
           <View key={result.id} style={{marginTop:20,}}>
-            {/* <Image key={`result-image-${result.id}`} style={{}} resizeMode="contain" /> */}
             <View key={`result-facts-container-${index}`} style={[ styles.subContainer, {backgroundColor:'#14a006',justifyContent:'center',}]}>
               <Text key={`result-facts-title-text-${index}`}  style={[styles.title, styles.textShadow, {color:'#fff', textAlign:'center'}]}>Facts</Text>
               </View>
               <View key={`result-gift-name-row-${index}-container`} style={{flexDirection:'row',}}>
                 <View key={`result-gift-name-${index}`}  style={[styles.subContainer, greenContainer, { justifyContent:'center'}]}>
-                  <Text key={`result-gift-name-text-title-${index}`} style={[styles.title, styles.textShadow, {textAlign:'center', justifyContent:'center', marginTop:2, marginBottom:2}]}>Name</Text>
+                  <Text key={`result-gift-name-text-title-${index}`} style={[styles.subTitle, styles.textShadow, {textAlign:'center', justifyContent:'center', marginTop:2, marginBottom:2}]}>Name</Text>
                 </View>
                   <View key={`result-gift-name-text-info${index}`} style={[seasonInfoContainer,{flexDirection:'row', paddingLeft:5, }]}>
                     <View key={`result-gift-name-align-self-${index}`} style={{alignSelf:'center', }}>
-                    <Text key={`result-gift-name-${index}`} style={[ {width:200} ]}>{`${result.name}`}</Text>
+                    <Text key={`result-gift-name-${index}`} style={[ {width:200, fontSize:17} ]}>{`${result.name}`}</Text>
                     </View>
                   </View>
               </View>
               <View key={`result-seasons-name-row-${index}-container`} style={{flexDirection:'row' }}>
                 <View key={`result-seasons-names-${index}-column`} style={[styles.subContainer, greenContainer, { justifyContent:'center' }]}>
-                  <Text key={`result-seasons-text-${index}`} style={[styles.title, styles.textShadow, {textAlign:'center', justifyContent:'center', marginTop:2, marginBottom:2}]}>Seasons</Text>
+                  <Text key={`result-seasons-text-${index}`} style={[styles.subTitle, styles.textShadow, {textAlign:'center', justifyContent:'center', marginTop:2, marginBottom:2}]}>Seasons</Text>
                 </View>
                 <View key={`result-season-info-row-${index}-column`} style={[seasonInfoContainer, {flexDirection:'row', paddingLeft:5}]}>
                     {result.GiftSeasons.length ?
-                    ( <Text key={`result-season-info-text-${index}`} style={{ alignSelf: 'center' }}>
+                    ( <Text key={`result-season-info-text-${index}`} style={{ alignSelf: 'center', fontSize:16, }}>
                       {result.GiftSeasons
                         .map((season: any) => (season.Season && season.Season.name ? season.Season.name : null))
-                        .filter(Boolean) // Remove any null or undefined values
-                        .join(', ')} {/* Join all season names with ", " */}
+                        .filter(Boolean)
+                        .join(', ')}
                     </Text>
                     ):(
-                          <View key={`no-result-season-info-${index}`} style={{flexDirection:'row', paddingLeft:5}}>
-                            <View key={`no-result-season-info-align-self-${index}`} style={{alignSelf:'center'}}>
+                          <View key={`no-result-season-info-${index}`} style={{flexDirection:'row'}}>
+                            <View key={`no-result-season-info-align-self-${index}`} style={{alignSelf:'center',}}>
 
-                            <Text key={`no-result-season-info-text-${index}`} style={[ {}]}>No Seasons associated with this gift</Text>
+                            <Text key={`no-result-season-info-text-${index}`} style={[{fontSize:16 }]}>No Seasons associated with this gift</Text>
                             </View>
                           </View>
                         ) }
@@ -129,7 +129,7 @@ export const SearchGifts = ({results}:ComponentProps) => {
 
               <View key={`result-reactions-row-container`} style={[{ flexDirection:'row'}]}>
                 <View key={`result-reactions-title-column`} style={[styles.subContainer, greenContainer, {height:'auto', justifyContent:'center'}]}>
-                  <Text key={`result-reactions-title-column-text`} style={[styles.title, styles.textShadow, {textAlign:'center',}]}>Reactions</Text>
+                  <Text key={`result-reactions-title-column-text`} style={[styles.subTitle, styles.textShadow, {textAlign:'center',}]}>Reactions</Text>
                 </View>
                 <View key={`result-reactions-info-column`} style={[villagerInfoContainer, {marginTop:2, }]}>
 
@@ -148,10 +148,10 @@ export const SearchGifts = ({results}:ComponentProps) => {
                       const rows = groupByFour(villagers);
                       return(
                         <View key={`result-reactions-info-${preference}`}>
-                        <Text key={`result-reactions-title-text-${villagers}-${preference}-`}style={[styles.preference, {margin:2}]}>{preference}</Text>
+                        <Text key={`result-reactions-title-text-${villagers}-${preference}-`}style={[styles.preferenceTitle, {margin:2, paddingTop:5, paddingLeft:5}]}>{preference}</Text>
                         {rows.map((villagerGroup, idx) =>(
 
-                          <Text key={`result-reactions-villager-name-text-${idx}-`} style={{margin:2, paddingLeft:2}}>{villagerGroup.join(", ")}</Text>
+                          <Text key={`result-reactions-villager-name-text-${idx}-`} style={[styles.preferenceName,{margin:10, paddingLeft:10}]}>{'\u2022'} {villagerGroup.join(", ")}</Text>
 
                         ))}
                       </View>
@@ -213,12 +213,28 @@ const styles = StyleSheet.create({
   //   width:375,
   // },
   title:{
-    fontSize:20,
+    fontSize:21,
     fontFamily: "Arial",
     fontWeight: 'bold',
     // marginTop:2,
     marginBottom:2,
     // alignContent:'center'
+  },
+  subTitle:{
+    fontFamily: "Arial",
+    fontWeight: 'bold',
+    marginBottom:2,
+    fontSize:19,
+  },
+  preferenceTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    // marginTop: 10,
+    fontFamily: "Arial",
+  },
+  preferenceName:{
+    fontSize:16,
+    fontFamily: "Arial",
   },
   row:{
     flexDirection: 'row',
@@ -242,12 +258,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 1,
     color:'#fff'
-  },
-  preference: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    // marginTop: 10,
-    fontFamily: "Arial",
   },
   selectContainer:{
     minWidth: 128,

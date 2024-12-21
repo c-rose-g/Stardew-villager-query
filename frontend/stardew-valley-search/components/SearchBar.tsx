@@ -106,7 +106,7 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
     borderRadius: 5,
     paddingTop:10,
     paddingBottom:10,
-    margin:10,
+    // margin:10,
     width: width,
   };
 

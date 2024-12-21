@@ -12,6 +12,9 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [isSplashVisible, setSplashVisible] = useState(true);
+  const colorScheme = useColorScheme();
+  const themeTextStyle = colorScheme === 'light' ? Colors.light : Colors.dark;
+  const themeContainerStyle = colorScheme === 'light' ? Colors.light : Colors.dark;
 
   useEffect(() => {
     setTimeout(() => {
@@ -26,8 +29,25 @@ export default function RootLayout() {
         <AnimatedSplashScreen />
       ) :(
           <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false, }}/>
-        </Stack>
+          <Stack.Screen
+            name="(tabs)"
+            options={() => ({
+              headerShown: false,
+              
+              // tabBarOptions: {
+              //   style: {
+              //     backgroundColor: 'red',
+              //     colorScheme: colorScheme,
+              //   },
+              //   labelStyle: {
+              //     color: useColorScheme() === 'dark' ? Colors.dark.text : Colors.light.text,
+              //     colorScheme: colorScheme,
+              //   },
+              // },
+            })}
+            />
+            </Stack>
+
       )}
       </View>
   );

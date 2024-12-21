@@ -28,7 +28,7 @@ export const Colors = {
     icon: '#687076',
     tabIconDefault: '#687076',
     tabIconSelected: tintColorLight,
-    statusBarBackgroundColor:'#fff',
+    statusBarBackgroundColor:statusBarBackgroundColorLight,
     tabBackgroundColor: tabBackgroundColorLight,
     titleColor:titleColorLight,
     inputBorderColor: inputBorderColorLight,

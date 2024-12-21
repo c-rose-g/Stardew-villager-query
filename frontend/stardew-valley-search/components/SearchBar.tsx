@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Dimensions, RefreshControl, SafeAreaView, View, TextInput, StyleSheet, Button, Text, Animated, Easing, TouchableOpacity, ScrollView, Keyboard, TouchableWithoutFeedback } from 'react-native';
-
 import { SearchVillagers } from './SearchVillagers';
 import { SearchGifts } from './SearchGifts';
 import { Ionicons } from '@expo/vector-icons';
+import { Colors } from '@/constants/Colors';
+import { useColorScheme } from '@/hooks/useColorScheme';
 import type { EasingFunction } from 'react-native';
-
 import { useSearch } from '../hooks/useSearch';
+
 
 type SearchBarProps = {
   onSearch: (query: string | null) => void;
@@ -22,6 +23,15 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
   const [submitted, setSubmitted] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
+  const systemColorScheme = useColorScheme();
+  const [theme, setTheme] = useState(systemColorScheme === 'dark' ? Colors.dark : Colors.light);
+  const isDarkMode = theme === Colors.dark;
+  const backgroundColor = isDarkMode ? Colors.dark.background : Colors.light.background;
+  const textColor = isDarkMode ? Colors.dark.text : Colors.light.text;
+  const titleColor = isDarkMode ? Colors.dark.titleColor : Colors.light.titleColor;
+  const inputBorder = isDarkMode ? Colors.dark.inputBorderColor : Colors.light.inputBorderColor;
+  const inputText = isDarkMode ? Colors.dark.inputTextColor : Colors.light.inputTextColor;
+  const linkColor = isDarkMode ? Colors.dark.link : Colors.light.link;
 
   useEffect( () => {
 
@@ -59,7 +69,7 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
     setQuery('');
     // setSubmitted(false);
     // Keyboard.dismiss()
-  }
+  };
 
   const handleSearch = async () => {
     const searchResults = await search(query);
@@ -74,7 +84,6 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
     handleClear()
   };
 
-  // console.log('this is model', model)
   const animatedStyles = {
     opacity,
     animatedHeight,
@@ -90,30 +99,49 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
     borderRadius: 5,
     height:height / 2,
     backgroundColor:"#97cbed",
-  }
+  };
 
   const searchContainer = {
-    backgroundColor: '#fff',
+    backgroundColor: backgroundColor,
     borderRadius: 5,
     paddingTop:10,
     paddingBottom:10,
-    borderWidth:10,
-    borderColor:'#fff',
+    margin:10,
     width: width,
-  }
+  };
+
+const input = {
+  borderColor: inputBorder,
+  height: 40,
+  borderWidth: 1,
+  borderRadius: 5,
+  paddingHorizontal: 10,
+  flex:1,
+};
+
+const textColorStyle ={
+  color: textColor,
+};
+
+const titleColorStyle = {
+  color: titleColor,
+};
+
   return (
     <SafeAreaView>
       <View style={[{alignSelf:'center'}]}>
 
-        <View style={[searchContainer]}>
-          <Text style={styles.title}>Search a giftable villager or item </Text>
+        <View style={[searchContainer,]}>
+
+          <Text style={[styles.title,titleColorStyle]}>Search a giftable villager or item </Text>
+          <View >
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View>
-              <View style={styles.inputRow}>
+            <View style={{opacity:.5}}>
+              <View style={[styles.inputRow]}>
                 <TextInput
                 value={query}
                 placeholder="Search..."
-                style={styles.input}
+                style={[input, textColorStyle]}
                 onChangeText={setQuery}
                 clearButtonMode='while-editing'
                 onSubmitEditing={() => onSearch(query)}
@@ -127,10 +155,12 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
                   </TouchableOpacity>
                 )}
               </View>
-                <Button title="Search" onPress={handleSearch} />
+                <View>
+                  <Button title="Search" onPress={handleSearch} color={linkColor} />
+                </View>
             </View>
           </TouchableWithoutFeedback>
-
+          </View>
         </View>
         {submitted && results.length > 0 && (
           <Animated.View style={[animatedStyles]}>
@@ -182,7 +212,8 @@ const styles = StyleSheet.create({
     paddingRight:20,
   },
   input: {
-    // color:'#ccc',
+    color:'#ccc',
+    // backgroundColor:'#4d5156',
     borderColor: '#ccc',
     height: 40,
     borderWidth: 1,

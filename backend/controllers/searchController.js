@@ -43,7 +43,9 @@ const search = async (req, res) => {
 		} else if (villagers && villagers.length > 0) {
 			result = { results: villagers, model: "villagers" };
 		} else {
-			return res.status(404).json({ message: "No results found." });
+			// return res.status(404).json({ message: "No results found." });
+			result = { results: [], model: null }; // Return an empty array when no results are found
+
 		}
 
 		return res.json(result);

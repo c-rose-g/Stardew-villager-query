@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Dimensions, RefreshControl, SafeAreaView, View, TextInput, StyleSheet, Button, Text, Animated, Easing, TouchableOpacity, ScrollView, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { useAnimatedValue, Dimensions, RefreshControl, SafeAreaView, View, TextInput, StyleSheet, Button, Text, Animated, Easing, TouchableOpacity, ScrollView, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { SearchVillagers } from './SearchVillagers';
 import { SearchGifts } from './SearchGifts';
 import { Ionicons } from '@expo/vector-icons';
@@ -17,8 +17,11 @@ type SearchBarProps = {
 export const SearchBar = ({ onSearch }: SearchBarProps) => {
   const { width, height } = Dimensions.get('window');
   const opacity = useState(new Animated.Value(0))[0];
+  // const opacity = useState(new Animated.Value(0))[0];
   const animatedHeight = useState(new Animated.Value(0))[0];
+  // const animatedHeight = useAnimatedValue(0);
   const searchBarAnim = useState(new Animated.Value(0))[0];
+  // const searchBarAnim = useAnimatedValue(0);
   const [query, setQuery] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
@@ -35,7 +38,7 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
 
   useEffect( () => {
 
-    const startSearchBarAnimate = () =>{
+    const startSearchBarAnimate = () => {
       Animated.timing( searchBarAnim,{
         toValue:1,
         duration:100,
@@ -47,7 +50,7 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
     startSearchBarAnimate();
   },[searchBarAnim]);
 
-  const animate = (easing: EasingFunction) => {
+  const EasingUp = (easing: EasingFunction) => {
     Animated.timing(opacity, {
       toValue: 1,
       duration: 400,
@@ -65,6 +68,7 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
 
 
   const { search, results, error, model } = useSearch();
+  console.log('this is results ====>', results)
   const handleClear = () => {
     setQuery('');
     // setSubmitted(false);
@@ -74,19 +78,28 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
   const handleSearch = async () => {
     const searchResults = await search(query);
     setSubmitted(true);
-
-    if (!searchResults || searchResults.length === 0) {
+    if (!searchResults || searchResults.results.length === 0) {
       setSearchError('No results found.');
     } else {
       setSearchError(null);
-      animate(Easing.out(Easing.ease)); // Trigger the animation when results are available
+      EasingUp(Easing.out(Easing.ease)); // Trigger the animation when results are available
+      handleClear()
     }
-    handleClear()
+  };
+
+  const handleBack = () => {
+    setQuery('');
+    setSubmitted(false);
+    setSearchError(null);
+    opacity.setValue(0);
+    animatedHeight.setValue(0);
   };
 
   const animatedStyles = {
-    opacity,
+    opacity: opacity,
+    // height: animatedHeight,
     animatedHeight,
+
   };
 
   const box = {
@@ -155,15 +168,27 @@ const titleColorStyle = {
                   </TouchableOpacity>
                 )}
               </View>
+              <View style={{flexDirection:'row', alignSelf:'center'}}>
+
                 <View>
                   <Button title="Search" onPress={handleSearch} color={linkColor} />
+                </View>
+                {submitted && (
+                  <View style={{ }}>
+                    <Button title="Back" onPress={handleBack} color={linkColor} />
+                  </View>
+                )}
                 </View>
             </View>
           </TouchableWithoutFeedback>
           </View>
         </View>
         {submitted && results.length > 0 && (
-          <Animated.View style={[animatedStyles]}>
+          <Animated.View style={[
+            {
+              opacity: opacity,
+            }
+            ]}>
             <View style={[resultsContainer, box]}>
               <ScrollView>
 
@@ -178,13 +203,13 @@ const titleColorStyle = {
         )}
 
         {submitted && !results.length && searchError && (
-          <Animated.View style={[styles.resultsContainer, animatedStyles]}>
-            <View>
-              {/* <ScrollView> */}
-                <Text style={{ color: 'red' }}>{searchError}</Text>
-              {/* </ScrollView> */}
+
+            <View style={[resultsContainer,box, {justifyContent:'center', alignItems:'center'} ]}>
+
+                <Text style={{ fontSize:16, fontFamily: "Arial", }}>{searchError}</Text>
+
             </View>
-          </Animated.View>
+
         )}
         </View>
         </SafeAreaView>
@@ -229,12 +254,6 @@ const styles = StyleSheet.create({
     paddingBottom:10,
     borderWidth:10,
     borderColor:'#fff',
-  },
-  resultsContainer: {
-    marginTop: 10,
-    borderRadius: 5,
-    height:520,
-
   },
   box:{
     borderWidth:10,

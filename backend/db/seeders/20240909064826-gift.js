@@ -351,6 +351,10 @@ module.exports = {
 			{ name: "Raisins" }, //319
 			{ name: "Roe" },
 			{ name: "Qi Fruit" }, //321
+			{ name: "Ostrich Egg" },
+			{ name: "Parrot Egg" },
+			{name: "Dragon Tooth"}, //324
+			{name: "Wild Bait"}, //325
 		]);
 	},
 

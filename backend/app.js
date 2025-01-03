@@ -7,10 +7,15 @@ const cors = require('cors');
 const app = express();
 
 // Enable CORS only in development
-const isProduction = process.env.NODE_ENV === 'production';
-if (!isProduction) {
-  app.use(cors());
-}
+const corsOptions = {
+  origin: process.env.NODE_ENV === 'production'
+    ? 'https://stardew-valley-search-7ee47447928b.herokuapp.com/' // Replace with your React Native production URL (e.g., Expo, EAS URL, etc.)
+    : 'http://localhost:3000',
+  methods: 'GET',
+};
+
+// Apply CORS middleware
+app.use(cors(corsOptions));
 
 // Middleware setup
 app.use(logger('dev'));
@@ -19,6 +24,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.all('*', (req, res, next) => {
+  if (req.method !== 'GET') {
+    return res.status(405).json({ error: 'Only GET requests are allowed.' });
+  }
+  next();
+});
 // Routes setup
 const indexRouter = require('./routes/index');
 // const usersRouter = require('./routes/users');

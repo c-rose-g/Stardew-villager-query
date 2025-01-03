@@ -1,19 +1,24 @@
 import { useState } from 'react';
 
 export const useSearch = () => {
-  const [results, setResults] = useState<any[]>([])
 
+  const [results, setResults] = useState<any[]>([])
   const [error, setError] = useState<string | null>(null);
   const [model, setModel] = useState('')
+
+  const API_BASE_URL = process.env.NODE_ENV === "production"
+  ? "https://stardew-valley-search-7ee47447928b.herokuapp.com/"
+  : "http://localhost:8000";
 
   const search = async (query: string) => {
     setError(null);
 
     try {
-      // remove whitespace around the query
+
       const sanitizedQuery = query.trim()
-      // find mobile in .env
-      const response = await fetch(`http://localhost:8000/search?query=${sanitizedQuery}`);
+      const response = await fetch(`${API_BASE_URL}/search?query=${sanitizedQuery}`, {
+        method: "GET", // Explicitly enforce GET
+      });
 
       if (!response.ok) {
 

@@ -57,6 +57,8 @@ const search = async (req, res) => {
 };
 
 const searchGift = async (query) => {
+	if (!query) return []; // Return an empty array if the query is empty
+
 	try {
 		const gifts = await Gift.findAll({
 			where: {

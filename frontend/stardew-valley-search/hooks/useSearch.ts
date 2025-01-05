@@ -7,7 +7,7 @@ export const useSearch = () => {
   const [model, setModel] = useState('')
 
   const API_BASE_URL = process.env.NODE_ENV === "production"
-  ? "https://stardew-valley-search-7ee47447928b.herokuapp.com/"
+  ? "https://stardew-valley-search.onrender.com"
   : "http://localhost:8000";
 
   const search = async (query: string) => {

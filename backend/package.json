@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sequelize": "sequelize",
     "sequelize-cli": "sequelize-cli",
     "db:migrate": "sequelize-cli db:migrate",
-    "start": "per-env",
+    "start": "node ./bin/www",
+    "build": "sequelize-cli db:migrate",
     "start:development": "nodemon ./bin/www",
-    "start:production": "node ./bin/www"
+    "start:production": "node ./bin/www",
+    "db:seed": "sequelize-cli db:seed:all"
   },
   "sequelize": {
     "config": "config/database.js"

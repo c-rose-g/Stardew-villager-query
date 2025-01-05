@@ -1,4 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { Link } from 'expo-router';
+
 import { useAnimatedValue, Dimensions, RefreshControl, SafeAreaView, View, TextInput, StyleSheet, Button, Text, Animated, Easing, TouchableOpacity, ScrollView, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { SearchVillagers } from './SearchVillagers';
 import { SearchGifts } from './SearchGifts';
@@ -25,6 +27,7 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
   const [query, setQuery] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
+  // const [searchError, setSearchError] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const systemColorScheme = useColorScheme();
   const [theme, setTheme] = useState(systemColorScheme === 'dark' ? Colors.dark : Colors.light);
@@ -79,8 +82,11 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
     const searchResults = await search(query);
     setSubmitted(true);
     if (!searchResults || searchResults.results.length === 0) {
-      setSearchError('No results found.');
+      // setSearchError(true);
+      setSearchError('Please try again.');
+
     } else {
+      // setSearchError(false);
       setSearchError(null);
       EasingUp(Easing.out(Easing.ease)); // Trigger the animation when results are available
       handleClear()
@@ -90,6 +96,7 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
   const handleBack = () => {
     setQuery('');
     setSubmitted(false);
+    // setSearchError(false);
     setSearchError(null);
     opacity.setValue(0);
     animatedHeight.setValue(0);
@@ -205,8 +212,9 @@ const titleColorStyle = {
         {submitted && !results.length && searchError && (
 
             <View style={[resultsContainer,box, {justifyContent:'center', alignItems:'center'} ]}>
-
-                <Text style={{ fontSize:16, fontFamily: "Arial", }}>{searchError}</Text>
+              <Text style={{marginLeft:2, marginBottom:5, paddingLeft:20, paddingRight:20, fontSize:18, fontWeight:'bold', borderWidth:0, borderColor:'red', textAlign: 'center'}}>Your search did not match anything in our system</Text>
+                <Text style={{ fontSize:16, fontFamily: "Arial", textAlign: 'center', paddingLeft:20, paddingRight:20 }}>
+                  <Text style={{fontWeight:'bold',}}>Need help?</Text> Check out our <Link style={{color:'blue', fontWeight:'bold'}} href={'/(tabs)/about'}>other tips</Link> for searching on our Stardew Valley Search</Text>
 
             </View>
 

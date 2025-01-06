@@ -10,7 +10,7 @@ const app = express();
 // Enable CORS only in development
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production'
-    ? 'https://stardew-valley-search-7ee47447928b.herokuapp.com/' // Replace with your React Native production URL (e.g., Expo, EAS URL, etc.)
+    ? 'https://stardew-valley-search.onrender.com' // Replace with your React Native production URL (e.g., Expo, EAS URL, etc.)
     : 'http://localhost:3000',
   methods: 'GET',
 };

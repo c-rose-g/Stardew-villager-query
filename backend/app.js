@@ -3,7 +3,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
-
+const { environment } = require('./config');
+const isProduction = environment === 'production';
 const app = express();
 
 // Enable CORS only in development

@@ -5,7 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "cd backend && npm start",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sequelize": "cd backend && npx sequelize",
+    "sequelize-cli": "cd backend && npx sequelize-cli",
+    "install": "cd bakcned && npm install",
+    "migrate": "cd backend && npx sequelize-cli db:migrate --env production",
+    "seed": "cd backend && npx sequelize-cli db:seed:all --env production"
   },
   "repository": {
     "type": "git",

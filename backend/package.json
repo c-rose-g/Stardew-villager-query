@@ -6,7 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "sequelize-cli": "sequelize-cli",
-    "db:migrate": "sequelize-cli db:migrate",
     "start": "node ./bin/www",
     "build": "sequelize-cli db:migrate",
     "start:development": "nodemon ./bin/www",
@@ -41,12 +40,13 @@
     "per-env": "^1.0.2",
     "pg": "^8.12.0",
     "pg-hstore": "^2.3.4",
-    "swr": "^2.2.5",
     "sequelize": "^6.37.5",
-    "sequelize-cli": "^6.6.2"
+    "sequelize-cli": "^6.6.2",
+    "swr": "^2.2.5"
   },
   "devDependencies": {
     "dotenv-cli": "^7.4.2",
     "nodemon": "^3.1.4",
     "sqlite3": "^5.1.7"
-  }}
+  }
+}

@@ -33,21 +33,21 @@ module.exports = {
 		 * 9: tent
 		 * 10: elliot's cabin
 		 * 11: tree house in mountain
-     * 12: Leo's Hut
+		 * 12: Leo's Hut
 		 */
 		return queryInterface.bulkInsert("Houses", [
-			{ address: "1 River Road", locationId: 1 },
-			{ address: "1 Willow Lane", locationId: 1 },
-			{ address: "24 Mountain Road", locationId: 4 },
-			{ address: "2 Willow Lane", locationId: 1 },
-			{ address: "Leah's Cottage", locationId: 2 },
-			{ address: "Trailer", locationId: 1 },
-			{ address: "Eastern Cave", locationId: 4 },
-			{ address: "Mayor's Manor", locationId: 1 },
-			{ address: "Tent", locationId: 4 },
-			{ address: "Elliot's Cabin", locationId: 3 },
-			{ address: "Treehouse", locationId: 4 },
-			{ address: "Leo's Hut", locationId: 8 },
+			{ id: 1, address: "1 River Road", locationId: 1 },
+			{ id: 2, address: "1 Willow Lane", locationId: 1 },
+			{ id: 3, address: "24 Mountain Road", locationId: 4 },
+			{ id: 4, address: "2 Willow Lane", locationId: 1 },
+			{ id: 5, address: "Leah's Cottage", locationId: 2 },
+			{ id: 6, address: "Trailer", locationId: 1 },
+			{ id: 7, address: "Eastern Cave", locationId: 4 },
+			{ id: 8, address: "Mayor's Manor", locationId: 1 },
+			{ id: 9, address: "Tent", locationId: 4 },
+			{ id: 10, address: "Elliot's Cabin", locationId: 3 },
+			{ id: 11, address: "Treehouse", locationId: 4 },
+			{ id: 12, address: "Leo's Hut", locationId: 8 },
 		]);
 	},
 

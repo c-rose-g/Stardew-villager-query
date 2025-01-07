@@ -13,16 +13,16 @@ module.exports = {
 		 * }], {});
 		 */
 		return queryInterface.bulkInsert("Preferences", [
-			{ name: "Loves" },
-			{ name: "Likes" },
-			{ name: "Neutrals" },
-			{ name: "Dislikes" },
-			{ name: "Hates" },
-			{ name: "Universal Loves" },
-			{ name: "Universal Likes" },
-			{ name: "Universal Neutrals" },
-			{ name: "Universal Dislikes" },
-			{ name: "Universal Hates" },
+			{ id: 1, name: "Loves" },
+			{ id: 2, name: "Likes" },
+			{ id: 3, name: "Neutrals" },
+			{ id: 4, name: "Dislikes" },
+			{ id: 5, name: "Hates" },
+			{ id: 6, name: "Universal Loves" },
+			{ id: 7, name: "Universal Likes" },
+			{ id: 8, name: "Universal Neutrals" },
+			{ id: 9, name: "Universal Dislikes" },
+			{ id: 10, name: "Universal Hates" },
 		]);
 	},
 

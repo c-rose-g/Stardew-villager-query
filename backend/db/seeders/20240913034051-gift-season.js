@@ -37,7 +37,6 @@ module.exports = {
 			{ giftId: 20, seasonId: 5 },
 			{ giftId: 117, seasonId: 1 },
 			{ giftId: 116, seasonId: 1 },
-
 		]);
 	},
 

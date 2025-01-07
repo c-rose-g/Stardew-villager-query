@@ -15,6 +15,7 @@ module.exports = {
 		 */
 		return queryInterface.bulkInsert("Calendars", [
 			{
+				id: 1,
 				villagerBirthdayId: 1,
 				seasonId: 3,
 				eventName: null,
@@ -23,6 +24,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 2,
 				villagerBirthdayId: 2,
 				seasonId: 2,
 				eventName: null,
@@ -32,6 +34,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 3,
 				villagerBirthdayId: 3,
 				seasonId: 4,
 				eventName: null,
@@ -41,6 +44,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 4,
 				villagerBirthdayId: 4,
 				seasonId: 4,
 				eventName: null,
@@ -50,6 +54,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 5,
 				villagerBirthdayId: 5,
 				seasonId: 2,
 				eventName: null,
@@ -59,6 +64,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 6,
 				villagerBirthdayId: 6,
 				seasonId: 2,
 				eventName: null,
@@ -68,6 +74,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 7,
 				villagerBirthdayId: 7,
 				seasonId: 1,
 				eventName: null,
@@ -77,6 +84,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 8,
 				villagerBirthdayId: 8,
 				seasonId: 3,
 				eventName: null,
@@ -85,6 +93,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 9,
 				villagerBirthdayId: 9,
 				seasonId: 4,
 				eventName: null,
@@ -94,6 +103,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 10,
 				villagerBirthdayId: 10,
 				seasonId: 3,
 				eventName: null,
@@ -103,6 +113,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 11,
 				villagerBirthdayId: 11,
 				seasonId: 2,
 				eventName: null,
@@ -112,6 +123,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 12,
 				villagerBirthdayId: 12,
 				seasonId: 1,
 				eventName: null,
@@ -121,6 +133,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 13,
 				villagerBirthdayId: 13,
 				seasonId: 4,
 				eventName: null,
@@ -130,6 +143,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 14,
 				villagerBirthdayId: 14,
 				seasonId: 2,
 				eventName: null,
@@ -139,6 +153,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 15,
 				villagerBirthdayId: 15,
 				seasonId: 3,
 				date: 11,
@@ -148,6 +163,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 16,
 				villagerBirthdayId: 16,
 				seasonId: 1,
 				date: 4,
@@ -157,6 +173,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 17,
 				villagerBirthdayId: 17,
 				seasonId: 4,
 				eventName: null,
@@ -166,6 +183,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 18,
 				villagerBirthdayId: 18,
 				seasonId: 4,
 				eventName: null,
@@ -175,6 +193,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 19,
 				villagerBirthdayId: 19,
 				seasonId: 2,
 				eventName: null,
@@ -184,6 +203,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 20,
 				villagerBirthdayId: 20,
 				seasonId: 1,
 				eventName: null,
@@ -192,6 +212,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 21,
 				villagerBirthdayId: 21,
 				seasonId: 4,
 				eventName: null,
@@ -200,6 +221,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 22,
 				villagerBirthdayId: 22,
 				seasonId: 3,
 				eventName: null,
@@ -208,6 +230,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 23,
 				villagerBirthdayId: 23,
 				seasonId: 2,
 				eventName: null,
@@ -216,6 +239,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 24,
 				villagerBirthdayId: 24,
 				seasonId: 1,
 				eventName: null,
@@ -224,6 +248,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 25,
 				villagerBirthdayId: 25,
 				seasonId: 3,
 				eventName: null,
@@ -232,6 +257,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 26,
 				villagerBirthdayId: 26,
 				seasonId: 1,
 				eventName: null,
@@ -240,6 +266,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 27,
 				villagerBirthdayId: 27,
 				seasonId: 3,
 				eventName: null,
@@ -248,6 +275,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 28,
 				villagerBirthdayId: 28,
 				seasonId: 1,
 				eventName: null,
@@ -256,6 +284,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 29,
 				villagerBirthdayId: 29,
 				seasonId: 3,
 				eventName: null,
@@ -264,6 +293,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 30,
 				villagerBirthdayId: 30,
 				seasonId: 4,
 				eventName: null,
@@ -272,6 +302,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 31,
 				villagerBirthdayId: 31,
 				seasonId: 1,
 				eventName: null,
@@ -280,6 +311,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 32,
 				villagerBirthdayId: 32,
 				seasonId: 1,
 				eventName: null,
@@ -288,6 +320,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 33,
 				villagerBirthdayId: 33,
 				eventName: null,
 				seasonId: 2,
@@ -296,6 +329,7 @@ module.exports = {
 				isBirthday: true,
 			},
 			{
+				id: 34,
 				villagerBirthdayId: 34,
 				seasonId: 4,
 				eventName: null,
@@ -305,6 +339,7 @@ module.exports = {
 			},
 			// spring festivals
 			{
+				id: 35,
 				seasonId: 1,
 				villagerBirthdayId: null,
 				eventName: "Egg Festival",
@@ -313,6 +348,7 @@ module.exports = {
 				isBirthday: false,
 			},
 			{
+				id: 36,
 				seasonId: 1,
 				villagerBirthdayId: null,
 				date: 15,
@@ -321,6 +357,7 @@ module.exports = {
 				isBirthday: false,
 			},
 			{
+				id: 37,
 				seasonId: 1,
 				villagerBirthdayId: null,
 				date: 16,
@@ -329,6 +366,7 @@ module.exports = {
 				isBirthday: false,
 			},
 			{
+				id: 38,
 				seasonId: 1,
 				villagerBirthdayId: null,
 				date: 17,
@@ -337,6 +375,7 @@ module.exports = {
 				isBirthday: false,
 			},
 			{
+				id: 39,
 				seasonId: 1,
 				villagerBirthdayId: null,
 				date: 24,
@@ -346,6 +385,7 @@ module.exports = {
 			},
 			// summer festivals
 			{
+				id: 40,
 				seasonId: 2,
 				villagerBirthdayId: null,
 				date: 11,
@@ -354,6 +394,7 @@ module.exports = {
 				isBirthday: false,
 			},
 			{
+				id: 41,
 				seasonId: 2,
 				villagerBirthdayId: null,
 				date: 20,
@@ -362,6 +403,7 @@ module.exports = {
 				isBirthday: false,
 			},
 			{
+				id: 42,
 				seasonId: 2,
 				villagerBirthdayId: null,
 				date: 21,
@@ -370,6 +412,7 @@ module.exports = {
 				isBirthday: false,
 			},
 			{
+				id: 43,
 				seasonId: 2,
 				villagerBirthdayId: null,
 				date: 28,
@@ -379,6 +422,7 @@ module.exports = {
 			},
 			// fall festivals
 			{
+				id: 44,
 				seasonId: 3,
 				villagerBirthdayId: null,
 				date: 16,
@@ -387,6 +431,7 @@ module.exports = {
 				isBirthday: false,
 			},
 			{
+				id: 45,
 				seasonId: 3,
 				villagerBirthdayId: null,
 				date: 27,
@@ -396,6 +441,7 @@ module.exports = {
 			},
 			// winter festivals
 			{
+				id: 46,
 				seasonId: 4,
 				villagerBirthdayId: null,
 				date: 8,
@@ -404,6 +450,7 @@ module.exports = {
 				isBirthday: false,
 			},
 			{
+				id: 47,
 				seasonId: 4,
 				villagerBirthdayId: null,
 				date: 12,
@@ -412,6 +459,7 @@ module.exports = {
 				isBirthday: false,
 			},
 			{
+				id: 48,
 				seasonId: 4,
 				villagerBirthdayId: null,
 				date: 13,
@@ -420,6 +468,7 @@ module.exports = {
 				isBirthday: false,
 			},
 			{
+				id: 49,
 				seasonId: 4,
 				villagerBirthdayId: null,
 				date: 15,
@@ -428,6 +477,7 @@ module.exports = {
 				isBirthday: false,
 			},
 			{
+				id: 50,
 				seasonId: 4,
 				villagerBirthdayId: null,
 				date: 16,
@@ -436,6 +486,7 @@ module.exports = {
 				isBirthday: false,
 			},
 			{
+				id: 51,
 				seasonId: 4,
 				villagerBirthdayId: null,
 				date: 17,
@@ -444,6 +495,7 @@ module.exports = {
 				isBirthday: false,
 			},
 			{
+				id: 52,
 				seasonId: 4,
 				villagerBirthdayId: null,
 				date: 25,

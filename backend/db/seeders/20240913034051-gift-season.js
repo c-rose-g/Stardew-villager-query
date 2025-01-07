@@ -48,6 +48,6 @@ module.exports = {
 		 * Example:
 		 * await queryInterface.bulkDelete('People', null, {});
 		 */
-		return queryInterface.bulkDelete("Gift_Seasons");
+		return queryInterface.bulkDelete("Gift_Seasons", null, {});
 	},
 };

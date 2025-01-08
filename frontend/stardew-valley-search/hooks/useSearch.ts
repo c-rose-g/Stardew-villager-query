@@ -17,7 +17,7 @@ export const useSearch = () => {
 
       const sanitizedQuery = query.trim()
       const response = await fetch(`${API_BASE_URL}/search?query=${sanitizedQuery}`, {
-        method: "GET", // Explicitly enforce GET
+        method: "GET",
       });
 
       if (!response.ok) {

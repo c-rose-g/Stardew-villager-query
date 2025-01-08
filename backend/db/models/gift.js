@@ -53,7 +53,7 @@ module.exports = (sequelize, DataTypes) => {
 			});
 			Gift.hasMany(models.Gift_Season, {
 				as: "GiftSeasons",
-				foreign: "giftId",
+				foreignKey: "giftId",
 			});
 		}
 	}

@@ -30,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
 					model: "Villagers",
 				},
 				allowNull: false,
+				field: "villagerId",
 			},
 			giftId: {
 				type: DataTypes.INTEGER,
@@ -38,6 +39,7 @@ module.exports = (sequelize, DataTypes) => {
 					model: "Gifts",
 				},
 				allowNull: false,
+				field: "giftId",
 			},
 			preferenceId: {
 				type: DataTypes.INTEGER,
@@ -46,12 +48,13 @@ module.exports = (sequelize, DataTypes) => {
 					model: "Preferences",
 				},
 				allowNull: false,
+				field: "preferenceId",
 			},
 		},
 		{
 			sequelize,
 			modelName: "Villager_Gift",
-
+			tableName: "Villager_Gifts",
 			timestamps: false, // if you don't want createdAt/updatedAt columns
 			primaryKey: ["villagerId", "giftId"], // Composite primary key
 			defaultScope: {

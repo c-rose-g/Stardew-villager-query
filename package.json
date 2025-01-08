@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "sequelize": "cd backend && npx sequelize",
     "sequelize-cli": "cd backend && npx sequelize-cli",
-    "install": "cd bakcned && npm install",
+    "install": "cd backend && npm install",
     "migrate": "cd backend && npx sequelize-cli db:migrate --env production",
     "seed": "cd backend && npx sequelize-cli db:seed:all --env production"
   },

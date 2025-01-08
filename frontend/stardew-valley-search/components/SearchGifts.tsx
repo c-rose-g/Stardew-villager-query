@@ -14,8 +14,9 @@ type VillagerGift = {
 };
 
 type GiftSeason = {
-  giftId: number;
-  Season: { name: string };
+  giftId: number | null;
+  seasonId: number | null;
+  Season: { name: string | null };
 };
 
 type groupedPreferences = {

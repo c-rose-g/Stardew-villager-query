@@ -23,21 +23,24 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.INTEGER,
 				references: { key: "id", model: "Gifts" },
 				allowNull: false,
+				field: "giftId",
 			},
 			seasonId: {
 				type: DataTypes.INTEGER,
 				references: { key: "id", model: "Seasons" },
 				allowNull: true,
+				field: "seasonId",
 			},
 		},
 		{
 			sequelize,
 			modelName: "Gift_Season",
+			tableName: "Gift_Seasons",
 			timestamps: false,
 			primaryKey: ["giftId", "seasonId"],
 			defaultScope: {
 				attributes: {
-					exclude: ["giftId", "seasonId", "createdAt", "updatedAt"],
+					exclude: ["createdAt", "updatedAt"],
 				},
 			},
 		}

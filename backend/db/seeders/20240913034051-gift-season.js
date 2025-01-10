@@ -35,6 +35,8 @@ module.exports = {
 			{ giftId: 18, seasonId: 5 },
 			{ giftId: 19, seasonId: 5 },
 			{ giftId: 20, seasonId: 5 },
+			{ giftId: 117, seasonId: 1 },
+			{ giftId: 116, seasonId: 1 },
 		]);
 	},
 
@@ -45,6 +47,6 @@ module.exports = {
 		 * Example:
 		 * await queryInterface.bulkDelete('People', null, {});
 		 */
-		return queryInterface.bulkDelete("Gift_Seasons");
+		return queryInterface.bulkDelete("Gift_Seasons", null, {});
 	},
 };

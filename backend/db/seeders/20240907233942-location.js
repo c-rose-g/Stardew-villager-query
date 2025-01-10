@@ -26,15 +26,15 @@ module.exports = {
 		 * 11 - backwoods ?
 		 */
 		return queryInterface.bulkInsert("Locations", [
-			{ name: "Pelican Town" },
-			{ name: "Cindersap Forest" },
-			{ name: "Beach" },
-			{ name: "Mountain" },
-			{ name: "Witch's Swamp" },
-			{ name: "Farm" },
-			{ name: "Desert" },
-			{ name: "Ginger Island" },
-			{ name: "Sewers" },
+			{ id: 1, name: "Pelican Town" },
+			{ id: 2, name: "Cindersap Forest" },
+			{ id: 3, name: "Beach" },
+			{ id: 4, name: "Mountain" },
+			{ id: 5, name: "Witch's Swamp" },
+			{ id: 6, name: "Farm" },
+			{ id: 7, name: "Desert" },
+			{ id: 8, name: "Ginger Island" },
+			{ id: 9, name: "Sewers" },
 		]);
 	},
 

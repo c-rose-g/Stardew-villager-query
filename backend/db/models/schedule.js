@@ -10,11 +10,22 @@ module.exports = (sequelize, DataTypes) => {
 		static associate(models) {
 			// define association here
 			Schedule.belongsTo(models.Villager, { foreignKey: "villagerId" });
-			// Schedule.belongsTo(models.Location, {foreignKey:'locationId'});
-			Schedule.belongsTo(models.Location, { foreignKey: "startLocationId" });
-			Schedule.belongsTo(models.Location, { foreignKey: "endLocationId" });
-			Schedule.belongsTo(models.Building, { foreignKey: "startBuildingId" });
-			Schedule.belongsTo(models.Building, { foreignKey: "endBuildingId" });
+			Schedule.belongsTo(models.Location, {
+				as: "StartLocation",
+				foreignKey: "startLocationId",
+			});
+			Schedule.belongsTo(models.Location, {
+				as: "EndLocation",
+				foreignKey: "endLocationId",
+			});
+			Schedule.belongsTo(models.Building, {
+				as: "StartBuilding",
+				foreignKey: "startBuildingId",
+			});
+			Schedule.belongsTo(models.Building, {
+				as: "EndBuilding",
+				foreignKey: "endBuildingId",
+			});
 			Schedule.belongsTo(models.Season, { foreignKey: "seasonId" });
 		}
 	}

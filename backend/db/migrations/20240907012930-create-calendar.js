@@ -45,25 +45,15 @@ module.exports = {
 				type: Sequelize.BOOLEAN, // Marks if this event is a birthday
 				allowNull: false,
 				defaultValue: false, // Default is not a birthday unless specified
-			},
-			createdAt: {
-				allowNull: false,
-				type: Sequelize.DATE,
-				defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
-			},
-			updatedAt: {
-				allowNull: false,
-				type: Sequelize.DATE,
-				defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
-			},
+			}
 		});
 		// Add unique constraint for seasonId and date
 
-		await queryInterface.addConstraint("Calendars", {
-			fields: ["seasonId", "date"],
-			type: "unique",
-			name: "seasonDateUnique"
-		});
+		// await queryInterface.addConstraint("Calendars", {
+		// 	fields: ["seasonId", "date"],
+		// 	type: "unique",
+		// 	name: "seasonDateUnique"
+		// });
 	},
 	async down(queryInterface, Sequelize) {
 		await queryInterface.dropTable("Calendars");

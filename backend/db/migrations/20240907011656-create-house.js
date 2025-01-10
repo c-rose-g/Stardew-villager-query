@@ -18,9 +18,9 @@ module.exports = {
           key:'id',
           model:'Locations'
         },
-        allowNull:false,
+        allowNull:true,
         onUpdate:'CASCADE',
-        onDelete:'SET NULl'
+        onDelete:'SET NULL'
       },
       createdAt: {
         allowNull: false,

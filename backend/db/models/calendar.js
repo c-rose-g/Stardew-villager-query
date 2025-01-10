@@ -68,13 +68,7 @@ module.exports = (sequelize, DataTypes) => {
 		{
 			sequelize,
 			modelName: "Calendar",
-			indexes: [
-				{
-					unique: true,
-					fields: ["seasonId", "date"],
-					name: "seasonDateUnique"
-				},
-			],
+			timestamps: false,
 		}
 	);
 	return Calendar;

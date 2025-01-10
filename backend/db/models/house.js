@@ -30,12 +30,17 @@ module.exports = (sequelize, DataTypes) => {
 					key: "id",
 					model: "Locations",
 				},
-				allowNull: false,
+				allowNull: true,
 			},
 		},
 		{
 			sequelize,
 			modelName: "House",
+			defaultScope:{
+				attributes: {
+					exclude: ["createdAt", "updatedAt"],
+				},
+			}
 		}
 	);
 	return House;

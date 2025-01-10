@@ -71,6 +71,7 @@ module.exports = {
 			// },
 			// regular schedule
 			{
+				id: 1,
 				villagerId: 1,
 				startLocationId: 1,
 				endLocationId: 1,
@@ -85,6 +86,7 @@ module.exports = {
 				isFestival: false,
 			},
 			{
+				id: 2,
 				villagerId: 1,
 				startLocationId: 1,
 				endLocationId: 1,
@@ -99,6 +101,7 @@ module.exports = {
 				isFestival: false,
 			},
 			{
+				id: 3,
 				villagerId: 1,
 				startLocationId: 1,
 				endLocationId: 1,
@@ -113,6 +116,7 @@ module.exports = {
 				isFestival: false,
 			},
 			{
+				id: 4,
 				villagerId: 1,
 				startLocationId: 1,
 				endLocationId: 1,
@@ -127,6 +131,7 @@ module.exports = {
 				isFestival: false,
 			},
 			{
+				id: 5,
 				villagerId: 1,
 				startLocationId: 1,
 				endLocationId: 1,
@@ -141,6 +146,7 @@ module.exports = {
 				isFestival: false,
 			},
 			{
+				id: 6,
 				villagerId: 1,
 				startLocationId: 1,
 				endLocationId: 1,
@@ -155,6 +161,7 @@ module.exports = {
 				isFestival: false,
 			},
 			{
+				id: 7,
 				villagerId: 1,
 				startLocationId: 1,
 				endLocationId: 1,
@@ -168,7 +175,7 @@ module.exports = {
 				locationUnlocked: false,
 				isFestival: false,
 			},
-      // {
+			// {id:8,
 			// 	villagerId: null,
 			// 	startLocationId: null,
 			// 	endLocationId: null,
@@ -192,6 +199,6 @@ module.exports = {
 		 * Example:
 		 * await queryInterface.bulkDelete('People', null, {});
 		 */
-		return queryInterface.bulkDelete("Schedules");
+		return queryInterface.bulkDelete("Schedules", null, {});
 	},
 };

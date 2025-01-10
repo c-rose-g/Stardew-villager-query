@@ -10,15 +10,26 @@ module.exports = (sequelize, DataTypes) => {
 		static associate(models) {
 			// define association here
 			Location.hasMany(models.Building, { foreignKey: "locationId" });
-			Location.hasMany(models.Schedule, { foreignKey: "locationId" });
+			Location.hasMany(models.Schedule, {
+				as: "StartSchedules",
+				foreignKey: "startLocationId",
+			});
+			Location.hasMany(models.Schedule, {
+				as: "EndSchedules",
+				foreignKey: "endLocationId",
+			});
 			Location.hasMany(models.House, { foreignKey: "locationId" });
 
 			// Many-to-Many relationship with Villager
 			Location.belongsToMany(models.Villager, {
-				through: "Villager_Locations",
+				through: models.Villager_Location,
+				foreignKey: "locationId",
 			});
 			// many-to-many relationship with Gift
-			Location.belongsToMany(models.Gift, {through:models.Gift_Location, foreignKey:'locationId'});
+			Location.belongsToMany(models.Gift, {
+				through: models.Gift_Location,
+				foreignKey: "locationId",
+			});
 		}
 	}
 	Location.init(
@@ -36,6 +47,11 @@ module.exports = (sequelize, DataTypes) => {
 		{
 			sequelize,
 			modelName: "Location",
+			defaultScope: {
+				attributes: {
+					exclude: ["createdAt", "updatedAt"],
+				},
+			},
 		}
 	);
 	return Location;

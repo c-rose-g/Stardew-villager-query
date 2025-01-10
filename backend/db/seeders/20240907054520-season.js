@@ -13,17 +13,13 @@ module.exports = {
 		 * }], {});
 		 */
 
-		return queryInterface.bulkInsert(
-			"Seasons",
-			[
-				{ name: "Spring" },
-				{ name: "Summer" },
-				{ name: "Fall" },
-				{ name: "Winter" },
-				{ name: "Year-Round" },
-			],
-
-		);
+		return queryInterface.bulkInsert("Seasons", [
+			{ id: 1, name: "Spring" },
+			{ id: 2, name: "Summer" },
+			{ id: 3, name: "Fall" },
+			{ id: 4, name: "Winter" },
+			{ id: 5, name: "Year-Round" },
+		]);
 	},
 
 	async down(queryInterface, Sequelize) {

@@ -16,29 +16,45 @@ module.exports = (sequelize, DataTypes) => {
 			 * I will go back in to revise my models to include more complex associations,
 			 * but for now this will satisfy the purpose of the search bar query
 			 */
+			// Many-to-Many relationship with Villager
 			Gift.belongsToMany(models.Season, {
 				through: models.Gift_Season,
-				foreignKey: "seasonId",
+				foreignKey: "giftId",
 			});
 			Gift.belongsToMany(models.Category, {
 				through: models.Gift_Category,
-				foreignKey: "categoryId",
+				foreignKey: "giftId",
 			});
 			Gift.belongsToMany(models.Location, {
 				through: models.Gift_Location,
-				foreignKey: "locationId",
+				foreignKey: "giftId",
 			});
 			Gift.belongsToMany(models.Building, {
 				through: models.Gift_Building,
-				foreignKey: "buildingId",
+				foreignKey: "giftId",
 			});
-			// Many-to-Many relationship with Villager
 			Gift.belongsToMany(models.Villager, {
 				through: models.Villager_Gift,
 				foreignKey: "giftId",
 			});
-			// Many-to-Many relationship with Preference
-			Gift.belongsToMany(models.Preference, { through: "Gift_Preferences" });
+			// Super Many-to-Many relationship with Preference
+			Gift.belongsToMany(models.Preference, {
+				through: models.Gift_Preference,
+				foreignKey: "giftId",
+			});
+			// double check both of these associations
+			Gift.hasMany(models.Gift_Preference, {
+				as: "GiftPreferences",
+				foreignKey: "giftId",
+			});
+			Gift.hasMany(models.Villager_Gift, {
+				as: "VillagerGifts",
+				foreignKey: "giftId",
+			});
+			Gift.hasMany(models.Gift_Season, {
+				as: "GiftSeasons",
+				foreignKey: "giftId",
+			});
 		}
 	}
 	Gift.init(
@@ -56,6 +72,11 @@ module.exports = (sequelize, DataTypes) => {
 		{
 			sequelize,
 			modelName: "Gift",
+			defaultScope: {
+				attributes: {
+					exclude: ["createdAt", "updatedAt"],
+				},
+			},
 		}
 	);
 	return Gift;

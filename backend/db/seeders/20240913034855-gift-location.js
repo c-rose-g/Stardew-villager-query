@@ -13,26 +13,26 @@ module.exports = {
 		 * }], {});
 		 */
 		return queryInterface.bulkInsert("Gift_Locations", [
-			{ giftid: 1, locationId: 6 },
-			{ giftid: 2, locationId: 6 },
-			{ giftid: 3, locationId: 6 },
-			{ giftid: 4, locationId: 6 },
-			{ giftid: 5, locationId: 6 },
-			{ giftid: 6, locationId: 6 },
-			{ giftid: 7, locationId: 6 },
-			{ giftid: 8, locationId: 6 },
-			{ giftid: 9, locationId: 6 },
-			{ giftid: 10, locationId: 6 },
-			{ giftid: 11, locationId: 6 },
-			{ giftid: 12, locationId: 6 },
-			{ giftid: 13, locationId: 6 },
-			{ giftid: 14, locationId: 6 },
-			{ giftid: 15, locationId: 6 },
-			{ giftid: 16, locationId: 6 },
-			{ giftid: 17, locationId: 1 },
-			{ giftid: 18, locationId: 1 },
-			{ giftid: 19, locationId: 1 },
-			{ giftid: 20, locationId: 1 },
+			{ giftId: 1, locationId: 6 },
+			{ giftId: 2, locationId: 6 },
+			{ giftId: 3, locationId: 6 },
+			{ giftId: 4, locationId: 6 },
+			{ giftId: 5, locationId: 6 },
+			{ giftId: 6, locationId: 6 },
+			{ giftId: 7, locationId: 6 },
+			{ giftId: 8, locationId: 6 },
+			{ giftId: 9, locationId: 6 },
+			{ giftId: 10, locationId: 6 },
+			{ giftId: 11, locationId: 6 },
+			{ giftId: 12, locationId: 6 },
+			{ giftId: 13, locationId: 6 },
+			{ giftId: 14, locationId: 6 },
+			{ giftId: 15, locationId: 6 },
+			{ giftId: 16, locationId: 6 },
+			{ giftId: 17, locationId: 1 },
+			{ giftId: 18, locationId: 1 },
+			{ giftId: 19, locationId: 1 },
+			{ giftId: 20, locationId: 1 },
 		]);
 	},
 
@@ -43,6 +43,6 @@ module.exports = {
 		 * Example:
 		 * await queryInterface.bulkDelete('People', null, {});
 		 */
-		return queryInterface.bulkDelete("Gift_Locations");
+		return queryInterface.bulkDelete("Gift_Locations", null, {});
 	},
 };

@@ -122,3 +122,61 @@
         - FOREIGN KEY (gift_id) REFERENCES Gifts(id),
         - FOREIGN KEY (location_id) REFERENCES Locations(id),
         - FOREIGN KEY (season_id) REFERENCES Seasons(id)
+
+
+<!-- {submitted && results.length > 0 && (
+          <Animated.View style={[animatedStyles]}>
+            <View style={[resultsContainer, box]}>
+              <ScrollView>
+
+              <Text>
+                { model === 'villagers' ? (<SearchVillagers results={results} />)
+                : model === 'gifts' ? (<SearchGifts results={results}/>)
+                : model === 'schedules' ? 'schedules results' : 'no'}
+              </Text>
+                </ScrollView>
+            </View>
+          </Animated.View>
+        )}
+
+        {submitted && !results.length && searchError && (
+          <Animated.View style={[styles.resultsContainer, animatedStyles]}>
+            <View>
+              {/* <ScrollView> */}
+                <Text style={{ color: 'red' }}>{searchError}</Text>
+              {/* </ScrollView> */}
+            </View>
+          </Animated.View>
+
+
+
+
+
+
+
+          Object.keys(result.groupedPreferences).length === 0 ? (
+                    <View style={{ flexDirection:'row', paddingLeft:5, alignContent:'center', height:135}} >
+                        <View style={{alignSelf:'center', }}>
+                          <Text style={{}}>No villagers associated with this gift</Text>
+                          </View>
+                          </View>                    )
+                          : (Object.entries(result.groupPreferences).map(([preference, villagers]) =>{
+                    const rows = groupByFour(villagers)
+
+                    return(
+                      <View key={preference} style={{}}>
+                        <Text key={`preference-container-${preference}`} style={[styles.preference,{}]}></Text>
+                        {rows.map((row,rIdx) =>(
+                          <View key={`${preference}-row-${rowIndex}`} style={{flexDirection:'row'}}>
+                            {row.map((villager) =>(
+                              <View key={villager} style={[villagerInfoWidth,{ width:'auto',}]}>
+                                <Text style={[ styles.villagerText, {marginTop:5, textAlign:'center', }]}></Text>
+                              </View>
+                            ))}
+
+                          </View>
+                        ))}
+                      </View>
+                    )
+                  )
+        )} -->

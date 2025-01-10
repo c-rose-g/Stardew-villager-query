@@ -23,7 +23,8 @@ const { Op } = require("sequelize");
 
 const search = async (req, res) => {
 	const { query } = req.query;
-
+	const formattedQuery = query.trim().split(" ").map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ");
+	
 	try {
 		let result,
 			gifts,
@@ -34,9 +35,9 @@ const search = async (req, res) => {
 			schedule,
 			season;
 
-		gifts = await searchGift(query);
+		gifts = await searchGift(formattedQuery);
 
-		villagers = await searchVillager(query);
+		villagers = await searchVillager(formattedQuery);
 
 		if (gifts && gifts.length > 0) {
 			result = { results: gifts, model: "gifts" };
@@ -45,9 +46,7 @@ const search = async (req, res) => {
 		} else {
 			// return res.status(404).json({ message: "No results found." });
 			result = { results: [], model: null }; // Return an empty array when no results are found
-
 		}
-
 		return res.json(result);
 	} catch (err) {
 		return res

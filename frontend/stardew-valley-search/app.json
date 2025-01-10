@@ -8,14 +8,17 @@
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "foregroundImage": "./assets/images/index-bg.png"
+      "foregroundImage": "./assets/images/index-bg.png",
+      "resizeMode": "cover"
     },
     "ios": {
       "supportsTablet": false,
-      "userInterfaceStyle":"automatic",
-      "splash":{
-        "image":"./assets/images/index-bg.png"
-      }
+      "userInterfaceStyle": "automatic",
+      "splash": {
+        "image": "./assets/images/index-bg.png",
+        "resizeMode": "cover"
+      },
+      "bundleIdentifier": "com.stardewvalley.search"
     },
     "web": {
       "bundler": "metro",
@@ -25,14 +28,24 @@
     "plugins": [
       "expo-router",
       "expo-font",
-      ["expo-splash-screen",
-      {
-        "image":"./assets/images/index-bg.png",
-        "resizeMode": "cover"
-      }]
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/index-bg.png",
+          "resizeMode": "cover"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "b9f02597-9ad6-4da3-bdc4-e7bf7e0dfe01"
+      }
     }
   }
 }

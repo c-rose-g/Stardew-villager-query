@@ -2,7 +2,7 @@
   "expo": {
     "name": "stardew-valley-search",
     "slug": "stardew-valley-search",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -12,6 +12,7 @@
       "resizeMode": "cover"
     },
     "ios": {
+      "buildNumber": "3",
       "supportsTablet": false,
       "userInterfaceStyle": "automatic",
       "splash": {

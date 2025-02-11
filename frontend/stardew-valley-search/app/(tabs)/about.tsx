@@ -99,7 +99,7 @@ const About = () => {
               </View>
               <View style={{marginTop:10, }}>
                 <Text key={`row-3-info-text`} style={[styles.fontFamilyArial, {marginLeft:2, marginBottom:5, paddingLeft:10, paddingRight:10, fontSize:16,}]}>Hi! I'm Cindy, a passionate software engineer and developer. I built this app to make exploring and searching Stardew Valley game data fast, seamless, and fun.</Text>
-                <Text style={[styles.fontFamilyArial, {marginLeft:2, marginBottom:5, paddingLeft:10, paddingRight:10, fontSize:16,}]}>Feel free to explore my other <Link style={[{fontWeight:'bold', color:'blue'}]} href="https://c-rose-g.github.io/">projects</Link> and connect with me.</Text>
+                <Text style={[styles.fontFamilyArial, {marginLeft:2, marginBottom:5, paddingLeft:10, paddingRight:10, fontSize:16,}]}>Feel free to explore my other <Link style={[{fontWeight:'bold', color:'blue'}]} href="https://c-rose-g-github-io.onrender.com/">projects</Link> and connect with me.</Text>
                 <Text style={[styles.fontFamilyArial, { marginLeft:2, marginBottom:20, paddingLeft:10, paddingRight:10, fontSize:16,}]}>Thank you for checking out the app! 🚀</Text>
               </View>
 
